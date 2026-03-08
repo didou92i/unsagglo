@@ -1,12 +1,7 @@
-export interface ThemeOption {
-  value: string;
-  label: string;
-}
+import type { SelectOption, SelectOptionGroup } from "@/types/select";
 
-export interface ThemeGroup {
-  group: string;
-  options: ThemeOption[];
-}
+export type ThemeOption = SelectOption;
+export type ThemeGroup = SelectOptionGroup;
 
 export const THEME_GROUPS: ThemeGroup[] = [
   {
