@@ -6,6 +6,9 @@ import UBadge from "@/components/ui/UBadge";
 import Spinner from "@/components/ui/Spinner";
 import { toast } from "@/hooks/use-toast";
 import { exportCsv } from "@/lib/exportCsv";
+import { serviceLabel } from "@/lib/serviceLabel";
+import { useAdherentFilters } from "@/hooks/useAdherentFilters";
+import AdherentFiltersBar from "./AdherentFiltersBar";
 
 interface AdherentRow {
   id: string;
@@ -21,6 +24,7 @@ interface AdherentRow {
 const AdherentsManager = (): JSX.Element => {
   const [adherents, setAdherents] = useState<AdherentRow[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const filters = useAdherentFilters(adherents);
 
   const fetchAdherents = async (): Promise<void> => {
     setLoading(true);
@@ -45,9 +49,9 @@ const AdherentsManager = (): JSX.Element => {
   };
 
   const handleExport = (): void => {
-    exportCsv(adherents.map((a) => ({
+    exportCsv(filters.filtered.map((a) => ({
       Nom: a.nom, Prenom: a.prenom, Email: a.email,
-      Service: a.service ?? "", Grade: a.grade ?? "",
+      Service: serviceLabel(a.service), Grade: a.grade ?? "",
       Statut: a.statut, Date: a.created_at,
     })), "adherents.csv");
   };
@@ -56,10 +60,14 @@ const AdherentsManager = (): JSX.Element => {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground">{adherents.length} adherent(s)</p>
-        <UButton variant="outline" size="sm" onClick={handleExport}>Exporter CSV</UButton>
-      </div>
+      <AdherentFiltersBar
+        serviceFilter={filters.serviceFilter}
+        statutFilter={filters.statutFilter}
+        setServiceFilter={filters.setServiceFilter}
+        setStatutFilter={filters.setStatutFilter}
+        count={filters.filtered.length}
+        onExport={handleExport}
+      />
       <Table>
         <TableHeader>
           <TableRow>
@@ -71,11 +79,11 @@ const AdherentsManager = (): JSX.Element => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {adherents.map((a) => (
+          {filters.filtered.map((a) => (
             <TableRow key={a.id}>
               <TableCell className="font-medium">{a.prenom} {a.nom}</TableCell>
               <TableCell>{a.email}</TableCell>
-              <TableCell>{a.service ?? "\u2014"}</TableCell>
+              <TableCell>{serviceLabel(a.service)}</TableCell>
               <TableCell>
                 <UBadge variant={a.statut === "actif" ? "success" : a.statut === "en_attente" ? "warning" : "danger"}>
                   {a.statut}

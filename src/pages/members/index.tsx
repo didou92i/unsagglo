@@ -1,4 +1,5 @@
 import { useAuth } from "@/hooks/useAuth";
+import { useProfile } from "@/hooks/useProfile";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { MetaTags } from "@/components/seo";
 import { SectionTitle } from "@/components/sections";
@@ -8,10 +9,15 @@ import ProfileCard from "./ProfileCard";
 
 const MembersPage = (): JSX.Element => {
   const { user, logout } = useAuth();
+  const { profile } = useProfile();
 
   const handleLogout = async (): Promise<void> => {
     await logout();
   };
+
+  const displayName = profile?.prenom && profile?.nom
+    ? `${profile.prenom} ${profile.nom}`
+    : user?.email ?? "";
 
   return (
     <PageWrapper>
@@ -20,7 +26,7 @@ const MembersPage = (): JSX.Element => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="font-display text-2xl font-black text-secondary">
-              Bonjour{user?.email ? `, ${user.email}` : ""}
+              Bonjour{displayName ? `, ${displayName}` : ""}
             </h1>
             <p className="text-muted-foreground text-sm">Espace reserve aux membres UNSAgglo</p>
           </div>
