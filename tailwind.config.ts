@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ["'Barlow Condensed'", "sans-serif"],
+        body: ["'Source Sans Pro'", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +61,11 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        navy: "var(--color-navy)",
+        cyan: "var(--color-cyan)",
+        yellow: "var(--color-yellow)",
+        orange: "var(--color-orange)",
+        green: "var(--color-green)",
       },
       borderRadius: {
         lg: "var(--radius)",
