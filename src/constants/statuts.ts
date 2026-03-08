@@ -1,12 +1,7 @@
-export interface StatutOption {
-  value: string;
-  label: string;
-}
+import type { SelectOption, SelectOptionGroup } from "@/types/select";
 
-export interface StatutGroup {
-  group: string;
-  options: StatutOption[];
-}
+export type StatutOption = SelectOption;
+export type StatutGroup = SelectOptionGroup;
 
 export const STATUT_GROUPS: StatutGroup[] = [
   {

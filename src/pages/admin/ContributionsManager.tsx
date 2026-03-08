@@ -27,8 +27,9 @@ const ContributionsManager = (): JSX.Element => {
     exportCsv(contributions.map((c) => ({
       Prenom: c.anonyme ? "" : c.prenom,
       Service: c.anonyme ? "" : c.service,
-      Statut: c.statut ?? "",
-      Theme: c.theme, Contenu: c.contenu,
+      Statut: c.statut ? statutLabel(c.statut) : "",
+      Theme: themeLabel(c.theme),
+      Contenu: c.contenu,
       Anonyme: c.anonyme ? "Oui" : "Non",
       Date: c.created_at,
     })), "contributions.csv");

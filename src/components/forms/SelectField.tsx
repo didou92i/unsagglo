@@ -1,14 +1,5 @@
 import type { FieldError, UseFormRegister, FieldValues, Path } from "react-hook-form";
-
-interface SelectOption {
-  value: string;
-  label: string;
-}
-
-interface SelectOptionGroup {
-  group: string;
-  options: SelectOption[];
-}
+import type { SelectOption, SelectOptionGroup } from "@/types/select";
 
 interface SelectFieldProps<T extends FieldValues> {
   label: string;
