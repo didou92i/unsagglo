@@ -136,21 +136,3 @@
   animation-delay: -4s;
 }
 
-@keyframes fly-across {
-  from { transform: translateX(-10vw); }
-  to { transform: translateX(110vw); }
-}
-
-.animate-fly-1 {
-  animation: fly-across 18s linear infinite;
-}
-
-.animate-fly-2 {
-  animation: fly-across 25s linear infinite;
-  animation-delay: -8s;
-}
-
-.animate-fly-3 {
-  animation: fly-across 22s linear infinite;
-  animation-delay: -15s;
-}
