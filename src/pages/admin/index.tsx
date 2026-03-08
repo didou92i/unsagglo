@@ -10,6 +10,7 @@ import VisitsStats from "./VisitsStats";
 import PagesManager from "./PagesManager";
 import SondagesManager from "./SondagesManager";
 import CandidatsManager from "./CandidatsManager";
+import ContributionsManager from "./ContributionsManager";
 
 const AdminPage = (): JSX.Element => {
   const { isAdmin, loading } = useAdmin();

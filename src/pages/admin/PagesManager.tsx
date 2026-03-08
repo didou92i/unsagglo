@@ -10,6 +10,12 @@ interface PageToggleItem {
   description: string;
 }
 
+interface PageToggleItem {
+  key: "page_news" | "page_rights" | "page_elections" | "page_contact" | "page_membership" | "page_members" | "page_plateforme";
+  label: string;
+  description: string;
+}
+
 const PAGES: PageToggleItem[] = [
   { key: "page_news", label: "Actualites", description: "/news" },
   { key: "page_rights", label: "Vos Droits", description: "/rights" },
@@ -17,6 +23,7 @@ const PAGES: PageToggleItem[] = [
   { key: "page_contact", label: "Contact", description: "/contact" },
   { key: "page_membership", label: "Adhesion", description: "/membership" },
   { key: "page_members", label: "Espace membres", description: "/members" },
+  { key: "page_plateforme", label: "Plateforme participative", description: "/plateforme" },
 ];
 
 const PagesManager = (): JSX.Element => {
