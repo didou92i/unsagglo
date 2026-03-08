@@ -6,6 +6,7 @@ interface ContribInput {
   service: string;
   theme: string;
   contenu: string;
+  anonyme?: boolean;
 }
 
 interface UseContribSubmitReturn {
@@ -28,6 +29,7 @@ export function useContribSubmit(): UseContribSubmitReturn {
       service: data.service,
       theme: data.theme,
       contenu: data.contenu,
+      anonyme: data.anonyme ?? false,
     }]);
     if (err) {
       setError(err.message);

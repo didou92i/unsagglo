@@ -23,7 +23,7 @@ const useEntryHover = (): EntryHoverReturn => {
   const goToNews = useCallback(() => navigate("/news"), [navigate]);
   const goToElections = useCallback(() => {
     setVisiteurOpen(false);
-    navigate("/elections");
+    navigate("/plateforme");
   }, [navigate]);
 
   return {
