@@ -22,9 +22,9 @@ const Home = (): JSX.Element => {
         schema={ORG_SCHEMA}
       />
       <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background">
-        <div className="absolute -top-20 -right-40 w-[600px] h-[600px] rounded-full bg-[var(--color-cyan)] opacity-10 blur-[100px] pointer-events-none z-0" />
-        <div className="absolute -bottom-32 -left-28 w-[400px] h-[400px] rounded-full bg-[var(--color-cyan)] opacity-[0.08] blur-[80px] pointer-events-none z-0" />
-        <div className="absolute top-10 -left-20 w-[250px] h-[250px] rounded-full bg-[var(--color-cyan)] opacity-[0.06] blur-[60px] pointer-events-none z-0" />
+        <div className="absolute -top-20 -right-40 w-[600px] h-[600px] rounded-full bg-[var(--color-cyan)] opacity-20 blur-[80px] pointer-events-none z-0" />
+        <div className="absolute -bottom-32 -left-28 w-[400px] h-[400px] rounded-full bg-[var(--color-cyan)] opacity-[0.18] blur-[60px] pointer-events-none z-0" />
+        <div className="absolute top-10 -left-20 w-[250px] h-[250px] rounded-full bg-[var(--color-cyan)] opacity-[0.15] blur-[50px] pointer-events-none z-0" />
 
         <img
           src={unsaLogo}
