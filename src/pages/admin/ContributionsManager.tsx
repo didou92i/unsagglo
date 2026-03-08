@@ -21,8 +21,7 @@ const statutLabel = (value: string): string =>
 const serviceLabel = (value: string): string =>
   SERVICES.find((s) => s.value === value)?.label ?? value;
 
-const truncate = (text: string, max = 80): string =>
-  text.length > max ? `${text.slice(0, max)}...` : text;
+
 
 const ContributionsManager = (): JSX.Element => {
   const { contributions, loading } = useAdminContributions();
