@@ -27,7 +27,7 @@ const RightsGrid = (): JSX.Element => {
         {RIGHTS_ITEMS.map((item) => (
           <Link to={`/rights/${item.categorie}`} key={item.categorie}>
             <UCard className="border-l-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-200" padding="md">
-              <div style={{ borderColor: item.color }}>
+              <div>
                 <h3 className="font-display text-lg font-bold text-foreground">{item.label}</h3>
                 <p className="text-muted-foreground text-sm mt-1">{item.description}</p>
               </div>
