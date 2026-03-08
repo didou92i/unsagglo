@@ -37,8 +37,8 @@ const ContribSection = (): JSX.Element => {
   const onSubmit = async (data: ContribFormData): Promise<void> => {
     const prenom = anonyme ? "Anonyme" : (data.prenom ?? "Anonyme");
     await contrib.submit({ prenom, service: data.service, theme: data.theme, contenu: data.contenu, anonyme });
-    if (rejoindreListe && data.email && data.telephone && data.adresse) {
-      await candidat.submit({ prenom, service: data.service, email: data.email, telephone: data.telephone, adresse: data.adresse });
+    if (rejoindreListe && data.nom && data.email && data.telephone && data.adresse) {
+      await candidat.submit({ prenom, nom: data.nom, service: data.service, email: data.email, telephone: data.telephone, adresse: data.adresse });
     }
   };
 
