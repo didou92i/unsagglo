@@ -4,6 +4,7 @@ import { MetaTags } from "@/components/seo";
 import { SectionTitle } from "@/components/sections";
 import UButton from "@/components/ui/UButton";
 import DocumentsList from "./DocumentsList";
+import ProfileCard from "./ProfileCard";
 
 const MembersPage = (): JSX.Element => {
   const { user, logout } = useAuth();
@@ -24,6 +25,10 @@ const MembersPage = (): JSX.Element => {
             <p className="text-muted-foreground text-sm">Espace reserve aux membres UNSAgglo</p>
           </div>
           <UButton variant="outline" size="sm" onClick={handleLogout}>Deconnexion</UButton>
+        </div>
+
+        <div className="mb-8">
+          <ProfileCard />
         </div>
 
         <SectionTitle title="Documents syndicaux" align="left" />

@@ -1,15 +1,12 @@
 import { useAdminContributions } from "@/hooks/useAdminContributions";
 import Spinner from "@/components/ui/Spinner";
+import UButton from "@/components/ui/UButton";
 import { Badge } from "@/components/ui/badge";
 import {
-  Table,
-  TableHeader,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
+  Table, TableHeader, TableHead, TableBody, TableRow, TableCell,
 } from "@/components/ui/table";
 import { THEMES } from "@/constants/themes";
+import { exportCsv } from "@/lib/exportCsv";
 
 const themeLabel = (value: string): string =>
   THEMES.find((t) => t.value === value)?.label ?? value;
@@ -22,51 +19,53 @@ const ContributionsManager = (): JSX.Element => {
 
   if (loading) return <Spinner />;
 
+  const handleExport = (): void => {
+    exportCsv(contributions.map((c) => ({
+      Prenom: c.anonyme ? "" : c.prenom,
+      Service: c.anonyme ? "" : c.service,
+      Theme: c.theme, Contenu: c.contenu,
+      Anonyme: c.anonyme ? "Oui" : "Non",
+      Date: c.created_at,
+    })), "contributions.csv");
+  };
+
   if (contributions.length === 0) {
-    return (
-      <p className="text-muted-foreground text-center py-8">
-        Aucune contribution pour le moment.
-      </p>
-    );
+    return <p className="text-muted-foreground text-center py-8">Aucune contribution pour le moment.</p>;
   }
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Prenom</TableHead>
-          <TableHead>Service</TableHead>
-          <TableHead>Theme</TableHead>
-          <TableHead className="min-w-[240px]">Contenu</TableHead>
-          <TableHead>Anonyme</TableHead>
-          <TableHead>Date</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {contributions.map((c) => (
-          <TableRow key={c.id}>
-            <TableCell className="font-medium">
-              {c.anonyme ? "—" : c.prenom}
-            </TableCell>
-            <TableCell>{c.anonyme ? "—" : c.service}</TableCell>
-            <TableCell>
-              <Badge variant="outline">{themeLabel(c.theme)}</Badge>
-            </TableCell>
-            <TableCell>{truncate(c.contenu)}</TableCell>
-            <TableCell>
-              {c.anonyme ? (
-                <Badge variant="secondary">Oui</Badge>
-              ) : (
-                "Non"
-              )}
-            </TableCell>
-            <TableCell className="text-muted-foreground text-sm">
-              {new Date(c.created_at).toLocaleDateString("fr-FR")}
-            </TableCell>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">{contributions.length} contribution(s)</p>
+        <UButton variant="outline" size="sm" onClick={handleExport}>Exporter CSV</UButton>
+      </div>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Prenom</TableHead>
+            <TableHead>Service</TableHead>
+            <TableHead>Theme</TableHead>
+            <TableHead className="min-w-[240px]">Contenu</TableHead>
+            <TableHead>Anonyme</TableHead>
+            <TableHead>Date</TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {contributions.map((c) => (
+            <TableRow key={c.id}>
+              <TableCell className="font-medium">{c.anonyme ? "\u2014" : c.prenom}</TableCell>
+              <TableCell>{c.anonyme ? "\u2014" : c.service}</TableCell>
+              <TableCell><Badge variant="outline">{themeLabel(c.theme)}</Badge></TableCell>
+              <TableCell>{truncate(c.contenu)}</TableCell>
+              <TableCell>{c.anonyme ? <Badge variant="secondary">Oui</Badge> : "Non"}</TableCell>
+              <TableCell className="text-muted-foreground text-sm">
+                {new Date(c.created_at).toLocaleDateString("fr-FR")}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 
