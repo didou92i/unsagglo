@@ -12,19 +12,11 @@ import {
 const DocumentsManager = (): JSX.Element => {
   const { docs, loading, uploading, upload, remove } = useDocumentsAdmin();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [deleting, setDeleting] = useState<string | null>(null);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0];
     if (file) upload(file);
     if (inputRef.current) inputRef.current.value = "";
-  };
-
-  const handleDelete = async (): Promise<void> => {
-    if (deleting) {
-      await remove(deleting);
-      setDeleting(null);
-    }
   };
 
   if (loading) return <div className="flex justify-center py-8"><Spinner size="md" /></div>;
