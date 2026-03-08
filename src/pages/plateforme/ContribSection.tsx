@@ -23,7 +23,7 @@ const ContribSection = (): JSX.Element => {
           subtitle="Partagez vos id&eacute;es pour le programme 2026."
         />
       </div>
-      <UCard className="max-w-lg mx-auto border-l-4 border-l-primary">
+      <UCard className="max-w-2xl mx-auto border-l-4 border-l-primary">
         <ContribForm contrib={contrib} candidat={candidat} />
       </UCard>
     </section>

@@ -22,7 +22,7 @@ const SondageSection = (): JSX.Element => {
         title="Sondages th&eacute;matiques"
         subtitle="Donnez votre avis sur les sujets cl&eacute;s."
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {sondages.map((s) => (
           <SondageCard
             key={s.id}

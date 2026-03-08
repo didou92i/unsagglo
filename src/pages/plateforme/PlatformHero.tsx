@@ -33,7 +33,7 @@ const PlatformHero = (): JSX.Element => {
       
       <WaveBackground />
 
-      <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
         <img
           src={unsaLogo}
           alt="Logo UNSAgglo"
@@ -43,7 +43,7 @@ const PlatformHero = (): JSX.Element => {
         <h1 className="font-display text-4xl md:text-6xl font-black text-secondary animate-fade-in-up">
           Construisons Ensemble
         </h1>
-        <p className="text-muted-foreground text-lg md:text-xl mt-4 max-w-2xl mx-auto animate-fade-in-up">
+        <p className="text-muted-foreground text-lg md:text-xl mt-4 max-w-3xl mx-auto animate-fade-in-up">
           Votre expertise m&eacute;rite d&apos;&ecirc;tre entendue. D&eacute;posez vos id&eacute;es
           et participez aux sondages pour construire le programme 2026.
         </p>
