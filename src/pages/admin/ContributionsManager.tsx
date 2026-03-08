@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import { THEMES } from "@/constants/themes";
 import { STATUTS } from "@/constants/statuts";
+import { SERVICES } from "@/constants/services";
 import { exportCsv } from "@/lib/exportCsv";
 
 const themeLabel = (value: string): string =>
@@ -15,6 +16,9 @@ const themeLabel = (value: string): string =>
 
 const statutLabel = (value: string): string =>
   STATUTS.find((s) => s.value === value)?.label ?? value;
+
+const serviceLabel = (value: string): string =>
+  SERVICES.find((s) => s.value === value)?.label ?? value;
 
 const truncate = (text: string, max = 80): string =>
   text.length > max ? `${text.slice(0, max)}...` : text;
@@ -28,7 +32,7 @@ const ContributionsManager = (): JSX.Element => {
   const handleExport = (): void => {
     exportCsv(filtered.map((c) => ({
       Prenom: c.anonyme ? "" : c.prenom,
-      Service: c.anonyme ? "" : c.service,
+      Service: c.anonyme ? "" : serviceLabel(c.service),
       Statut: c.statut ? statutLabel(c.statut) : "",
       Theme: themeLabel(c.theme),
       Contenu: c.contenu,
@@ -75,7 +79,7 @@ const ContributionsManager = (): JSX.Element => {
           {filtered.map((c) => (
             <TableRow key={c.id}>
               <TableCell className="font-medium">{c.anonyme ? "\u2014" : c.prenom}</TableCell>
-              <TableCell>{c.anonyme ? "\u2014" : c.service}</TableCell>
+              <TableCell>{c.anonyme ? "\u2014" : serviceLabel(c.service)}</TableCell>
               <TableCell>{c.statut ? statutLabel(c.statut) : "\u2014"}</TableCell>
               <TableCell><Badge variant="outline">{themeLabel(c.theme)}</Badge></TableCell>
               <TableCell>{truncate(c.contenu)}</TableCell>

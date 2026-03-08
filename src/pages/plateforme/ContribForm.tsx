@@ -1,6 +1,7 @@
 import { Bot } from "lucide-react";
 import { THEME_GROUPS } from "@/constants/themes";
 import { STATUT_GROUPS } from "@/constants/statuts";
+import { SERVICE_GROUPS } from "@/constants/services";
 import { InputField, SelectField, TextareaField, FormError } from "@/components/forms";
 import UButton from "@/components/ui/UButton";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -26,13 +27,6 @@ interface ContribFormProps {
   candidat: CandidatHook;
 }
 
-const SERVICES = [
-  { value: "CARPF", label: "Agglo CRF (CARPF)" },
-  { value: "DDT", label: "DDT" },
-  { value: "DRIHL", label: "DRIHL" },
-  { value: "Autre", label: "Autre" },
-];
-
 const ContribForm = ({ contrib, candidat }: ContribFormProps): JSX.Element => {
   const f = useContribForm(contrib, candidat);
 
@@ -46,7 +40,7 @@ const ContribForm = ({ contrib, candidat }: ContribFormProps): JSX.Element => {
       {!f.anonyme && (
         <InputField<ContribFormData> label="Prenom" name="prenom" register={f.register} error={f.errors.prenom} placeholder="Votre prenom" required={f.rejoindreListe} />
       )}
-      <SelectField<ContribFormData> label="Service" name="service" register={f.register} error={f.errors.service} options={SERVICES} />
+      <SelectField<ContribFormData> label="Service" name="service" register={f.register} error={f.errors.service} groups={SERVICE_GROUPS} />
       <SelectField<ContribFormData> label="Statut" name="statut" register={f.register} error={f.errors.statut} groups={STATUT_GROUPS} />
       <SelectField<ContribFormData> label="Theme" name="theme" register={f.register} error={f.errors.theme} groups={THEME_GROUPS} />
       <TextareaField<ContribFormData> label="Votre proposition" name="contenu" register={f.register} error={f.errors.contenu} rows={5} placeholder="Decrivez votre proposition..." />
