@@ -3,11 +3,9 @@ import { supabase } from "@/integrations/supabase/client";
 import UCard from "@/components/ui/UCard";
 import UBadge from "@/components/ui/UBadge";
 import Spinner from "@/components/ui/Spinner";
+import type { DocItem } from "@/types/document";
 
-interface DocItem {
-  name: string;
-  url: string;
-  created_at: string;
+interface DocItemWithType extends DocItem {
   type: string;
 }
 
@@ -19,14 +17,14 @@ const detectType = (name: string): string => {
 };
 
 const DocumentsList = (): JSX.Element => {
-  const [docs, setDocs] = useState<DocItem[]>([]);
+  const [docs, setDocs] = useState<DocItemWithType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchDocs = async (): Promise<void> => {
       const { data, error } = await supabase.storage.from("documents").list();
       if (!error && data) {
-        const items: DocItem[] = data
+        const items: DocItemWithType[] = data
           .filter((f) => f.name !== ".emptyFolderPlaceholder")
           .map((f) => ({
             name: f.name,
