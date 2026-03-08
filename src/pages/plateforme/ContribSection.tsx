@@ -64,8 +64,11 @@ const ContribSection = (): JSX.Element => {
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg mx-auto">
         {error && <FormError message={error} />}
         <div className="flex items-center gap-2 mb-4">
-          <Checkbox id="anonyme" checked={anonyme} onCheckedChange={(checked) => setAnonyme(checked === true)} />
+          <Checkbox id="anonyme" checked={anonyme} onCheckedChange={(checked) => onAnonymeChange(checked === true)} disabled={rejoindreListe} />
           <label htmlFor="anonyme" className="text-sm text-foreground cursor-pointer">Contribution anonyme</label>
+        </div>
+        {!anonyme && (
+          <InputField<ContribFormData> label="Prenom" name="prenom" register={register} error={errors.prenom} placeholder="Votre prenom" required={rejoindreListe} />
         </div>
         {!anonyme && (
           <InputField<ContribFormData> label="Prenom" name="prenom" register={register} error={errors.prenom} placeholder="Votre prenom" />
