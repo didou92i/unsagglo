@@ -42,7 +42,7 @@ const Navbar = (): JSX.Element => {
         </Link>
 
         <div className="hidden lg:flex items-center gap-6">
-          {NAV_LINKS.map((link) => (
+          {visibleLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
@@ -56,8 +56,8 @@ const Navbar = (): JSX.Element => {
 
         <div className="hidden lg:flex items-center gap-3">
           {isAdmin && <Link to="/admin"><UButton variant="outline" size="sm">Admin</UButton></Link>}
-          <Link to="/membership"><UButton variant="primary" size="sm">Adherer</UButton></Link>
-          <Link to="/members"><UButton variant="outline" size="sm">Espace membres</UButton></Link>
+          {settings.page_membership && <Link to="/membership"><UButton variant="primary" size="sm">Adherer</UButton></Link>}
+          {settings.page_members && <Link to="/members"><UButton variant="outline" size="sm">Espace membres</UButton></Link>}
         </div>
 
         <button
@@ -75,7 +75,7 @@ const Navbar = (): JSX.Element => {
 
       {isOpen && (
         <div className="lg:hidden bg-secondary border-t border-secondary-foreground/10 px-4 py-4 flex flex-col gap-3">
-          {NAV_LINKS.map((link) => (
+          {visibleLinks.map((link) => (
             <Link key={link.to} to={link.to} onClick={() => setIsOpen(false)} className="text-secondary-foreground/90 hover:text-secondary-foreground font-semibold text-sm py-2 flex items-center gap-2">
               {link.label}
               {link.badge && <UBadge variant="danger">Dec. 2026</UBadge>}
@@ -83,8 +83,8 @@ const Navbar = (): JSX.Element => {
           ))}
           <div className="flex flex-col gap-2 mt-2">
             {isAdmin && <Link to="/admin" onClick={() => setIsOpen(false)}><UButton variant="outline" size="sm" className="w-full">Admin</UButton></Link>}
-            <Link to="/membership" onClick={() => setIsOpen(false)}><UButton variant="primary" size="sm" className="w-full">Adherer</UButton></Link>
-            <Link to="/members" onClick={() => setIsOpen(false)}><UButton variant="outline" size="sm" className="w-full">Espace membres</UButton></Link>
+            {settings.page_membership && <Link to="/membership" onClick={() => setIsOpen(false)}><UButton variant="primary" size="sm" className="w-full">Adherer</UButton></Link>}
+            {settings.page_members && <Link to="/members" onClick={() => setIsOpen(false)}><UButton variant="outline" size="sm" className="w-full">Espace membres</UButton></Link>}
           </div>
         </div>
       )}
