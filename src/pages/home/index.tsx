@@ -28,7 +28,8 @@ const Home = (): JSX.Element => {
         <img
           src={unsaLogo}
           alt="Logo UNSAgglo"
-          className="w-[240px] md:w-[320px] h-auto mb-14 animate-fade-in-up relative z-10"
+          className="w-[240px] md:w-[320px] h-auto mb-14 animate-fade-in-up relative z-10 drop-shadow-2xl transition-transform duration-500 hover:scale-105"
+          style={{ filter: "drop-shadow(0 0 12px rgba(0,157,230,0.35)) drop-shadow(0 4px 24px rgba(0,157,230,0.18))" }}
         />
 
         <button
