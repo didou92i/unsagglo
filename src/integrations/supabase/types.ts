@@ -85,6 +85,7 @@ export type Database = {
       }
       contributions_elections: {
         Row: {
+          anonyme: boolean
           contenu: string
           created_at: string
           id: string
@@ -93,6 +94,7 @@ export type Database = {
           theme: string
         }
         Insert: {
+          anonyme?: boolean
           contenu: string
           created_at?: string
           id?: string
@@ -101,6 +103,7 @@ export type Database = {
           theme: string
         }
         Update: {
+          anonyme?: boolean
           contenu?: string
           created_at?: string
           id?: string
@@ -185,6 +188,98 @@ export type Database = {
         }
         Relationships: []
       }
+      sondage_options: {
+        Row: {
+          id: string
+          label: string
+          sondage_id: string
+          votes: number
+        }
+        Insert: {
+          id?: string
+          label: string
+          sondage_id: string
+          votes?: number
+        }
+        Update: {
+          id?: string
+          label?: string
+          sondage_id?: string
+          votes?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sondage_options_sondage_id_fkey"
+            columns: ["sondage_id"]
+            isOneToOne: false
+            referencedRelation: "sondages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sondage_votes: {
+        Row: {
+          created_at: string
+          fingerprint: string
+          id: string
+          option_id: string
+          sondage_id: string
+        }
+        Insert: {
+          created_at?: string
+          fingerprint: string
+          id?: string
+          option_id: string
+          sondage_id: string
+        }
+        Update: {
+          created_at?: string
+          fingerprint?: string
+          id?: string
+          option_id?: string
+          sondage_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sondage_votes_option_id_fkey"
+            columns: ["option_id"]
+            isOneToOne: false
+            referencedRelation: "sondage_options"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sondage_votes_sondage_id_fkey"
+            columns: ["sondage_id"]
+            isOneToOne: false
+            referencedRelation: "sondages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sondages: {
+        Row: {
+          actif: boolean
+          created_at: string
+          id: string
+          question: string
+          theme: string
+        }
+        Insert: {
+          actif?: boolean
+          created_at?: string
+          id?: string
+          question: string
+          theme: string
+        }
+        Update: {
+          actif?: boolean
+          created_at?: string
+          id?: string
+          question?: string
+          theme?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -212,6 +307,14 @@ export type Database = {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
+        }
+        Returns: boolean
+      }
+      vote_sondage: {
+        Args: {
+          p_fingerprint: string
+          p_option_id: string
+          p_sondage_id: string
         }
         Returns: boolean
       }
