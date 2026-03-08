@@ -26,7 +26,11 @@ const RightsGrid = (): JSX.Element => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
         {RIGHTS_ITEMS.map((item) => (
           <Link to={`/rights/${item.categorie}`} key={item.categorie}>
-            <UCard className="border-l-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-200" padding="md">
+            <UCard
+              className="border-l-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+              style={{ borderLeftColor: item.color }}
+              padding="md"
+            >
               <div>
                 <h3 className="font-display text-lg font-bold text-foreground">{item.label}</h3>
                 <p className="text-muted-foreground text-sm mt-1">{item.description}</p>

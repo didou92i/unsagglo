@@ -1,60 +1,15 @@
-import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useAdminAdherents } from "@/hooks/useAdminAdherents";
+import { useAdherentFilters } from "@/hooks/useAdherentFilters";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import UButton from "@/components/ui/UButton";
 import UBadge from "@/components/ui/UBadge";
 import Spinner from "@/components/ui/Spinner";
-import { toast } from "@/hooks/use-toast";
-import { exportCsv } from "@/lib/exportCsv";
 import { serviceLabel } from "@/lib/serviceLabel";
-import { useAdherentFilters } from "@/hooks/useAdherentFilters";
 import AdherentFiltersBar from "./AdherentFiltersBar";
 
-interface AdherentRow {
-  id: string;
-  nom: string;
-  prenom: string;
-  email: string;
-  service: string | null;
-  grade: string | null;
-  statut: string;
-  created_at: string;
-}
-
 const AdherentsManager = (): JSX.Element => {
-  const [adherents, setAdherents] = useState<AdherentRow[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { adherents, loading, updateStatut, handleExport } = useAdminAdherents();
   const filters = useAdherentFilters(adherents);
-
-  const fetchAdherents = async (): Promise<void> => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from("adherents")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (!error && data) setAdherents(data as AdherentRow[]);
-    setLoading(false);
-  };
-
-  useEffect(() => { fetchAdherents(); }, []);
-
-  const updateStatut = async (id: string, statut: string): Promise<void> => {
-    const { error } = await supabase.from("adherents").update({ statut }).eq("id", id);
-    if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
-    } else {
-      toast({ title: "Succes", description: `Adherent ${statut === "actif" ? "valide" : "refuse"}.` });
-      fetchAdherents();
-    }
-  };
-
-  const handleExport = (): void => {
-    exportCsv(filters.filtered.map((a) => ({
-      Nom: a.nom, Prenom: a.prenom, Email: a.email,
-      Service: serviceLabel(a.service), Grade: a.grade ?? "",
-      Statut: a.statut, Date: a.created_at,
-    })), "adherents.csv");
-  };
 
   if (loading) return <div className="flex justify-center py-8"><Spinner size="md" /></div>;
 
@@ -66,7 +21,7 @@ const AdherentsManager = (): JSX.Element => {
         setServiceFilter={filters.setServiceFilter}
         setStatutFilter={filters.setStatutFilter}
         count={filters.filtered.length}
-        onExport={handleExport}
+        onExport={() => handleExport(filters.filtered)}
       />
       <Table>
         <TableHeader>

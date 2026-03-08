@@ -5,23 +5,12 @@ import { Badge } from "@/components/ui/badge";
 import {
   Table, TableHeader, TableHead, TableBody, TableRow, TableCell,
 } from "@/components/ui/table";
-import { THEMES } from "@/constants/themes";
-import { STATUTS } from "@/constants/statuts";
-import { SERVICES } from "@/constants/services";
+import { themeLabel } from "@/lib/themeLabel";
+import { statutLabel } from "@/lib/statutLabel";
+import { serviceLabel } from "@/lib/serviceLabel";
 import { exportCsv } from "@/lib/exportCsv";
 import ContribFiltersBar from "./ContribFiltersBar";
 import ContribContentCell from "./ContribContentCell";
-
-const themeLabel = (value: string): string =>
-  THEMES.find((t) => t.value === value)?.label ?? value;
-
-const statutLabel = (value: string): string =>
-  STATUTS.find((s) => s.value === value)?.label ?? value;
-
-const serviceLabel = (value: string): string =>
-  SERVICES.find((s) => s.value === value)?.label ?? value;
-
-
 
 const ContributionsManager = (): JSX.Element => {
   const { contributions, loading } = useAdminContributions();

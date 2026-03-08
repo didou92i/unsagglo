@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
+import { useAdminArticles } from "@/hooks/useAdminArticles";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import UBadge from "@/components/ui/UBadge";
 import UButton from "@/components/ui/UButton";
 import Spinner from "@/components/ui/Spinner";
 import { Switch } from "@/components/ui/switch";
-import { toast } from "@/hooks/use-toast";
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel,
   AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
@@ -13,51 +12,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import ArticleForm from "./ArticleForm";
 
-interface ArticleRow {
-  id: string;
-  titre: string;
-  categorie: string;
-  auteur: string;
-  publie: boolean;
-  created_at: string;
-}
-
 const ArticlesManager = (): JSX.Element => {
-  const [articles, setArticles] = useState<ArticleRow[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { articles, loading, refresh, togglePublie, deleteArticle } = useAdminArticles();
   const [showForm, setShowForm] = useState<boolean>(false);
-
-  const fetchArticles = async (): Promise<void> => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from("articles")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (!error && data) setArticles(data as ArticleRow[]);
-    setLoading(false);
-  };
-
-  useEffect(() => { fetchArticles(); }, []);
-
-  const togglePublie = async (id: string, current: boolean): Promise<void> => {
-    const { error } = await supabase.from("articles").update({ publie: !current }).eq("id", id);
-    if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
-    } else {
-      toast({ title: "Succes", description: `Article ${!current ? "publie" : "masque"}.` });
-      fetchArticles();
-    }
-  };
-
-  const deleteArticle = async (id: string): Promise<void> => {
-    const { error } = await supabase.from("articles").delete().eq("id", id);
-    if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
-    } else {
-      toast({ title: "Succes", description: "Article supprime." });
-      fetchArticles();
-    }
-  };
 
   if (loading) return <div className="flex justify-center py-8"><Spinner size="md" /></div>;
 
@@ -69,7 +26,7 @@ const ArticlesManager = (): JSX.Element => {
           {showForm ? "Fermer" : "Nouvel article"}
         </UButton>
       </div>
-      {showForm && <ArticleForm onSuccess={() => { setShowForm(false); fetchArticles(); }} onCancel={() => setShowForm(false)} />}
+      {showForm && <ArticleForm onSuccess={() => { setShowForm(false); refresh(); }} onCancel={() => setShowForm(false)} />}
       <Table>
         <TableHeader>
           <TableRow>

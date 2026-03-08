@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useArticleForm } from "@/hooks/useArticleForm";
+import { articleSchema } from "./articleSchema";
+import type { ArticleFormData } from "./articleSchema";
 import UButton from "@/components/ui/UButton";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 
 interface ArticleFormProps {
   onSuccess: () => void;
@@ -26,57 +28,60 @@ const slugify = (text: string): string =>
 
 const ArticleForm = ({ onSuccess, onCancel }: ArticleFormProps): JSX.Element => {
   const { submit, loading } = useArticleForm();
-  const [titre, setTitre] = useState<string>("");
-  const [contenu, setContenu] = useState<string>("");
-  const [categorie, setCategorie] = useState<string>("actualite");
-  const [auteur, setAuteur] = useState<string>("Bureau UNSAgglo");
+  const form = useForm<ArticleFormData>({
+    resolver: zodResolver(articleSchema),
+    defaultValues: { titre: "", contenu: "", categorie: "actualite", auteur: "Bureau UNSAgglo" },
+  });
 
-  const handleSubmit = async (): Promise<void> => {
-    if (!titre.trim() || !contenu.trim()) return;
-    const ok = await submit({
-      titre,
-      slug: slugify(titre),
-      contenu,
-      categorie,
-      auteur,
-    });
+  const handleSubmit = async (data: ArticleFormData): Promise<void> => {
+    const ok = await submit({ ...data, slug: slugify(data.titre) });
     if (ok) onSuccess();
   };
 
   return (
-    <div className="space-y-4 border border-border rounded-[var(--radius-md)] p-6 bg-card">
-      <h3 className="font-display text-lg font-bold text-foreground">Nouvel article</h3>
-      <div>
-        <Label>Titre</Label>
-        <Input value={titre} onChange={(e) => setTitre(e.target.value)} placeholder="Titre de l'article" />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <Label>Categorie</Label>
-          <select
-            value={categorie}
-            onChange={(e) => setCategorie(e.target.value)}
-            className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground"
-          >
-            {CATEGORIES.map((c) => (
-              <option key={c.value} value={c.value}>{c.label}</option>
-            ))}
-          </select>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4 border border-border rounded-[var(--radius-md)] p-6 bg-card">
+        <h3 className="font-display text-lg font-bold text-foreground">Nouvel article</h3>
+        <FormField control={form.control} name="titre" render={({ field }) => (
+          <FormItem>
+            <FormLabel>Titre</FormLabel>
+            <FormControl><Input {...field} placeholder="Titre de l'article" /></FormControl>
+            <FormMessage />
+          </FormItem>
+        )} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField control={form.control} name="categorie" render={({ field }) => (
+            <FormItem>
+              <FormLabel>Categorie</FormLabel>
+              <FormControl>
+                <select {...field} className="w-full px-3 py-2 rounded-md border border-input bg-background text-foreground">
+                  {CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
+                </select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )} />
+          <FormField control={form.control} name="auteur" render={({ field }) => (
+            <FormItem>
+              <FormLabel>Auteur</FormLabel>
+              <FormControl><Input {...field} /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )} />
         </div>
-        <div>
-          <Label>Auteur</Label>
-          <Input value={auteur} onChange={(e) => setAuteur(e.target.value)} />
+        <FormField control={form.control} name="contenu" render={({ field }) => (
+          <FormItem>
+            <FormLabel>Contenu</FormLabel>
+            <FormControl><Textarea {...field} rows={8} placeholder="Contenu de l'article..." /></FormControl>
+            <FormMessage />
+          </FormItem>
+        )} />
+        <div className="flex gap-3">
+          <UButton variant="primary" type="submit" loading={loading}>Creer</UButton>
+          <UButton variant="outline" type="button" onClick={onCancel}>Annuler</UButton>
         </div>
-      </div>
-      <div>
-        <Label>Contenu</Label>
-        <Textarea value={contenu} onChange={(e) => setContenu(e.target.value)} rows={8} placeholder="Contenu de l'article..." />
-      </div>
-      <div className="flex gap-3">
-        <UButton variant="primary" onClick={handleSubmit} loading={loading}>Creer</UButton>
-        <UButton variant="outline" onClick={onCancel}>Annuler</UButton>
-      </div>
-    </div>
+      </form>
+    </Form>
   );
 };
 
