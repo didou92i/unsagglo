@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 interface EntryHoverReturn {
   hovered: boolean;
-  visiteurExpanded: boolean;
+  visiteurOpen: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
-  onVisiteurEnter: () => void;
-  onVisiteurLeave: () => void;
+  setVisiteurOpen: (open: boolean) => void;
   goToMembers: () => void;
   goToNews: () => void;
   goToElections: () => void;
@@ -15,24 +14,24 @@ interface EntryHoverReturn {
 
 const useEntryHover = (): EntryHoverReturn => {
   const [hovered, setHovered] = useState(false);
-  const [visiteurExpanded, setVisiteurExpanded] = useState(false);
+  const [visiteurOpen, setVisiteurOpen] = useState(false);
   const navigate = useNavigate();
 
   const onMouseEnter = useCallback(() => setHovered(true), []);
   const onMouseLeave = useCallback(() => setHovered(false), []);
-  const onVisiteurEnter = useCallback(() => setVisiteurExpanded(true), []);
-  const onVisiteurLeave = useCallback(() => setVisiteurExpanded(false), []);
   const goToMembers = useCallback(() => navigate("/members"), [navigate]);
   const goToNews = useCallback(() => navigate("/news"), [navigate]);
-  const goToElections = useCallback(() => navigate("/elections"), [navigate]);
+  const goToElections = useCallback(() => {
+    setVisiteurOpen(false);
+    navigate("/elections");
+  }, [navigate]);
 
   return {
     hovered,
-    visiteurExpanded,
+    visiteurOpen,
     onMouseEnter,
     onMouseLeave,
-    onVisiteurEnter,
-    onVisiteurLeave,
+    setVisiteurOpen,
     goToMembers,
     goToNews,
     goToElections,
