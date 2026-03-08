@@ -124,6 +124,7 @@ export type Database = {
           id: string
           prenom: string
           service: string
+          statut: string | null
           theme: string
         }
         Insert: {
@@ -133,6 +134,7 @@ export type Database = {
           id?: string
           prenom: string
           service: string
+          statut?: string | null
           theme: string
         }
         Update: {
@@ -142,6 +144,7 @@ export type Database = {
           id?: string
           prenom?: string
           service?: string
+          statut?: string | null
           theme?: string
         }
         Relationships: []

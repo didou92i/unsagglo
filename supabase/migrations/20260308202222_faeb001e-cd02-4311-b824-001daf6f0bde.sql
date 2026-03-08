@@ -1,0 +1,1 @@
+ALTER TABLE public.contributions_elections ADD COLUMN statut text;

@@ -5,6 +5,7 @@ interface Contribution {
   id: string;
   prenom: string;
   service: string;
+  statut: string | null;
   theme: string;
   contenu: string;
   anonyme: boolean;

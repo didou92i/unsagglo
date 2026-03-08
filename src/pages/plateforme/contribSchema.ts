@@ -7,6 +7,7 @@ export const contribSchema = z.object({
   prenom: z.string().optional(),
   nom: z.string().optional(),
   service: z.string().min(2, "Service requis"),
+  statut: z.string().min(1, "Selectionnez votre statut"),
   theme: z.enum(themeValues, {
     errorMap: () => ({ message: "Selectionnez un theme" }),
   }),
