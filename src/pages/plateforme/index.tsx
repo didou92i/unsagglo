@@ -2,7 +2,6 @@ import PageWrapper from "@/components/layout/PageWrapper";
 import { MetaTags } from "@/components/seo";
 import PlatformHero from "./PlatformHero";
 import ContribSection from "./ContribSection";
-import ListeElectoraleSection from "./ListeElectoraleSection";
 import SondageSection from "./SondageSection";
 
 const PlateformePage = (): JSX.Element => (
@@ -13,7 +12,6 @@ const PlateformePage = (): JSX.Element => (
     />
     <PlatformHero />
     <ContribSection />
-    <ListeElectoraleSection />
     <SondageSection />
   </PageWrapper>
 );

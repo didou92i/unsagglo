@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContribSubmit } from "@/hooks/useContribSubmit";
+import { useCandidatSubmit } from "@/hooks/useCandidatSubmit";
 import { contribSchema, type ContribFormData } from "./contribSchema";
 import { InputField, SelectField, TextareaField, FormError } from "@/components/forms";
 import { SectionTitle } from "@/components/sections";
@@ -9,6 +10,8 @@ import { THEMES } from "@/constants/themes";
 import UButton from "@/components/ui/UButton";
 import UCard from "@/components/ui/UCard";
 import { Checkbox } from "@/components/ui/checkbox";
+import ListeElectoraleInline from "./ListeElectoraleInline";
+import ContribSuccess from "./ContribSuccess";
 
 const SERVICES = [
   { value: "CARPF", label: "Agglo CRF (CARPF)" },
@@ -19,34 +22,30 @@ const SERVICES = [
 
 const ContribSection = (): JSX.Element => {
   const [anonyme, setAnonyme] = useState<boolean>(false);
-  const { submit, loading, success, error } = useContribSubmit();
-  const { register, handleSubmit, formState: { errors } } = useForm<ContribFormData>({
+  const [rejoindreListe, setRejoindreListe] = useState<boolean>(false);
+  const contrib = useContribSubmit();
+  const candidat = useCandidatSubmit();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<ContribFormData>({
     resolver: zodResolver(contribSchema),
   });
 
-  const onSubmit = async (data: ContribFormData): Promise<void> => {
-    await submit({
-      prenom: anonyme ? "Anonyme" : (data.prenom ?? "Anonyme"),
-      service: data.service,
-      theme: data.theme,
-      contenu: data.contenu,
-      anonyme,
-    });
+  const onCheckedChange = (checked: boolean): void => {
+    setRejoindreListe(checked);
+    setValue("rejoindreListe", checked);
   };
 
-  if (success) {
-    return (
-      <section id="contribution" className="px-4 md:px-6 py-16 bg-muted">
-        <UCard className="text-center border-2 border-[var(--color-green)] max-w-lg mx-auto">
-          <svg className="h-12 w-12 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="var(--color-green)">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-          <h3 className="font-display text-xl font-bold text-foreground">Contribution envoyee</h3>
-          <p className="text-muted-foreground mt-2">Merci ! Votre proposition sera etudiee.</p>
-        </UCard>
-      </section>
-    );
-  }
+  const onSubmit = async (data: ContribFormData): Promise<void> => {
+    const prenom = anonyme ? "Anonyme" : (data.prenom ?? "Anonyme");
+    await contrib.submit({ prenom, service: data.service, theme: data.theme, contenu: data.contenu, anonyme });
+    if (rejoindreListe && data.email && data.telephone && data.adresse) {
+      await candidat.submit({ prenom, service: data.service, email: data.email, telephone: data.telephone, adresse: data.adresse });
+    }
+  };
+
+  if (contrib.success) return <ContribSuccess candidature={rejoindreListe && candidat.success} />;
+
+  const loading = contrib.loading || candidat.loading;
+  const error = contrib.error || candidat.error;
 
   return (
     <section id="contribution" className="px-4 md:px-6 py-16 bg-muted">
@@ -63,7 +62,8 @@ const ContribSection = (): JSX.Element => {
         <SelectField<ContribFormData> label="Service" name="service" register={register} error={errors.service} options={SERVICES} />
         <SelectField<ContribFormData> label="Theme" name="theme" register={register} error={errors.theme} options={THEMES} />
         <TextareaField<ContribFormData> label="Votre proposition" name="contenu" register={register} error={errors.contenu} rows={5} placeholder="Decrivez votre proposition pour le programme..." />
-        <UButton type="submit" variant="primary" size="lg" loading={loading} className="w-full mt-2">Envoyer ma contribution</UButton>
+        <ListeElectoraleInline checked={rejoindreListe} onCheckedChange={onCheckedChange} register={register} errors={errors} />
+        <UButton type="submit" variant="primary" size="lg" loading={loading} className="w-full mt-4">Envoyer ma contribution</UButton>
       </form>
     </section>
   );
