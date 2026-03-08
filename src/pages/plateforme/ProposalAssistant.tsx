@@ -1,9 +1,8 @@
-import { useState, useRef, useEffect } from "react";
 import { Bot, Send, Check } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import UButton from "@/components/ui/UButton";
 import ChatMessage from "./ChatMessage";
-import { useProposalChat } from "@/hooks/useProposalChat";
+import { useProposalAssistant } from "./useProposalAssistant";
 
 interface ProposalAssistantProps {
   open: boolean;
@@ -13,39 +12,10 @@ interface ProposalAssistantProps {
 }
 
 const ProposalAssistant = ({ open, onOpenChange, theme, onUseProposal }: ProposalAssistantProps): JSX.Element => {
-  const { messages, isLoading, send, reset } = useProposalChat(theme);
-  const [input, setInput] = useState<string>("");
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages]);
-
-  useEffect(() => {
-    if (!open) { reset(); setInput(""); }
-  }, [open, reset]);
-
-  const handleSend = async (): Promise<void> => {
-    const text = input.trim();
-    if (!text || isLoading) return;
-    setInput("");
-    await send(text);
-  };
-
-  const lastAssistant = [...messages].reverse().find((m) => m.role === "assistant");
-  const lastIdx = messages.length - 1;
-
-  const handleUse = (): void => {
-    if (!lastAssistant) return;
-    const clean = lastAssistant.content.replace(/\[SUGGESTIONS].*?\[\/SUGGESTIONS]/s, "").trim();
-    onUseProposal(clean);
-    onOpenChange(false);
-  };
-
-  const handleSuggestion = (text: string): void => {
-    if (isLoading) return;
-    send(text);
-  };
+  const {
+    messages, isLoading, input, setInput, scrollRef,
+    handleSend, handleUse, handleSuggestion, lastAssistant, lastIdx,
+  } = useProposalAssistant(theme, open, onUseProposal, onOpenChange);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

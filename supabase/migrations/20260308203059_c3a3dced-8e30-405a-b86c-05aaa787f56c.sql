@@ -1,0 +1,18 @@
+
+CREATE TABLE public.contact_messages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  nom TEXT NOT NULL,
+  email TEXT NOT NULL,
+  objet TEXT NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public contact insert" ON public.contact_messages
+  FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Admins can view contact messages" ON public.contact_messages
+  FOR SELECT TO authenticated
+  USING (public.has_role(auth.uid(), 'admin'));

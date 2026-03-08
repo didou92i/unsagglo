@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, useContact, type ContactFormData } from "./useContact";
 import { InputField, SelectField, TextareaField, FormError } from "@/components/forms";
 import UButton from "@/components/ui/UButton";
-import UCard from "@/components/ui/UCard";
+import SuccessCard from "@/components/ui/SuccessCard";
 
 const OBJET_OPTIONS = [
   { value: "information", label: "Demande d'information" },
@@ -19,13 +19,7 @@ const ContactForm = (): JSX.Element => {
   });
 
   if (success) {
-    return (
-      <UCard className="text-center border-2 border-green">
-        <svg className="h-12 w-12 text-green mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-        <h3 className="font-display text-xl font-bold text-foreground">Message envoye !</h3>
-        <p className="text-muted-foreground mt-2">Nous vous repondrons sous 48h.</p>
-      </UCard>
-    );
+    return <SuccessCard title="Message envoye !" message="Nous vous repondrons sous 48h." />;
   }
 
   return (

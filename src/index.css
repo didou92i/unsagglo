@@ -141,3 +141,8 @@
   animation-delay: -4s;
 }
 
+.logo-glow {
+  filter: drop-shadow(0 0 12px hsl(199 100% 45% / 0.35)) drop-shadow(0 4px 24px hsl(199 100% 45% / 0.18));
+}
+
+

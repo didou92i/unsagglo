@@ -116,6 +116,33 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          nom: string
+          objet: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          nom: string
+          objet: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          nom?: string
+          objet?: string
+        }
+        Relationships: []
+      }
       contributions_elections: {
         Row: {
           anonyme: boolean

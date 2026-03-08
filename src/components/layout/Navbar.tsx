@@ -1,38 +1,11 @@
-import { useState, useMemo } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import UButton from "@/components/ui/UButton";
 import UBadge from "@/components/ui/UBadge";
-import { useAdmin } from "@/hooks/useAdmin";
-import { useSiteSettings } from "@/hooks/useSiteSettings";
-
-interface NavLink {
-  label: string;
-  to: string;
-  badge?: boolean;
-  settingKey?: string;
-}
-
-const NAV_LINKS: NavLink[] = [
-  { label: "Accueil", to: "/" },
-  { label: "Actualites", to: "/news", settingKey: "page_news" },
-  { label: "Vos Droits", to: "/rights", settingKey: "page_rights" },
-  { label: "Elections 2026", to: "/elections", badge: true, settingKey: "page_elections" },
-  { label: "Plateforme", to: "/plateforme", settingKey: "page_plateforme" },
-  { label: "Contact", to: "/contact", settingKey: "page_contact" },
-];
+import MobileMenu from "./MobileMenu";
+import { useNavbar } from "./useNavbar";
 
 const Navbar = (): JSX.Element => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { pathname } = useLocation();
-  const { isAdmin } = useAdmin();
-  const { settings } = useSiteSettings();
-
-  const visibleLinks = useMemo(() => {
-    return NAV_LINKS.filter((link) => {
-      if (!link.settingKey) return true;
-      return settings[link.settingKey as keyof typeof settings] !== false;
-    });
-  }, [settings]);
+  const { isOpen, setIsOpen, toggle, pathname, isAdmin, settings, visibleLinks } = useNavbar();
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-secondary z-50 shadow-md h-16">
@@ -61,11 +34,7 @@ const Navbar = (): JSX.Element => {
           {settings.page_members && <Link to="/members"><UButton variant="outline" size="sm">Espace membres</UButton></Link>}
         </div>
 
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden text-secondary-foreground p-2"
-          aria-label="Menu"
-        >
+        <button onClick={toggle} className="lg:hidden text-secondary-foreground p-2" aria-label="Menu">
           {isOpen ? (
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           ) : (
@@ -75,19 +44,13 @@ const Navbar = (): JSX.Element => {
       </div>
 
       {isOpen && (
-        <div className="lg:hidden bg-secondary border-t border-secondary-foreground/10 px-4 py-4 flex flex-col gap-3">
-          {visibleLinks.map((link) => (
-            <Link key={link.to} to={link.to} onClick={() => setIsOpen(false)} className="text-secondary-foreground/90 hover:text-secondary-foreground font-semibold text-sm py-2 flex items-center gap-2">
-              {link.label}
-              {link.badge && <UBadge variant="danger">Dec. 2026</UBadge>}
-            </Link>
-          ))}
-          <div className="flex flex-col gap-2 mt-2">
-            {isAdmin && <Link to="/admin" onClick={() => setIsOpen(false)}><UButton variant="outline" size="sm" className="w-full">Admin</UButton></Link>}
-            {settings.page_membership && <Link to="/membership" onClick={() => setIsOpen(false)}><UButton variant="primary" size="sm" className="w-full">Adherer</UButton></Link>}
-            {settings.page_members && <Link to="/members" onClick={() => setIsOpen(false)}><UButton variant="outline" size="sm" className="w-full">Espace membres</UButton></Link>}
-          </div>
-        </div>
+        <MobileMenu
+          links={visibleLinks}
+          isAdmin={isAdmin}
+          showMembership={!!settings.page_membership}
+          showMembers={!!settings.page_members}
+          onClose={() => setIsOpen(false)}
+        />
       )}
     </nav>
   );

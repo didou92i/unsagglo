@@ -1,4 +1,5 @@
 import { useAdminContributions } from "@/hooks/useAdminContributions";
+import { useContribFilters } from "@/hooks/useContribFilters";
 import Spinner from "@/components/ui/Spinner";
 import UButton from "@/components/ui/UButton";
 import { Badge } from "@/components/ui/badge";
@@ -20,11 +21,12 @@ const truncate = (text: string, max = 80): string =>
 
 const ContributionsManager = (): JSX.Element => {
   const { contributions, loading } = useAdminContributions();
+  const { themeFilter, statutFilter, setThemeFilter, setStatutFilter, filtered } = useContribFilters(contributions);
 
   if (loading) return <Spinner />;
 
   const handleExport = (): void => {
-    exportCsv(contributions.map((c) => ({
+    exportCsv(filtered.map((c) => ({
       Prenom: c.anonyme ? "" : c.prenom,
       Service: c.anonyme ? "" : c.service,
       Statut: c.statut ? statutLabel(c.statut) : "",
@@ -41,9 +43,21 @@ const ContributionsManager = (): JSX.Element => {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground">{contributions.length} contribution(s)</p>
-        <UButton variant="outline" size="sm" onClick={handleExport}>Exporter CSV</UButton>
+      <div className="flex items-center justify-between flex-wrap gap-2">
+        <div className="flex items-center gap-2">
+          <select value={themeFilter} onChange={(e) => setThemeFilter(e.target.value)} className="text-sm border rounded px-2 py-1 bg-background text-foreground">
+            <option value="">Tous les themes</option>
+            {THEMES.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
+          </select>
+          <select value={statutFilter} onChange={(e) => setStatutFilter(e.target.value)} className="text-sm border rounded px-2 py-1 bg-background text-foreground">
+            <option value="">Tous les statuts</option>
+            {STATUTS.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
+          </select>
+        </div>
+        <div className="flex items-center gap-3">
+          <p className="text-sm text-muted-foreground">{filtered.length} contribution(s)</p>
+          <UButton variant="outline" size="sm" onClick={handleExport}>Exporter CSV</UButton>
+        </div>
       </div>
       <Table>
         <TableHeader>
@@ -58,7 +72,7 @@ const ContributionsManager = (): JSX.Element => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {contributions.map((c) => (
+          {filtered.map((c) => (
             <TableRow key={c.id}>
               <TableCell className="font-medium">{c.anonyme ? "\u2014" : c.prenom}</TableCell>
               <TableCell>{c.anonyme ? "\u2014" : c.service}</TableCell>
