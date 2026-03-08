@@ -14,7 +14,138 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      adherents: {
+        Row: {
+          created_at: string
+          email: string
+          grade: string | null
+          id: string
+          nom: string
+          prenom: string
+          service: string | null
+          statut: string
+          telephone: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          grade?: string | null
+          id?: string
+          nom: string
+          prenom: string
+          service?: string | null
+          statut?: string
+          telephone?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          grade?: string | null
+          id?: string
+          nom?: string
+          prenom?: string
+          service?: string | null
+          statut?: string
+          telephone?: string | null
+        }
+        Relationships: []
+      }
+      articles: {
+        Row: {
+          auteur: string
+          categorie: string
+          contenu: string
+          created_at: string
+          id: string
+          publie: boolean
+          slug: string
+          titre: string
+        }
+        Insert: {
+          auteur?: string
+          categorie: string
+          contenu: string
+          created_at?: string
+          id?: string
+          publie?: boolean
+          slug: string
+          titre: string
+        }
+        Update: {
+          auteur?: string
+          categorie?: string
+          contenu?: string
+          created_at?: string
+          id?: string
+          publie?: boolean
+          slug?: string
+          titre?: string
+        }
+        Relationships: []
+      }
+      contributions_elections: {
+        Row: {
+          contenu: string
+          created_at: string
+          id: string
+          prenom: string
+          service: string
+          theme: string
+        }
+        Insert: {
+          contenu: string
+          created_at?: string
+          id?: string
+          prenom: string
+          service: string
+          theme: string
+        }
+        Update: {
+          contenu?: string
+          created_at?: string
+          id?: string
+          prenom?: string
+          service?: string
+          theme?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          grade: string | null
+          id: string
+          nom: string
+          prenom: string
+          service: string | null
+          telephone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          grade?: string | null
+          id?: string
+          nom?: string
+          prenom?: string
+          service?: string | null
+          telephone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          grade?: string | null
+          id?: string
+          nom?: string
+          prenom?: string
+          service?: string | null
+          telephone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

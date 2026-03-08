@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adhesionSchema, useAdhesion, type AdhesionFormData } from "./useAdhesion";
+import { adhesionSchema, type AdhesionFormData } from "./useAdhesion";
+import { useAdhesionSubmit } from "@/hooks/useAdhesionSubmit";
 import { InputField, FormError } from "@/components/forms";
 import UButton from "@/components/ui/UButton";
 import UCard from "@/components/ui/UCard";
 
 const AdhesionForm = (): JSX.Element => {
-  const { submit, loading, success, error } = useAdhesion();
+  const { submit, loading, success, error } = useAdhesionSubmit();
   const { register, handleSubmit, formState: { errors } } = useForm<AdhesionFormData>({
     resolver: zodResolver(adhesionSchema),
   });

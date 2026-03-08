@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contribSchema, useContrib, type ContribFormData } from "./useContrib";
+import { contribSchema, type ContribFormData } from "./useContrib";
+import { useContribSubmit } from "@/hooks/useContribSubmit";
 import { InputField, SelectField, TextareaField, FormError } from "@/components/forms";
 import UButton from "@/components/ui/UButton";
 import UCard from "@/components/ui/UCard";
@@ -14,10 +15,19 @@ const THEME_OPTIONS = [
 ];
 
 const ContribForm = (): JSX.Element => {
-  const { submit, loading, success, error } = useContrib();
+  const { submit, loading, success, error } = useContribSubmit();
   const { register, handleSubmit, formState: { errors } } = useForm<ContribFormData>({
     resolver: zodResolver(contribSchema),
   });
+
+  const onSubmit = async (data: ContribFormData): Promise<void> => {
+    await submit({
+      prenom: data.prenom,
+      service: data.service,
+      theme: data.theme,
+      contenu: data.contenu,
+    });
+  };
 
   if (success) {
     return (
@@ -30,7 +40,7 @@ const ContribForm = (): JSX.Element => {
   }
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="max-w-lg mx-auto">
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg mx-auto">
       {error && <FormError message={error} />}
       <InputField<ContribFormData> label="Prenom" name="prenom" register={register} error={errors.prenom} placeholder="Votre prenom" />
       <SelectField<ContribFormData> label="Service" name="service" register={register} error={errors.service} options={[
