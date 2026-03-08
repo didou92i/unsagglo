@@ -4,7 +4,7 @@ import { adhesionSchema, type AdhesionFormData } from "./useAdhesion";
 import { useAdhesionSubmit } from "@/hooks/useAdhesionSubmit";
 import { InputField, FormError } from "@/components/forms";
 import UButton from "@/components/ui/UButton";
-import UCard from "@/components/ui/UCard";
+import SuccessCard from "@/components/ui/SuccessCard";
 
 const AdhesionForm = (): JSX.Element => {
   const { submit, loading, success, error } = useAdhesionSubmit();
@@ -13,13 +13,7 @@ const AdhesionForm = (): JSX.Element => {
   });
 
   if (success) {
-    return (
-      <UCard className="text-center border-2 border-green">
-        <svg className="h-12 w-12 text-green mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-        <h3 className="font-display text-xl font-bold text-foreground">Demande envoyee !</h3>
-        <p className="text-muted-foreground mt-2">Le bureau UNSAgglo reviendra vers vous sous 48h.</p>
-      </UCard>
-    );
+    return <SuccessCard title="Demande envoyee !" message="Le bureau UNSAgglo reviendra vers vous sous 48h." />;
   }
 
   return (
