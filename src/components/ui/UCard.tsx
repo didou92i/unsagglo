@@ -18,6 +18,7 @@ const UCard = ({ children, className = "", style, onClick, padding = "md" }: UCa
   return (
     <div
       onClick={onClick}
+      style={style}
       className={`bg-card rounded-[var(--radius-md)] shadow-[var(--shadow-card)] ${padStyles[padding]} ${onClick ? "cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-200" : ""} ${className}`}
     >
       {children}
