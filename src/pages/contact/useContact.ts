@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export const contactSchema = z.object({
   nom: z.string().min(2, "Nom requis"),
@@ -25,7 +27,6 @@ interface UseContactReturn extends ContactState {
 // n8n WORKFLOW -- Contact Form:
 // Trigger: POST webhook from this function
 // Step 1: Gmail MCP -> Forward message to SG UNSAgglo
-// (Configure webhook URL in n8n dashboard and set VITE_N8N_CONTACT_WEBHOOK in .env)
 
 export function useContact(): UseContactReturn {
   const [state, setState] = useState<ContactState>({ loading: false, success: false, error: null });
@@ -33,6 +34,11 @@ export function useContact(): UseContactReturn {
   const submit = async (data: ContactFormData): Promise<void> => {
     setState({ loading: true, success: false, error: null });
     try {
+      const { error: dbErr } = await supabase.from("contact_messages").insert([{
+        nom: data.nom, email: data.email, objet: data.objet, message: data.message,
+      }]);
+      if (dbErr) throw new Error(dbErr.message);
+
       const webhookUrl = import.meta.env.VITE_N8N_CONTACT_WEBHOOK as string;
       if (webhookUrl) {
         await fetch(webhookUrl, {
@@ -40,12 +46,12 @@ export function useContact(): UseContactReturn {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
-      } else {
-        await new Promise((resolve) => setTimeout(resolve, 1500));
       }
       setState({ loading: false, success: true, error: null });
+      toast.success("Message envoye avec succes !");
     } catch {
       setState({ loading: false, success: false, error: "Envoi impossible. Reessayez ou ecrivez directement a unsagglo@unsa.org" });
+      toast.error("Erreur lors de l'envoi du message.");
     }
   };
 
