@@ -30,7 +30,9 @@ const VisiteurDialog = ({ open, onOpenChange, onCta }: VisiteurDialogProps): JSX
           </AlertDialogDescription>
         </AlertDialogHeader>
         <p className="text-center text-base font-semibold text-foreground py-2">
-          Votre expertise mérite d&apos;être entendue. Contribuez dès maintenant.
+          Votre expertise mérite d&apos;être entendue.
+          <br />
+          Contribuez dès maintenant.
         </p>
         <AlertDialogFooter className="flex-col gap-3 sm:flex-col">
           <button
