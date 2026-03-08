@@ -6,9 +6,9 @@ interface PlaneConfig {
 }
 
 const PLANES: PlaneConfig[] = [
-  { top: "15%", opacity: 0.08, size: "w-10", animClass: "animate-fly-1" },
-  { top: "32%", opacity: 0.12, size: "w-14", animClass: "animate-fly-2" },
-  { top: "48%", opacity: 0.10, size: "w-8", animClass: "animate-fly-3" },
+  { top: "15%", opacity: 0.18, size: "w-20", animClass: "animate-fly-1" },
+  { top: "32%", opacity: 0.25, size: "w-28", animClass: "animate-fly-2" },
+  { top: "48%", opacity: 0.20, size: "w-16", animClass: "animate-fly-3" },
 ];
 
 const PlaneSvg = (): JSX.Element => (
@@ -16,10 +16,10 @@ const PlaneSvg = (): JSX.Element => (
     <path
       d="M4 34L24 30L44 18L56 14L60 16L50 28L30 34L24 48L18 48L22 34L4 38Z"
       stroke="hsl(var(--primary))"
-      strokeWidth="1.5"
+      strokeWidth="2"
       strokeLinejoin="round"
       fill="hsl(var(--primary))"
-      fillOpacity="0.15"
+      fillOpacity="0.3"
     />
   </svg>
 );
