@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import { MetaTags } from "@/components/seo";
 import unsaLogo from "@/assets/unsa-logo.png";
 import WaveBackground from "@/pages/home/WaveBackground";
+import EntryButton from "@/pages/home/EntryButton";
 
 const ORG_SCHEMA = {
   "@context": "https://schema.org",
