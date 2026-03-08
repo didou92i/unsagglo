@@ -1,41 +1,9 @@
-import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useVisitsStats } from "@/hooks/useVisitsStats";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import Spinner from "@/components/ui/Spinner";
 
-interface VisitStat {
-  page_path: string;
-  count: number;
-}
-
 const VisitsStats = (): JSX.Element => {
-  const [stats, setStats] = useState<VisitStat[]>([]);
-  const [total, setTotal] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchStats = async (): Promise<void> => {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from("page_visits")
-        .select("page_path");
-
-      if (!error && data) {
-        const counts: Record<string, number> = {};
-        for (const row of data) {
-          counts[row.page_path] = (counts[row.page_path] ?? 0) + 1;
-        }
-        const sorted = Object.entries(counts)
-          .map(([page_path, count]) => ({ page_path, count }))
-          .sort((a, b) => b.count - a.count);
-        setStats(sorted);
-        setTotal(data.length);
-      }
-      setLoading(false);
-    };
-
-    fetchStats();
-  }, []);
+  const { stats, total, loading } = useVisitsStats();
 
   if (loading) return <div className="flex justify-center py-8"><Spinner size="md" /></div>;
 
