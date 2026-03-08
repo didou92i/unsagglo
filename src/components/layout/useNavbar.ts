@@ -33,9 +33,10 @@ interface UseNavbarReturn {
     page_membership: boolean;
     page_members: boolean;
     page_plateforme: boolean;
+  };
+  visibleLinks: NavLink[];
 }
 
-export function useNavbar(): UseNavbarReturn {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { pathname } = useLocation();
   const { isAdmin } = useAdmin();
