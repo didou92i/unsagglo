@@ -89,6 +89,7 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          nom: string
           prenom: string
           service: string
           telephone: string
@@ -98,6 +99,7 @@ export type Database = {
           created_at?: string
           email: string
           id?: string
+          nom?: string
           prenom: string
           service: string
           telephone: string
@@ -107,6 +109,7 @@ export type Database = {
           created_at?: string
           email?: string
           id?: string
+          nom?: string
           prenom?: string
           service?: string
           telephone?: string
