@@ -2,7 +2,7 @@ const WaveBackground = (): JSX.Element => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
       <svg
-        className="absolute top-0 left-0 w-[200%] h-[80%] animate-wave-slow scale-y-[-1]"
+        className="absolute bottom-0 left-0 w-[200%] h-[60%] animate-wave-slow"
         viewBox="0 0 1440 320"
         preserveAspectRatio="none"
       >
@@ -13,7 +13,7 @@ const WaveBackground = (): JSX.Element => {
         />
       </svg>
       <svg
-        className="absolute top-0 left-0 w-[200%] h-[70%] animate-wave-mid scale-y-[-1]"
+        className="absolute bottom-0 left-0 w-[200%] h-[50%] animate-wave-mid"
         viewBox="0 0 1440 320"
         preserveAspectRatio="none"
       >
@@ -24,7 +24,7 @@ const WaveBackground = (): JSX.Element => {
         />
       </svg>
       <svg
-        className="absolute top-0 left-0 w-[200%] h-[60%] animate-wave-fast scale-y-[-1]"
+        className="absolute bottom-0 left-0 w-[200%] h-[40%] animate-wave-fast"
         viewBox="0 0 1440 320"
         preserveAspectRatio="none"
       >
