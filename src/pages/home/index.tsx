@@ -2,7 +2,6 @@ import { MetaTags } from "@/components/seo";
 import unsaLogo from "@/assets/unsa-logo.png";
 import cityBg from "@/assets/city-background.png";
 import WaveBackground from "@/pages/home/WaveBackground";
-import FlyingPlanes from "@/pages/home/FlyingPlanes";
 import EntryButton from "@/pages/home/EntryButton";
 
 const ORG_SCHEMA = {
@@ -28,7 +27,6 @@ const Home = (): JSX.Element => (
           className="absolute inset-0 w-full h-full object-cover object-center opacity-20 pointer-events-none z-0"
         />
         <WaveBackground />
-        <FlyingPlanes />
 
         <img
           src={unsaLogo}
