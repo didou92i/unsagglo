@@ -13,6 +13,13 @@ interface HeroBannerProps {
   badge?: string;
 }
 
+const scrollTo = (hash: string): void => {
+  const el = document.getElementById(hash.replace("#", ""));
+  el?.scrollIntoView({ behavior: "smooth" });
+};
+
+const isAnchor = (href: string): boolean => href.startsWith("#");
+
 const HeroBanner = ({
   title,
   highlight,
@@ -36,13 +43,25 @@ const HeroBanner = ({
           {subtitle}
         </p>
         <div className="flex flex-wrap gap-4 mt-8">
-          <Link to={ctaPrimaryHref}>
-            <UButton variant="primary" size="lg">{ctaPrimaryLabel}</UButton>
-          </Link>
-          {ctaSecondaryLabel && ctaSecondaryHref && (
-            <Link to={ctaSecondaryHref}>
-              <UButton variant="outline" size="lg">{ctaSecondaryLabel}</UButton>
+          {isAnchor(ctaPrimaryHref) ? (
+            <UButton variant="primary" size="lg" onClick={() => scrollTo(ctaPrimaryHref)}>
+              {ctaPrimaryLabel}
+            </UButton>
+          ) : (
+            <Link to={ctaPrimaryHref}>
+              <UButton variant="primary" size="lg">{ctaPrimaryLabel}</UButton>
             </Link>
+          )}
+          {ctaSecondaryLabel && ctaSecondaryHref && (
+            isAnchor(ctaSecondaryHref) ? (
+              <UButton variant="outline" size="lg" onClick={() => scrollTo(ctaSecondaryHref)}>
+                {ctaSecondaryLabel}
+              </UButton>
+            ) : (
+              <Link to={ctaSecondaryHref}>
+                <UButton variant="outline" size="lg">{ctaSecondaryLabel}</UButton>
+              </Link>
+            )
           )}
         </div>
       </div>

@@ -15,6 +15,7 @@ interface UseContribSubmitReturn {
   loading: boolean;
   success: boolean;
   error: string | null;
+  reset: () => void;
 }
 
 export function useContribSubmit(): UseContribSubmitReturn {
@@ -37,10 +38,15 @@ export function useContribSubmit(): UseContribSubmitReturn {
       toast.error("Erreur lors de l'envoi de la contribution.");
     } else {
       setSuccess(true);
-      toast.success("Contribution envoyee avec succes !");
+      toast.success("Contribution envoyée avec succès !");
     }
     setLoading(false);
   };
 
-  return { submit, loading, success, error };
+  const reset = (): void => {
+    setSuccess(false);
+    setError(null);
+  };
+
+  return { submit, loading, success, error, reset };
 }
