@@ -1,11 +1,20 @@
 import useEntryHover from "@/pages/home/useEntryHover";
+import VisiteurExpanded from "@/pages/home/VisiteurExpanded";
 
 const BASE_CLASSES =
   "px-8 py-3 text-base font-display font-bold tracking-widest uppercase bg-transparent border-2 border-primary text-primary rounded-full transition-all duration-300 hover:bg-primary/10 hover:shadow-lg cursor-pointer";
 
 const EntryButton = (): JSX.Element => {
-  const { hovered, onMouseEnter, onMouseLeave, goToMembers, goToNews } =
-    useEntryHover();
+  const {
+    hovered,
+    visiteurExpanded,
+    onMouseEnter,
+    onMouseLeave,
+    onVisiteurEnter,
+    onVisiteurLeave,
+    goToMembers,
+    goToElections,
+  } = useEntryHover();
 
   return (
     <div
@@ -29,9 +38,16 @@ const EntryButton = (): JSX.Element => {
         <button type="button" onClick={goToMembers} className={BASE_CLASSES}>
           Adherent
         </button>
-        <button type="button" onClick={goToNews} className={BASE_CLASSES}>
-          Visiteur
-        </button>
+        <div
+          onMouseEnter={onVisiteurEnter}
+          onMouseLeave={onVisiteurLeave}
+          className="relative flex items-center"
+        >
+          <button type="button" className={BASE_CLASSES}>
+            Visiteur
+          </button>
+          <VisiteurExpanded expanded={visiteurExpanded} onCta={goToElections} />
+        </div>
       </div>
     </div>
   );
