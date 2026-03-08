@@ -8,6 +8,7 @@ import AdherentsManager from "./AdherentsManager";
 import ArticlesManager from "./ArticlesManager";
 import VisitsStats from "./VisitsStats";
 import PagesManager from "./PagesManager";
+import SondagesManager from "./SondagesManager";
 
 const AdminPage = (): JSX.Element => {
   const { isAdmin, loading } = useAdmin();
