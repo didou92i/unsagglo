@@ -21,6 +21,11 @@ const Home = (): JSX.Element => (
         schema={ORG_SCHEMA}
       />
       <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background">
+        <img
+          src={cityBg}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-30 pointer-events-none z-0"
+        />
         <WaveBackground />
 
         <img
