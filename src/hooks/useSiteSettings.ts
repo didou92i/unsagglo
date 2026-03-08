@@ -8,6 +8,7 @@ interface SiteSettings {
   page_contact: boolean;
   page_membership: boolean;
   page_members: boolean;
+  page_plateforme: boolean;
 }
 
 interface UseSiteSettingsReturn {
@@ -23,6 +24,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
   page_contact: true,
   page_membership: true,
   page_members: true,
+  page_plateforme: true,
 };
 
 export function useSiteSettings(): UseSiteSettingsReturn {

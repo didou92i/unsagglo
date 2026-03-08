@@ -17,6 +17,7 @@ const NAV_LINKS: NavLink[] = [
   { label: "Actualites", to: "/news", settingKey: "page_news" },
   { label: "Vos Droits", to: "/rights", settingKey: "page_rights" },
   { label: "Elections 2026", to: "/elections", badge: true, settingKey: "page_elections" },
+  { label: "Plateforme", to: "/plateforme", settingKey: "page_plateforme" },
   { label: "Contact", to: "/contact", settingKey: "page_contact" },
 ];
 
