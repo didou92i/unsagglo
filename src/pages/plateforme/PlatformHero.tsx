@@ -56,7 +56,7 @@ const PlatformHero = (): JSX.Element => {
         <div className="flex items-center justify-center gap-4 mt-8 animate-fade-in-up">
           <a
             href="#contribution"
-            className="inline-block px-8 bg-primary text-primary-foreground font-display font-bold tracking-widest uppercase rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg py-[3px]">
+            className="inline-block px-8 bg-primary text-primary-foreground font-display font-bold tracking-widest uppercase rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg py-[4px]">
             
             Je contribue
           </a>
