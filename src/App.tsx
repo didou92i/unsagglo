@@ -58,7 +58,7 @@ const App = (): JSX.Element => (
               <Route path="/members" element={<ProtectedRoute><PageGuard settingKey="page_members"><Members /></PageGuard></ProtectedRoute>} />
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/register" element={<Register />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route path="/contact" element={<PageGuard settingKey="page_contact"><Contact /></PageGuard>} />
               <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
               <Route path="/mentions-legales" element={<Legal />} />
               <Route path="*" element={<NotFound />} />
