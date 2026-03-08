@@ -6,10 +6,14 @@ import {
   Table, TableHeader, TableHead, TableBody, TableRow, TableCell,
 } from "@/components/ui/table";
 import { THEMES } from "@/constants/themes";
+import { STATUTS } from "@/constants/statuts";
 import { exportCsv } from "@/lib/exportCsv";
 
 const themeLabel = (value: string): string =>
   THEMES.find((t) => t.value === value)?.label ?? value;
+
+const statutLabel = (value: string): string =>
+  STATUTS.find((s) => s.value === value)?.label ?? value;
 
 const truncate = (text: string, max = 80): string =>
   text.length > max ? `${text.slice(0, max)}...` : text;
@@ -23,6 +27,7 @@ const ContributionsManager = (): JSX.Element => {
     exportCsv(contributions.map((c) => ({
       Prenom: c.anonyme ? "" : c.prenom,
       Service: c.anonyme ? "" : c.service,
+      Statut: c.statut ?? "",
       Theme: c.theme, Contenu: c.contenu,
       Anonyme: c.anonyme ? "Oui" : "Non",
       Date: c.created_at,
@@ -44,6 +49,7 @@ const ContributionsManager = (): JSX.Element => {
           <TableRow>
             <TableHead>Prenom</TableHead>
             <TableHead>Service</TableHead>
+            <TableHead>Statut</TableHead>
             <TableHead>Theme</TableHead>
             <TableHead className="min-w-[240px]">Contenu</TableHead>
             <TableHead>Anonyme</TableHead>
@@ -55,6 +61,7 @@ const ContributionsManager = (): JSX.Element => {
             <TableRow key={c.id}>
               <TableCell className="font-medium">{c.anonyme ? "\u2014" : c.prenom}</TableCell>
               <TableCell>{c.anonyme ? "\u2014" : c.service}</TableCell>
+              <TableCell>{c.statut ? statutLabel(c.statut) : "\u2014"}</TableCell>
               <TableCell><Badge variant="outline">{themeLabel(c.theme)}</Badge></TableCell>
               <TableCell>{truncate(c.contenu)}</TableCell>
               <TableCell>{c.anonyme ? <Badge variant="secondary">Oui</Badge> : "Non"}</TableCell>

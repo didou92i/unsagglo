@@ -5,6 +5,7 @@ import { toast } from "sonner";
 interface ContribInput {
   prenom: string;
   service: string;
+  statut: string;
   theme: string;
   contenu: string;
   anonyme?: boolean;
@@ -29,6 +30,7 @@ export function useContribSubmit(): UseContribSubmitReturn {
     const { error: err } = await supabase.from("contributions_elections").insert([{
       prenom: data.prenom,
       service: data.service,
+      statut: data.statut,
       theme: data.theme,
       contenu: data.contenu,
       anonyme: data.anonyme ?? false,

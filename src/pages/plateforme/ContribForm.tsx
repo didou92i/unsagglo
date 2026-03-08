@@ -5,6 +5,7 @@ import { Bot } from "lucide-react";
 import { contribSchema, type ContribFormData } from "./contribSchema";
 import { InputField, SelectField, TextareaField, FormError } from "@/components/forms";
 import { THEME_GROUPS } from "@/constants/themes";
+import { STATUT_GROUPS } from "@/constants/statuts";
 import UButton from "@/components/ui/UButton";
 import { Checkbox } from "@/components/ui/checkbox";
 import ListeElectoraleInline from "./ListeElectoraleInline";
@@ -13,7 +14,7 @@ import ProposalAssistant from "./ProposalAssistant";
 interface ContribHook {
   loading: boolean;
   error: string | null;
-  submit: (data: { prenom: string; service: string; theme: string; contenu: string; anonyme: boolean }) => Promise<void>;
+  submit: (data: { prenom: string; service: string; statut: string; theme: string; contenu: string; anonyme: boolean }) => Promise<void>;
 }
 
 interface CandidatHook {
@@ -60,7 +61,7 @@ const ContribForm = ({ contrib, candidat }: ContribFormProps): JSX.Element => {
 
   const onSubmit = async (data: ContribFormData): Promise<void> => {
     const prenom = anonyme ? "Anonyme" : (data.prenom ?? "Anonyme");
-    await contrib.submit({ prenom, service: data.service, theme: data.theme, contenu: data.contenu, anonyme });
+    await contrib.submit({ prenom, service: data.service, statut: data.statut, theme: data.theme, contenu: data.contenu, anonyme });
     if (rejoindreListe && data.nom && data.email && data.telephone && data.adresse) {
       await candidat.submit({
         prenom: data.prenom ?? "", nom: data.nom, service: data.service,
@@ -87,6 +88,7 @@ const ContribForm = ({ contrib, candidat }: ContribFormProps): JSX.Element => {
         <InputField<ContribFormData> label="Pr&eacute;nom" name="prenom" register={register} error={errors.prenom} placeholder="Votre pr&eacute;nom" required={rejoindreListe} />
       )}
       <SelectField<ContribFormData> label="Service" name="service" register={register} error={errors.service} options={SERVICES} />
+      <SelectField<ContribFormData> label="Statut" name="statut" register={register} error={errors.statut} groups={STATUT_GROUPS} />
       <SelectField<ContribFormData> label="Th&egrave;me" name="theme" register={register} error={errors.theme} groups={THEME_GROUPS} />
       <TextareaField<ContribFormData> label="Votre proposition" name="contenu" register={register} error={errors.contenu} rows={5} placeholder="D&eacute;crivez votre proposition..." />
       <UButton type="button" variant="outline" size="sm" onClick={() => setAssistantOpen(true)} className="mb-4 gap-2">
