@@ -1,12 +1,10 @@
 import { useAdminContact } from "@/hooks/useAdminContact";
 import Spinner from "@/components/ui/Spinner";
 import { Badge } from "@/components/ui/badge";
+import HoverContentCell from "@/components/ui/HoverContentCell";
 import {
   Table, TableHeader, TableHead, TableBody, TableRow, TableCell,
 } from "@/components/ui/table";
-
-const truncate = (text: string, max = 120): string =>
-  text.length > max ? `${text.slice(0, max)}...` : text;
 
 const ContactManager = (): JSX.Element => {
   const { messages, loading } = useAdminContact();
@@ -36,7 +34,7 @@ const ContactManager = (): JSX.Element => {
               <TableCell className="font-medium">{m.nom}</TableCell>
               <TableCell>{m.email}</TableCell>
               <TableCell><Badge variant="outline">{m.objet}</Badge></TableCell>
-              <TableCell>{truncate(m.message)}</TableCell>
+              <HoverContentCell text={m.message} maxLength={120} />
               <TableCell className="text-muted-foreground text-sm">
                 {new Date(m.created_at).toLocaleDateString("fr-FR")}
               </TableCell>
