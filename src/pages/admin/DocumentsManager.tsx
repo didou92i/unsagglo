@@ -74,7 +74,7 @@ const DocumentsManager = (): JSX.Element => {
                       </AlertDialogHeader>
                       <AlertDialogFooter>
                         <AlertDialogCancel>Annuler</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => { setDeleting(d.name); handleDelete(); }}>
+                        <AlertDialogAction onClick={() => remove(d.name)}>
                           Supprimer
                         </AlertDialogAction>
                       </AlertDialogFooter>
