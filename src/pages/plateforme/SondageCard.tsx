@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Briefcase, Heart, TrendingUp, Brain, HelpCircle } from "lucide-react";
+import { Briefcase, TrendingUp, Brain, HelpCircle } from "lucide-react";
 import UCard from "@/components/ui/UCard";
 import { Progress } from "@/components/ui/progress";
 import { useVote } from "./useVote";

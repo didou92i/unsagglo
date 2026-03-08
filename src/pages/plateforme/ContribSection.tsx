@@ -1,17 +1,8 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { MessageSquarePlus } from "lucide-react";
 import { useContribSubmit } from "@/hooks/useContribSubmit";
 import { useCandidatSubmit } from "@/hooks/useCandidatSubmit";
-import { contribSchema, type ContribFormData } from "./contribSchema";
-import { InputField, SelectField, TextareaField, FormError } from "@/components/forms";
 import { SectionTitle } from "@/components/sections";
-import { THEMES } from "@/constants/themes";
-import UButton from "@/components/ui/UButton";
 import UCard from "@/components/ui/UCard";
-import { Checkbox } from "@/components/ui/checkbox";
-import ListeElectoraleInline from "./ListeElectoraleInline";
 import ContribSuccess from "./ContribSuccess";
 import ContribForm from "./ContribForm";
 

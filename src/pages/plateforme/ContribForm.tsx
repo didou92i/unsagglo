@@ -8,15 +8,21 @@ import UButton from "@/components/ui/UButton";
 import { Checkbox } from "@/components/ui/checkbox";
 import ListeElectoraleInline from "./ListeElectoraleInline";
 
-interface SubmitHook {
+interface ContribHook {
   loading: boolean;
   error: string | null;
-  submit: (data: Record<string, unknown>) => Promise<void>;
+  submit: (data: { prenom: string; service: string; theme: string; contenu: string; anonyme: boolean }) => Promise<void>;
+}
+
+interface CandidatHook {
+  loading: boolean;
+  error: string | null;
+  submit: (data: { prenom: string; nom: string; service: string; email: string; telephone: string; adresse: string }) => Promise<void>;
 }
 
 interface ContribFormProps {
-  contrib: SubmitHook;
-  candidat: SubmitHook;
+  contrib: ContribHook;
+  candidat: CandidatHook;
 }
 
 const SERVICES = [
@@ -73,7 +79,7 @@ const ContribForm = ({ contrib, candidat }: ContribFormProps): JSX.Element => {
       )}
       <SelectField<ContribFormData> label="Service" name="service" register={register} error={errors.service} options={SERVICES} />
       <SelectField<ContribFormData> label="Th&egrave;me" name="theme" register={register} error={errors.theme} options={THEMES} />
-      <TextareaField<ContribFormData> label="Votre proposition" name="contenu" register={register} error={errors.contenu} rows={5} placeholder="D&eacute;crivez votre proposition pour le programme..." />
+      <TextareaField<ContribFormData> label="Votre proposition" name="contenu" register={register} error={errors.contenu} rows={5} placeholder="D&eacute;crivez votre proposition..." />
       <ListeElectoraleInline checked={rejoindreListe} onCheckedChange={onCheckedChange} register={register} errors={errors} />
       <UButton type="submit" variant="primary" size="lg" loading={loading} className="w-full mt-4">Envoyer ma contribution</UButton>
     </form>
