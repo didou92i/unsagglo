@@ -28,6 +28,7 @@ const AdminPage = (): JSX.Element => {
             <TabsTrigger value="articles">Articles</TabsTrigger>
             <TabsTrigger value="stats">Statistiques</TabsTrigger>
             <TabsTrigger value="pages">Pages</TabsTrigger>
+            <TabsTrigger value="sondages">Sondages</TabsTrigger>
           </TabsList>
 
           <TabsContent value="adherents">

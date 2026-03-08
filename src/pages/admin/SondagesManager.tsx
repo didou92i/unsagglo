@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAdminSondages } from "@/hooks/useAdminSondages";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Spinner } from "@/components/ui/Spinner";
+import Spinner from "@/components/ui/Spinner";
 import SondageForm from "./SondageForm";
 import SondageResults from "./SondageResults";
 import { Plus, Pencil, BarChart3 } from "lucide-react";
