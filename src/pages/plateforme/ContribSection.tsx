@@ -8,7 +8,7 @@ import { InputField, SelectField, TextareaField, FormError } from "@/components/
 import { SectionTitle } from "@/components/sections";
 import { THEMES } from "@/constants/themes";
 import UButton from "@/components/ui/UButton";
-import UCard from "@/components/ui/UCard";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import ListeElectoraleInline from "./ListeElectoraleInline";
 import ContribSuccess from "./ContribSuccess";
