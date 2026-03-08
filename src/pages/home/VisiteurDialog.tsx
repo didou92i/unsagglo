@@ -24,7 +24,7 @@ const VisiteurDialog = ({ open, onOpenChange, onCta }: VisiteurDialogProps): JSX
           </AlertDialogTitle>
           <AlertDialogDescription className="text-base text-muted-foreground leading-relaxed pt-4">
             UNSAgglo ne décide pas à votre place. Nous construisons notre programme
-            avec vos idées et votre expertise — parce que vous connaissez mieux que
+            avec vos idées et votre expertise parce que vous connaissez mieux que
             quiconque la réalité du terrain. Toutes les contributions seront étudiées
             et intégrées à notre projet commun.
           </AlertDialogDescription>
