@@ -1,29 +1,52 @@
 
-Objectif: vous débloquer immédiatement l’accès à `/admin`.
 
-Constat actuel (vérifié):
-- Votre compte existe bien (`user_id = 2b079782-92e0-4213-aba6-97f7d6d01bed`).
-- Votre profil existe dans `profiles`.
-- Il n’existe **aucune ligne** dans `user_roles` pour ce `user_id`.
-- Donc `has_role(..., 'admin')` renvoie `false`, ce qui masque le bouton Admin et bloque la page.
+## Diagnostic
 
-Plan d’implémentation:
-1. Ajouter votre rôle admin en base
-   - Créer une migration SQL idempotente qui insère:
-     - `user_id = 2b079782-92e0-4213-aba6-97f7d6d01bed`
-     - `role = 'admin'`
-   - Utiliser `ON CONFLICT (user_id, role) DO NOTHING` pour éviter les doublons.
+Le probleme est une **condition de course** (race condition) dans `useAdmin`. Voici ce qui se passe :
 
-2. Vérifier la prise en compte côté application
-   - Contrôler que `has_role('...','admin')` retourne `true`.
-   - Recharger la session côté front (refresh ou reconnexion) pour afficher le bouton Admin.
+1. `useAuth` demarre avec `user: null, loading: true`
+2. `useAdmin` voit `user === null` et execute immediatement `setIsAdmin(false)` + `setLoading(false)` (ligne 17-19)
+3. La page `/admin` voit `loading: false` et `isAdmin: false` --> redirige vers `/`
+4. Ensuite seulement, `useAuth` termine et fournit le `user`, mais il est trop tard
 
-3. Validation fonctionnelle
-   - Vérifier l’accès à `/admin`.
-   - Vérifier l’affichage des 3 onglets (Adhérents, Articles, Statistiques).
-   - Vérifier qu’un non-admin reste redirigé vers `/`.
+Le hook `useAdmin` ne tient pas compte du `loading` de `useAuth`. Quand l'auth est encore en cours de chargement, il conclut prematurement que l'utilisateur n'est pas admin.
 
-Détails techniques:
-- La sécurité RBAC actuelle est correcte (table `user_roles` + fonction `has_role` + RLS admin).
-- Le problème n’est pas dans le code React principal, mais dans la donnée de rôle manquante.
-- Le trigger de création de profil n’est pas bloquant ici (le profil est déjà créé); seule l’affectation du rôle admin manque.
+## Correction
+
+Modifier `useAdmin.ts` pour inclure le `loading` de `useAuth` :
+
+- Importer `loading` depuis `useAuth()` (renomme en `authLoading`)
+- Tant que `authLoading` est `true`, garder `loading: true` dans `useAdmin` sans conclure
+- Ne verifier le role qu'une fois l'authentification resolue
+
+```typescript
+export function useAdmin(): UseAdminReturn {
+  const { user, loading: authLoading } = useAuth();
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (authLoading) {
+      setLoading(true);
+      return;
+    }
+
+    if (!user) {
+      setIsAdmin(false);
+      setLoading(false);
+      return;
+    }
+
+    const check = async (): Promise<void> => {
+      // ... RPC call inchangé
+    };
+
+    check();
+  }, [user, authLoading]);
+
+  return { isAdmin, loading };
+}
+```
+
+Aucune autre modification necessaire. Le composant `AdminPage` et le `Navbar` fonctionneront correctement une fois cette course eliminee.
+
