@@ -28,6 +28,7 @@ const Home = (): JSX.Element => (
           className="absolute inset-0 w-full h-full object-cover object-center opacity-20 pointer-events-none z-0"
         />
         <WaveBackground />
+        <FlyingPlanes />
 
         <img
           src={unsaLogo}
