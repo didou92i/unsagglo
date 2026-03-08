@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface ContribInput {
   prenom: string;
@@ -33,8 +34,10 @@ export function useContribSubmit(): UseContribSubmitReturn {
     }]);
     if (err) {
       setError(err.message);
+      toast.error("Erreur lors de l'envoi de la contribution.");
     } else {
       setSuccess(true);
+      toast.success("Contribution envoyee avec succes !");
     }
     setLoading(false);
   };

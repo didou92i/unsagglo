@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAdminSondages } from "@/hooks/useAdminSondages";
+import type { CreateSondagePayload } from "@/hooks/useAdminSondages";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/ui/Spinner";
 import SondageForm from "./SondageForm";
@@ -9,12 +10,8 @@ import { Plus } from "lucide-react";
 
 type View = "list" | "create" | "edit" | "results";
 
-interface EditState {
+interface EditState extends CreateSondagePayload {
   id: string;
-  question: string;
-  theme: string;
-  actif: boolean;
-  options: string[];
 }
 
 const SondagesManager = (): JSX.Element => {
@@ -25,14 +22,14 @@ const SondagesManager = (): JSX.Element => {
 
   if (loading) return <Spinner />;
 
-  const handleCreate = async (data: EditState extends never ? never : Omit<EditState, "id">): Promise<void> => {
-    await create(data as Parameters<typeof create>[0]);
+  const handleCreate = async (data: CreateSondagePayload): Promise<void> => {
+    await create(data);
     setView("list");
   };
 
-  const handleEdit = async (data: Omit<EditState, "id">): Promise<void> => {
+  const handleEdit = async (data: CreateSondagePayload): Promise<void> => {
     if (!editing) return;
-    await update(editing.id, data as Parameters<typeof update>[1]);
+    await update(editing.id, data);
     setEditing(null);
     setView("list");
   };

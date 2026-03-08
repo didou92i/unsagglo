@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 interface SondageOption {
   id: string;
@@ -18,7 +18,7 @@ interface AdminSondage {
   totalVotes: number;
 }
 
-interface CreateSondagePayload {
+export interface CreateSondagePayload {
   question: string;
   theme: string;
   actif: boolean;
@@ -46,7 +46,7 @@ export function useAdminSondages(): UseAdminSondagesReturn {
       .order("created_at", { ascending: false });
 
     if (error) {
-      toast({ title: "Erreur", description: "Impossible de charger les sondages.", variant: "destructive" });
+      toast.error("Impossible de charger les sondages.");
       setLoading(false);
       return;
     }
@@ -74,12 +74,12 @@ export function useAdminSondages(): UseAdminSondagesReturn {
       .from("sondages").insert({ question: p.question, theme: p.theme, actif: p.actif })
       .select("id").single();
     if (error || !data) {
-      toast({ title: "Erreur", description: "Creation du sondage echouee.", variant: "destructive" });
+      toast.error("Creation du sondage echouee.");
       return false;
     }
     const optRows = p.options.map((label) => ({ sondage_id: data.id, label }));
     await supabase.from("sondage_options").insert(optRows);
-    toast({ title: "Sondage cree" });
+    toast.success("Sondage cree !");
     await refresh();
     return true;
   };
@@ -88,12 +88,12 @@ export function useAdminSondages(): UseAdminSondagesReturn {
     const { error } = await supabase
       .from("sondages").update({ question: p.question, theme: p.theme, actif: p.actif }).eq("id", id);
     if (error) {
-      toast({ title: "Erreur", description: "Modification echouee.", variant: "destructive" });
+      toast.error("Modification echouee.");
       return false;
     }
     await supabase.from("sondage_options").delete().eq("sondage_id", id);
     await supabase.from("sondage_options").insert(p.options.map((label) => ({ sondage_id: id, label })));
-    toast({ title: "Sondage modifie" });
+    toast.success("Sondage modifie !");
     await refresh();
     return true;
   };
@@ -101,10 +101,10 @@ export function useAdminSondages(): UseAdminSondagesReturn {
   const toggleActif = async (id: string, actif: boolean): Promise<void> => {
     const { error } = await supabase.from("sondages").update({ actif }).eq("id", id);
     if (error) {
-      toast({ title: "Erreur", description: "Changement de statut echoue.", variant: "destructive" });
+      toast.error("Changement de statut echoue.");
       return;
     }
-    toast({ title: actif ? "Sondage active" : "Sondage desactive" });
+    toast.success(actif ? "Sondage active" : "Sondage desactive");
     await refresh();
   };
 
