@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { Suspense } from "react";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import PageLoader from "@/components/ui/PageLoader";
+import ProtectedRoute from "@/router/ProtectedRoute";
 
 const Home = React.lazy(() => import("@/pages/home"));
 const News = React.lazy(() => import("@/pages/news"));
@@ -15,6 +16,9 @@ const CitisDetail = React.lazy(() => import("@/pages/rights/citis"));
 const RightsDetail = React.lazy(() => import("@/pages/rights/RightsDetail"));
 const Elections = React.lazy(() => import("@/pages/elections"));
 const Membership = React.lazy(() => import("@/pages/membership"));
+const Members = React.lazy(() => import("@/pages/members"));
+const Login = React.lazy(() => import("@/pages/auth/login"));
+const Register = React.lazy(() => import("@/pages/auth/register"));
 const Contact = React.lazy(() => import("@/pages/contact"));
 const Legal = React.lazy(() => import("@/pages/legal"));
 
@@ -49,6 +53,9 @@ const App = (): JSX.Element => (
               <Route path="/rights/:categorie" element={<RightsDetail />} />
               <Route path="/elections" element={<Elections />} />
               <Route path="/membership" element={<Membership />} />
+              <Route path="/members" element={<ProtectedRoute><Members /></ProtectedRoute>} />
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/register" element={<Register />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/mentions-legales" element={<Legal />} />
               <Route path="*" element={<NotFound />} />

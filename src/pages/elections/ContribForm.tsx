@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contribSchema, useContrib, type ContribFormData } from "./useContrib";
+import { contribSchema, type ContribFormData } from "./useContrib";
+import { useContribSubmit } from "@/hooks/useContribSubmit";
 import { InputField, SelectField, TextareaField, FormError } from "@/components/forms";
 import UButton from "@/components/ui/UButton";
 import UCard from "@/components/ui/UCard";
@@ -14,7 +15,7 @@ const THEME_OPTIONS = [
 ];
 
 const ContribForm = (): JSX.Element => {
-  const { submit, loading, success, error } = useContrib();
+  const { submit, loading, success, error } = useContribSubmit();
   const { register, handleSubmit, formState: { errors } } = useForm<ContribFormData>({
     resolver: zodResolver(contribSchema),
   });
