@@ -2,18 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contribSchema, type ContribFormData } from "./contribSchema";
-
-interface ContribHook {
-  loading: boolean;
-  error: string | null;
-  submit: (data: { prenom: string; service: string; statut: string; theme: string; contenu: string; anonyme: boolean }) => Promise<void>;
-}
-
-interface CandidatHook {
-  loading: boolean;
-  error: string | null;
-  submit: (data: { prenom: string; nom: string; service: string; email: string; telephone: string; adresse: string }) => Promise<void>;
-}
+import type { ContribHook, CandidatHook } from "@/types/contrib";
 
 export interface UseContribFormReturn {
   anonyme: boolean;
