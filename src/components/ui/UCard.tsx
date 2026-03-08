@@ -14,7 +14,7 @@ const padStyles: Record<string, string> = {
   lg: "p-8",
 };
 
-const UCard = ({ children, className = "", onClick, padding = "md" }: UCardProps): JSX.Element => {
+const UCard = ({ children, className = "", style, onClick, padding = "md" }: UCardProps): JSX.Element => {
   return (
     <div
       onClick={onClick}
