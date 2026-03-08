@@ -55,7 +55,7 @@ const ContribSection = (): JSX.Element => {
   if (success) {
     return (
       <section id="contribution" className="px-4 md:px-6 py-16 bg-muted">
-        <UCard className="text-center border-2 max-w-lg mx-auto" style={{ borderColor: "var(--color-green)" }}>
+        <UCard className="text-center border-2 border-[var(--color-green)] max-w-lg mx-auto">
           <svg className="h-12 w-12 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="var(--color-green)">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
