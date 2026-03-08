@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Bot } from "lucide-react";
 import { contribSchema, type ContribFormData } from "./contribSchema";
 import { InputField, SelectField, TextareaField, FormError } from "@/components/forms";
 import { THEMES } from "@/constants/themes";
 import UButton from "@/components/ui/UButton";
 import { Checkbox } from "@/components/ui/checkbox";
 import ListeElectoraleInline from "./ListeElectoraleInline";
+import ProposalAssistant from "./ProposalAssistant";
 
 interface ContribHook {
   loading: boolean;
@@ -35,9 +37,12 @@ const SERVICES = [
 const ContribForm = ({ contrib, candidat }: ContribFormProps): JSX.Element => {
   const [anonyme, setAnonyme] = useState<boolean>(false);
   const [rejoindreListe, setRejoindreListe] = useState<boolean>(false);
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<ContribFormData>({
+  const [assistantOpen, setAssistantOpen] = useState<boolean>(false);
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<ContribFormData>({
     resolver: zodResolver(contribSchema),
   });
+
+  const currentTheme = watch("theme") ?? "";
 
   const onAnonymeChange = (checked: boolean): void => {
     setAnonyme(checked);
@@ -64,6 +69,10 @@ const ContribForm = ({ contrib, candidat }: ContribFormProps): JSX.Element => {
     }
   };
 
+  const handleUseProposal = (text: string): void => {
+    setValue("contenu", text);
+  };
+
   const loading = contrib.loading || candidat.loading;
   const error = contrib.error || candidat.error;
 
@@ -80,6 +89,10 @@ const ContribForm = ({ contrib, candidat }: ContribFormProps): JSX.Element => {
       <SelectField<ContribFormData> label="Service" name="service" register={register} error={errors.service} options={SERVICES} />
       <SelectField<ContribFormData> label="Th&egrave;me" name="theme" register={register} error={errors.theme} options={THEMES} />
       <TextareaField<ContribFormData> label="Votre proposition" name="contenu" register={register} error={errors.contenu} rows={5} placeholder="D&eacute;crivez votre proposition..." />
+      <UButton type="button" variant="outline" size="sm" onClick={() => setAssistantOpen(true)} className="mb-4 gap-2">
+        <Bot className="h-4 w-4" /> Assistant IA
+      </UButton>
+      <ProposalAssistant open={assistantOpen} onOpenChange={setAssistantOpen} theme={currentTheme} onUseProposal={handleUseProposal} />
       <ListeElectoraleInline checked={rejoindreListe} onCheckedChange={onCheckedChange} register={register} errors={errors} />
       <UButton type="submit" variant="primary" size="lg" loading={loading} className="w-full mt-4">Envoyer ma contribution</UButton>
     </form>
