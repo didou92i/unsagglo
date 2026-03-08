@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 import PageLoader from "@/components/ui/PageLoader";
 import AdherentsManager from "./AdherentsManager";
 import ArticlesManager from "./ArticlesManager";
+import DocumentsManager from "./DocumentsManager";
 import VisitsStats from "./VisitsStats";
 import PagesManager from "./PagesManager";
 import SondagesManager from "./SondagesManager";
@@ -28,6 +29,7 @@ const AdminPage = (): JSX.Element => {
           <TabsList className="mb-6 flex-wrap">
             <TabsTrigger value="adherents">Adherents</TabsTrigger>
             <TabsTrigger value="articles">Articles</TabsTrigger>
+            <TabsTrigger value="documents">Documents</TabsTrigger>
             <TabsTrigger value="contributions">Contributions</TabsTrigger>
             <TabsTrigger value="sondages">Sondages</TabsTrigger>
             <TabsTrigger value="candidats">Candidats liste</TabsTrigger>
@@ -35,27 +37,14 @@ const AdminPage = (): JSX.Element => {
             <TabsTrigger value="pages">Pages</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="adherents">
-            <AdherentsManager />
-          </TabsContent>
-          <TabsContent value="articles">
-            <ArticlesManager />
-          </TabsContent>
-          <TabsContent value="contributions">
-            <ContributionsManager />
-          </TabsContent>
-          <TabsContent value="sondages">
-            <SondagesManager />
-          </TabsContent>
-          <TabsContent value="candidats">
-            <CandidatsManager />
-          </TabsContent>
-          <TabsContent value="stats">
-            <VisitsStats />
-          </TabsContent>
-          <TabsContent value="pages">
-            <PagesManager />
-          </TabsContent>
+          <TabsContent value="adherents"><AdherentsManager /></TabsContent>
+          <TabsContent value="articles"><ArticlesManager /></TabsContent>
+          <TabsContent value="documents"><DocumentsManager /></TabsContent>
+          <TabsContent value="contributions"><ContributionsManager /></TabsContent>
+          <TabsContent value="sondages"><SondagesManager /></TabsContent>
+          <TabsContent value="candidats"><CandidatsManager /></TabsContent>
+          <TabsContent value="stats"><VisitsStats /></TabsContent>
+          <TabsContent value="pages"><PagesManager /></TabsContent>
         </Tabs>
       </section>
     </PageWrapper>

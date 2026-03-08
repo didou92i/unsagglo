@@ -4,9 +4,11 @@ import PageWrapper from "@/components/layout/PageWrapper";
 import { MetaTags } from "@/components/seo";
 import { SectionTitle } from "@/components/sections";
 import Spinner from "@/components/ui/Spinner";
+import UButton from "@/components/ui/UButton";
 import ArticleCard from "./ArticleCard";
 import ArticleFilters from "./ArticleFilters";
 import { useArticles } from "@/hooks/useArticles";
+import { Link } from "react-router-dom";
 
 const NewsPage = (): JSX.Element => {
   const [filter, setFilter] = useState<CategorieArticle | "tous">("tous");
@@ -34,7 +36,13 @@ const NewsPage = (): JSX.Element => {
           </div>
         )}
         {!loading && filtered.length === 0 && (
-          <p className="text-center text-muted-foreground py-12">Aucun article trouve.</p>
+          <div className="text-center py-16 space-y-4">
+            <p className="text-muted-foreground text-lg">Aucun article pour le moment.</p>
+            <p className="text-sm text-muted-foreground">Revenez bientot ou consultez la plateforme participative.</p>
+            <Link to="/plateforme">
+              <UButton variant="outline" size="sm">Voir la plateforme</UButton>
+            </Link>
+          </div>
         )}
       </section>
     </PageWrapper>
