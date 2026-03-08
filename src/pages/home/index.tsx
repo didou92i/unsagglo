@@ -20,7 +20,7 @@ const Home = (): JSX.Element => (
         description="UNSAgglo defend les droits des agents territoriaux de la Communaute Roissy Pays de France."
         schema={ORG_SCHEMA}
       />
-      <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background">
+      <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background [perspective:800px]">
         <img
           src={cityBg}
           alt=""
@@ -31,7 +31,7 @@ const Home = (): JSX.Element => (
         <img
           src={unsaLogo}
           alt="Logo UNSAgglo"
-          className="w-[240px] md:w-[320px] h-auto mb-14 animate-fade-in-up relative z-10 drop-shadow-2xl transition-transform duration-700 hover:[transform:rotateY(360deg)]"
+          className="w-[240px] md:w-[320px] h-auto mb-14 animate-fade-in-up relative z-10 drop-shadow-2xl hover:animate-[spin-y_0.8s_ease-in-out]"
           style={{ filter: "drop-shadow(0 0 12px rgba(0,157,230,0.35)) drop-shadow(0 4px 24px rgba(0,157,230,0.18))" }}
         />
 
