@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 interface UCardProps {
   children: ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   onClick?: () => void;
   padding?: "sm" | "md" | "lg";
 }
