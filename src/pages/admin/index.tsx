@@ -8,6 +8,7 @@ import AdherentsManager from "./AdherentsManager";
 import ArticlesManager from "./ArticlesManager";
 import VisitsStats from "./VisitsStats";
 import PagesManager from "./PagesManager";
+import SondagesManager from "./SondagesManager";
 
 const AdminPage = (): JSX.Element => {
   const { isAdmin, loading } = useAdmin();
@@ -27,6 +28,7 @@ const AdminPage = (): JSX.Element => {
             <TabsTrigger value="articles">Articles</TabsTrigger>
             <TabsTrigger value="stats">Statistiques</TabsTrigger>
             <TabsTrigger value="pages">Pages</TabsTrigger>
+            <TabsTrigger value="sondages">Sondages</TabsTrigger>
           </TabsList>
 
           <TabsContent value="adherents">
@@ -40,6 +42,9 @@ const AdminPage = (): JSX.Element => {
           </TabsContent>
           <TabsContent value="pages">
             <PagesManager />
+          </TabsContent>
+          <TabsContent value="sondages">
+            <SondagesManager />
           </TabsContent>
         </Tabs>
       </section>
