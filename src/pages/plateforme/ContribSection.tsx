@@ -29,16 +29,27 @@ const ContribSection = (): JSX.Element => {
     resolver: zodResolver(contribSchema),
   });
 
+  const onAnonymeChange = (checked: boolean): void => {
+    setAnonyme(checked);
+    if (checked) {
+      setRejoindreListe(false);
+      setValue("rejoindreListe", false);
+    }
+  };
+
   const onCheckedChange = (checked: boolean): void => {
     setRejoindreListe(checked);
     setValue("rejoindreListe", checked);
+    if (checked) {
+      setAnonyme(false);
+    }
   };
 
   const onSubmit = async (data: ContribFormData): Promise<void> => {
     const prenom = anonyme ? "Anonyme" : (data.prenom ?? "Anonyme");
     await contrib.submit({ prenom, service: data.service, theme: data.theme, contenu: data.contenu, anonyme });
     if (rejoindreListe && data.nom && data.email && data.telephone && data.adresse) {
-      await candidat.submit({ prenom, nom: data.nom, service: data.service, email: data.email, telephone: data.telephone, adresse: data.adresse });
+      await candidat.submit({ prenom: data.prenom ?? "", nom: data.nom, service: data.service, email: data.email, telephone: data.telephone, adresse: data.adresse });
     }
   };
 
