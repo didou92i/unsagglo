@@ -21,6 +21,7 @@ const Login = React.lazy(() => import("@/pages/auth/login"));
 const Register = React.lazy(() => import("@/pages/auth/register"));
 const Contact = React.lazy(() => import("@/pages/contact"));
 const Legal = React.lazy(() => import("@/pages/legal"));
+const Admin = React.lazy(() => import("@/pages/admin"));
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,7 @@ const App = (): JSX.Element => (
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/register" element={<Register />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
               <Route path="/mentions-legales" element={<Legal />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
