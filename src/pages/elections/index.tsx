@@ -1,11 +1,12 @@
 import { Euro, Building2, TrendingUp, ShieldAlert } from "lucide-react";
 import type { ElementType } from "react";
+import { Link } from "react-router-dom";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { MetaTags } from "@/components/seo";
 import { HeroBanner, SectionTitle } from "@/components/sections";
 import UCard from "@/components/ui/UCard";
+import UButton from "@/components/ui/UButton";
 import ProgramSection from "./ProgramSection";
-import ContribForm from "./ContribForm";
 
 interface Engagement {
   titre: string;
@@ -30,7 +31,7 @@ const ElectionsPage = (): JSX.Element => {
         subtitle="Construisons ensemble le programme qui défend vos intérêts."
         badge="Décembre 2026"
         ctaPrimaryLabel="Je contribue"
-        ctaPrimaryHref="#contribution"
+        ctaPrimaryHref="/plateforme#contribution"
         ctaSecondaryLabel="Notre programme"
         ctaSecondaryHref="#programme"
       />
@@ -57,8 +58,15 @@ const ElectionsPage = (): JSX.Element => {
         <ProgramSection />
       </section>
       <section id="contribution" className="px-4 md:px-6 py-16">
-        <SectionTitle title="Faites entendre votre voix" subtitle="Proposez vos idées pour construire notre programme." />
-        <ContribForm />
+        <SectionTitle title="Faites entendre votre voix" subtitle="Proposez vos idées sur notre plateforme participative." />
+        <div className="text-center max-w-lg mx-auto">
+          <p className="text-muted-foreground mb-6">
+            Toutes les contributions sont centralisées sur notre plateforme participative. Partagez vos propositions et participez aux sondages thématiques.
+          </p>
+          <Link to="/plateforme#contribution">
+            <UButton variant="primary" size="lg">Accéder à la plateforme</UButton>
+          </Link>
+        </div>
       </section>
     </PageWrapper>
   );
