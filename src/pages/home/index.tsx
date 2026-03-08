@@ -32,7 +32,7 @@ const Home = (): JSX.Element => (
         <EntryButton />
       </div>
     </>
-  );
-};
+);
+
 
 export default Home;
