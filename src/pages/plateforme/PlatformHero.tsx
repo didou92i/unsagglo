@@ -17,8 +17,8 @@ const StatItem = ({ value, label }: StatItemProps): JSX.Element => {
         {animated}
       </span>
       <p className="text-muted-foreground text-sm mt-1">{label}</p>
-    </div>
-  );
+    </div>);
+
 };
 
 const PlatformHero = (): JSX.Element => {
@@ -29,16 +29,16 @@ const PlatformHero = (): JSX.Element => {
       <img
         src={cityBg}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0"
-      />
+        className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-0" />
+      
       <WaveBackground />
 
       <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
         <img
           src={unsaLogo}
           alt="Logo UNSAgglo"
-          className="w-[160px] md:w-[200px] h-auto mx-auto mb-8 animate-fade-in-up drop-shadow-2xl"
-        />
+          className="w-[160px] md:w-[200px] h-auto mx-auto mb-8 animate-fade-in-up drop-shadow-2xl" />
+        
 
         <h1 className="font-display text-4xl md:text-6xl font-black text-secondary animate-fade-in-up">
           Construisons Ensemble
@@ -56,20 +56,20 @@ const PlatformHero = (): JSX.Element => {
         <div className="flex items-center justify-center gap-4 mt-8 animate-fade-in-up">
           <a
             href="#contribution"
-            className="inline-block px-8 py-3 bg-primary text-primary-foreground font-display font-bold tracking-widest uppercase rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg"
-          >
+            className="inline-block px-8 bg-primary text-primary-foreground font-display font-bold tracking-widest uppercase rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg py-[3px]">
+            
             Je contribue
           </a>
           <a
             href="#sondages"
-            className="inline-block px-8 py-3 bg-transparent border-2 border-primary text-primary font-display font-bold tracking-widest uppercase rounded-full transition-all duration-300 hover:bg-primary/10"
-          >
+            className="inline-block px-8 bg-transparent border-2 border-primary text-primary font-display font-bold tracking-widest uppercase rounded-full transition-all duration-300 hover:bg-primary/10 py-[3px]">
+            
             Voir les sondages
           </a>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default PlatformHero;
