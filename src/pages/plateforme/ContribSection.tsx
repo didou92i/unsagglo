@@ -29,16 +29,27 @@ const ContribSection = (): JSX.Element => {
     resolver: zodResolver(contribSchema),
   });
 
+  const onAnonymeChange = (checked: boolean): void => {
+    setAnonyme(checked);
+    if (checked) {
+      setRejoindreListe(false);
+      setValue("rejoindreListe", false);
+    }
+  };
+
   const onCheckedChange = (checked: boolean): void => {
     setRejoindreListe(checked);
     setValue("rejoindreListe", checked);
+    if (checked) {
+      setAnonyme(false);
+    }
   };
 
   const onSubmit = async (data: ContribFormData): Promise<void> => {
     const prenom = anonyme ? "Anonyme" : (data.prenom ?? "Anonyme");
     await contrib.submit({ prenom, service: data.service, theme: data.theme, contenu: data.contenu, anonyme });
     if (rejoindreListe && data.nom && data.email && data.telephone && data.adresse) {
-      await candidat.submit({ prenom, nom: data.nom, service: data.service, email: data.email, telephone: data.telephone, adresse: data.adresse });
+      await candidat.submit({ prenom: data.prenom ?? "", nom: data.nom, service: data.service, email: data.email, telephone: data.telephone, adresse: data.adresse });
     }
   };
 
@@ -53,11 +64,11 @@ const ContribSection = (): JSX.Element => {
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg mx-auto">
         {error && <FormError message={error} />}
         <div className="flex items-center gap-2 mb-4">
-          <Checkbox id="anonyme" checked={anonyme} onCheckedChange={(checked) => setAnonyme(checked === true)} />
+          <Checkbox id="anonyme" checked={anonyme} onCheckedChange={(checked) => onAnonymeChange(checked === true)} disabled={rejoindreListe} />
           <label htmlFor="anonyme" className="text-sm text-foreground cursor-pointer">Contribution anonyme</label>
         </div>
         {!anonyme && (
-          <InputField<ContribFormData> label="Prenom" name="prenom" register={register} error={errors.prenom} placeholder="Votre prenom" />
+          <InputField<ContribFormData> label="Prenom" name="prenom" register={register} error={errors.prenom} placeholder="Votre prenom" required={rejoindreListe} />
         )}
         <SelectField<ContribFormData> label="Service" name="service" register={register} error={errors.service} options={SERVICES} />
         <SelectField<ContribFormData> label="Theme" name="theme" register={register} error={errors.theme} options={THEMES} />

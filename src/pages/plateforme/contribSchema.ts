@@ -17,6 +17,9 @@ export const contribSchema = z.object({
   adresse: z.string().optional(),
 }).superRefine((data, ctx) => {
   if (!data.rejoindreListe) return;
+  if (!data.prenom || data.prenom.length < 2) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Prenom requis (2 caracteres minimum)", path: ["prenom"] });
+  }
   if (!data.nom || data.nom.length < 2) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Nom requis (2 caracteres minimum)", path: ["nom"] });
   }
