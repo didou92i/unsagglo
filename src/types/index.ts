@@ -6,12 +6,7 @@ export type CategorieArticle =
   | 'cr_cst'
   | 'fiche_droit';
 
-export type ThemeElection =
-  | 'remuneration'
-  | 'conditions_travail'
-  | 'carriere'
-  | 'rps'
-  | 'autre';
+export type ThemeElection = string;
 
 export type CategoriesDroit =
   | 'carriere'
