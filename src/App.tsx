@@ -7,6 +7,7 @@ import React, { Suspense } from "react";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import PageLoader from "@/components/ui/PageLoader";
 import ProtectedRoute from "@/router/ProtectedRoute";
+import PageGuard from "@/router/PageGuard";
 
 const Home = React.lazy(() => import("@/pages/home"));
 const News = React.lazy(() => import("@/pages/news"));
@@ -47,14 +48,14 @@ const App = (): JSX.Element => (
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/news" element={<News />} />
-              <Route path="/news/:slug" element={<ArticleDetail />} />
-              <Route path="/rights" element={<Rights />} />
-              <Route path="/rights/citis" element={<CitisDetail />} />
-              <Route path="/rights/:categorie" element={<RightsDetail />} />
-              <Route path="/elections" element={<Elections />} />
-              <Route path="/membership" element={<Membership />} />
-              <Route path="/members" element={<ProtectedRoute><Members /></ProtectedRoute>} />
+              <Route path="/news" element={<PageGuard settingKey="page_news"><News /></PageGuard>} />
+              <Route path="/news/:slug" element={<PageGuard settingKey="page_news"><ArticleDetail /></PageGuard>} />
+              <Route path="/rights" element={<PageGuard settingKey="page_rights"><Rights /></PageGuard>} />
+              <Route path="/rights/citis" element={<PageGuard settingKey="page_rights"><CitisDetail /></PageGuard>} />
+              <Route path="/rights/:categorie" element={<PageGuard settingKey="page_rights"><RightsDetail /></PageGuard>} />
+              <Route path="/elections" element={<PageGuard settingKey="page_elections"><Elections /></PageGuard>} />
+              <Route path="/membership" element={<PageGuard settingKey="page_membership"><Membership /></PageGuard>} />
+              <Route path="/members" element={<ProtectedRoute><PageGuard settingKey="page_members"><Members /></PageGuard></ProtectedRoute>} />
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/register" element={<Register />} />
               <Route path="/contact" element={<Contact />} />
