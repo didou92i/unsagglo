@@ -6,6 +6,11 @@ import UButton from "@/components/ui/UButton";
 import Spinner from "@/components/ui/Spinner";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "@/hooks/use-toast";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel,
+  AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
+  AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import ArticleForm from "./ArticleForm";
 
 interface ArticleRow {
@@ -91,7 +96,23 @@ const ArticlesManager = (): JSX.Element => {
                 <Switch checked={a.publie} onCheckedChange={() => togglePublie(a.id, a.publie)} />
               </TableCell>
               <TableCell>
-                <UButton variant="danger" size="sm" onClick={() => deleteArticle(a.id)}>Supprimer</UButton>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <UButton variant="danger" size="sm">Supprimer</UButton>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Supprimer l'article &laquo; {a.titre} &raquo; ? Cette action est irreversible.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Annuler</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => deleteArticle(a.id)}>Supprimer</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </TableCell>
             </TableRow>
           ))}
