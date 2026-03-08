@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Bot, Send, Check } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import UButton from "@/components/ui/UButton";
 import ChatMessage from "./ChatMessage";
 import { useProposalChat } from "@/hooks/useProposalChat";
@@ -34,11 +33,18 @@ const ProposalAssistant = ({ open, onOpenChange, theme, onUseProposal }: Proposa
   };
 
   const lastAssistant = [...messages].reverse().find((m) => m.role === "assistant");
+  const lastIdx = messages.length - 1;
 
   const handleUse = (): void => {
     if (!lastAssistant) return;
-    onUseProposal(lastAssistant.content);
+    const clean = lastAssistant.content.replace(/\[SUGGESTIONS].*?\[\/SUGGESTIONS]/s, "").trim();
+    onUseProposal(clean);
     onOpenChange(false);
+  };
+
+  const handleSuggestion = (text: string): void => {
+    if (isLoading) return;
+    send(text);
   };
 
   return (
@@ -51,7 +57,7 @@ const ProposalAssistant = ({ open, onOpenChange, theme, onUseProposal }: Proposa
           </DialogTitle>
         </DialogHeader>
 
-        <ScrollArea className="flex-1 px-6" ref={scrollRef}>
+        <div className="flex-1 overflow-y-auto px-6" ref={scrollRef}>
           <div className="flex flex-col gap-3 py-2">
             {messages.length === 0 && (
               <p className="text-sm text-muted-foreground text-center py-8">
@@ -59,9 +65,15 @@ const ProposalAssistant = ({ open, onOpenChange, theme, onUseProposal }: Proposa
               </p>
             )}
             {messages.map((m, i) => (
-              <ChatMessage key={i} role={m.role} content={m.content} />
+              <ChatMessage
+                key={i}
+                role={m.role}
+                content={m.content}
+                onSuggestionClick={i === lastIdx && m.role === "assistant" ? handleSuggestion : undefined}
+                disableSuggestions={isLoading}
+              />
             ))}
-            {isLoading && messages[messages.length - 1]?.role === "user" && (
+            {isLoading && messages[lastIdx]?.role === "user" && (
               <div className="flex gap-2">
                 <div className="h-7 w-7 rounded-full bg-accent flex items-center justify-center">
                   <Bot className="h-4 w-4 text-accent-foreground animate-pulse" />
@@ -70,7 +82,7 @@ const ProposalAssistant = ({ open, onOpenChange, theme, onUseProposal }: Proposa
               </div>
             )}
           </div>
-        </ScrollArea>
+        </div>
 
         <div className="border-t px-6 py-3 flex flex-col gap-2">
           <div className="flex gap-2">
