@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Plus, Trash2 } from "lucide-react";
-import { THEMES } from "@/constants/themes";
+import { THEME_GROUPS } from "@/constants/themes";
 
 interface SondageFormData {
   question: string;
@@ -62,7 +62,11 @@ const SondageForm = ({ initial, onSubmit, onCancel }: SondageFormProps): JSX.Ele
       <div>
         <Label>Theme</Label>
         <select value={data.theme} onChange={(e) => setField("theme", e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-          {THEMES.map((t) => (<option key={t.value} value={t.value}>{t.label}</option>))}
+          {THEME_GROUPS.map((g) => (
+            <optgroup key={g.group} label={g.group}>
+              {g.options.map((t) => (<option key={t.value} value={t.value}>{t.label}</option>))}
+            </optgroup>
+          ))}
         </select>
       </div>
       <div className="flex items-center gap-2">
