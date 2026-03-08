@@ -67,7 +67,7 @@ const ContributionsManager = (): JSX.Element => {
               <TableCell>{c.anonyme ? "\u2014" : serviceLabel(c.service)}</TableCell>
               <TableCell>{c.statut ? statutLabel(c.statut) : "\u2014"}</TableCell>
               <TableCell><Badge variant="outline">{themeLabel(c.theme)}</Badge></TableCell>
-              <TableCell>{truncate(c.contenu)}</TableCell>
+              <ContribContentCell text={c.contenu} />
               <TableCell>{c.anonyme ? <Badge variant="secondary">Oui</Badge> : "Non"}</TableCell>
               <TableCell className="text-muted-foreground text-sm">
                 {new Date(c.created_at).toLocaleDateString("fr-FR")}
