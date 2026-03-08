@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import { MetaTags } from "@/components/seo";
 import unsaLogo from "@/assets/unsa-logo.png";
 import WaveBackground from "@/pages/home/WaveBackground";
+import EntryButton from "@/pages/home/EntryButton";
 
 const ORG_SCHEMA = {
   "@context": "https://schema.org",
@@ -12,10 +12,7 @@ const ORG_SCHEMA = {
   email: "unsagglo@unsa.org",
 };
 
-const Home = (): JSX.Element => {
-  const navigate = useNavigate();
-
-  return (
+const Home = (): JSX.Element => (
     <>
       <MetaTags
         title="Accueil"
@@ -32,16 +29,10 @@ const Home = (): JSX.Element => {
           style={{ filter: "drop-shadow(0 0 12px rgba(0,157,230,0.35)) drop-shadow(0 4px 24px rgba(0,157,230,0.18))" }}
         />
 
-        <button
-          type="button"
-          onClick={() => navigate("/news")}
-          className="relative z-10 px-12 py-3.5 text-lg font-display font-bold tracking-widest uppercase bg-transparent border-2 border-[#009de6] text-[#009de6] rounded-full transition-all duration-300 hover:bg-[#009de6]/10 hover:shadow-lg cursor-pointer animate-fade-in-up [animation-delay:200ms]"
-        >
-          Entrer
-        </button>
+        <EntryButton />
       </div>
     </>
-  );
-};
+);
+
 
 export default Home;
