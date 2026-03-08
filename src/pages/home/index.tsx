@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { MetaTags } from "@/components/seo";
 import unsaLogo from "@/assets/unsa-logo.png";
+import WaveBackground from "@/pages/home/WaveBackground";
 
 const ORG_SCHEMA = {
   "@context": "https://schema.org",
@@ -22,9 +23,7 @@ const Home = (): JSX.Element => {
         schema={ORG_SCHEMA}
       />
       <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background">
-        <div className="absolute -top-20 -right-40 w-[600px] h-[600px] rounded-full bg-[var(--color-cyan)] opacity-20 blur-[80px] pointer-events-none z-0" />
-        <div className="absolute -bottom-32 -left-28 w-[400px] h-[400px] rounded-full bg-[var(--color-cyan)] opacity-[0.18] blur-[60px] pointer-events-none z-0" />
-        <div className="absolute top-10 -left-20 w-[250px] h-[250px] rounded-full bg-[var(--color-cyan)] opacity-[0.15] blur-[50px] pointer-events-none z-0" />
+        <WaveBackground />
 
         <img
           src={unsaLogo}
@@ -35,7 +34,7 @@ const Home = (): JSX.Element => {
         <button
           type="button"
           onClick={() => navigate("/news")}
-          className="relative z-10 px-12 py-3.5 text-lg font-display font-bold tracking-widest uppercase bg-[var(--color-cyan)] text-primary-foreground rounded-full transition-all duration-300 hover:opacity-90 hover:shadow-lg cursor-pointer animate-fade-in-up [animation-delay:200ms]"
+          className="relative z-10 px-12 py-3.5 text-lg font-display font-bold tracking-widest uppercase bg-transparent border-2 border-[#009de6] text-[#009de6] rounded-full transition-all duration-300 hover:bg-[#009de6]/10 hover:shadow-lg cursor-pointer animate-fade-in-up [animation-delay:200ms]"
         >
           Entrer
         </button>
