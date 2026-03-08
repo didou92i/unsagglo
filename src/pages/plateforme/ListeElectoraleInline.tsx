@@ -24,7 +24,7 @@ const ListeElectoraleInline = ({
         onCheckedChange={(v) => onCheckedChange(v === true)}
       />
       <label htmlFor="rejoindreListe" className="text-sm font-medium text-foreground cursor-pointer leading-tight">
-        Je souhaite rejoindre la liste electorale UNSAgglo
+        Je souhaite rejoindre la liste &eacute;lectorale UNSAgglo
       </label>
     </div>
     {checked && (
@@ -34,9 +34,9 @@ const ListeElectoraleInline = ({
         </p>
         <ListeElectoraleFields register={register} errors={errors} />
         <p className="text-xs text-muted-foreground mt-2">
-          Conformement au RGPD, ces informations sont strictement confidentielles,
-          reservees a l'usage interne d'UNSAgglo et accessibles uniquement aux
-          responsables habilites. Elles ne seront ni transmises ni publiees.
+          Conform&eacute;ment au RGPD, ces informations sont strictement confidentielles,
+          r&eacute;serv&eacute;es &agrave; l&apos;usage interne d&apos;UNSAgglo et accessibles uniquement aux
+          responsables habilit&eacute;s. Elles ne seront ni transmises ni publi&eacute;es.
         </p>
       </>
     )}

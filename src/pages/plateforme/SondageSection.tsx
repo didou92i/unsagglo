@@ -10,17 +10,17 @@ const SondageSection = (): JSX.Element => {
 
   if (sondages.length === 0) {
     return (
-      <section className="px-4 md:px-6 py-16">
+      <section id="sondages" className="px-4 md:px-6 py-16 bg-muted">
         <SectionTitle title="Sondages" subtitle="Aucun sondage actif pour le moment." />
       </section>
     );
   }
 
   return (
-    <section className="px-4 md:px-6 py-16">
+    <section id="sondages" className="px-4 md:px-6 py-16 bg-muted">
       <SectionTitle
-        title="Sondages thematiques"
-        subtitle="Donnez votre avis sur les sujets cles."
+        title="Sondages th&eacute;matiques"
+        subtitle="Donnez votre avis sur les sujets cl&eacute;s."
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         {sondages.map((s) => (
