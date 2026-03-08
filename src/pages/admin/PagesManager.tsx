@@ -4,8 +4,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import Spinner from "@/components/ui/Spinner";
 
+
 interface PageToggleItem {
-  key: "page_news" | "page_rights" | "page_elections" | "page_contact" | "page_membership" | "page_members";
+  key: "page_news" | "page_rights" | "page_elections" | "page_contact" | "page_membership" | "page_members" | "page_plateforme";
   label: string;
   description: string;
 }
@@ -17,6 +18,7 @@ const PAGES: PageToggleItem[] = [
   { key: "page_contact", label: "Contact", description: "/contact" },
   { key: "page_membership", label: "Adhesion", description: "/membership" },
   { key: "page_members", label: "Espace membres", description: "/members" },
+  { key: "page_plateforme", label: "Plateforme participative", description: "/plateforme" },
 ];
 
 const PagesManager = (): JSX.Element => {
