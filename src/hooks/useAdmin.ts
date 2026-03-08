@@ -8,11 +8,16 @@ interface UseAdminReturn {
 }
 
 export function useAdmin(): UseAdminReturn {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    if (authLoading) {
+      setLoading(true);
+      return;
+    }
+
     if (!user) {
       setIsAdmin(false);
       setLoading(false);
@@ -24,16 +29,11 @@ export function useAdmin(): UseAdminReturn {
         _user_id: user.id,
         _role: "admin",
       });
-      if (!error && data === true) {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-      }
+      setIsAdmin(!error && data === true);
       setLoading(false);
     };
 
     check();
-  }, [user]);
-
+  }, [user, authLoading]);
   return { isAdmin, loading };
 }
