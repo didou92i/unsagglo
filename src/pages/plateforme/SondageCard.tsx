@@ -1,7 +1,17 @@
 import { useState } from "react";
+import { Briefcase, TrendingUp, Brain, HelpCircle } from "lucide-react";
 import UCard from "@/components/ui/UCard";
 import { Progress } from "@/components/ui/progress";
 import { useVote } from "./useVote";
+import type { LucideIcon } from "lucide-react";
+
+const THEME_ICONS: Record<string, LucideIcon> = {
+  remuneration: TrendingUp,
+  conditions_travail: Briefcase,
+  carriere: TrendingUp,
+  rps: Brain,
+  autre: HelpCircle,
+};
 
 interface Option {
   id: string;
@@ -20,8 +30,8 @@ interface SondageCardProps {
 const SondageCard = ({ id, question, theme, options, onVoted }: SondageCardProps): JSX.Element => {
   const { vote, hasVoted, loading } = useVote();
   const [voted, setVoted] = useState<boolean>(hasVoted(id));
-
   const totalVotes = options.reduce((sum, o) => sum + o.votes, 0);
+  const Icon = THEME_ICONS[theme] ?? HelpCircle;
 
   const handleVote = async (optionId: string): Promise<void> => {
     const ok = await vote(id, optionId);
@@ -33,10 +43,13 @@ const SondageCard = ({ id, question, theme, options, onVoted }: SondageCardProps
 
   return (
     <UCard className="border border-border">
-      <span className="text-xs font-display font-bold text-primary uppercase tracking-wide">
-        {theme}
-      </span>
-      <h3 className="font-display text-lg font-bold text-foreground mt-2 mb-4">
+      <div className="flex items-center gap-2 mb-2">
+        <Icon className="h-4 w-4 text-primary" />
+        <span className="text-xs font-display font-bold text-primary uppercase tracking-wide">
+          {theme.replace("_", " ")}
+        </span>
+      </div>
+      <h3 className="font-display text-lg font-bold text-foreground mb-4">
         {question}
       </h3>
 
