@@ -79,7 +79,7 @@ const ContributionsManager = (): JSX.Element => {
           {filtered.map((c) => (
             <TableRow key={c.id}>
               <TableCell className="font-medium">{c.anonyme ? "\u2014" : c.prenom}</TableCell>
-              <TableCell>{c.anonyme ? "\u2014" : c.service}</TableCell>
+              <TableCell>{c.anonyme ? "\u2014" : serviceLabel(c.service)}</TableCell>
               <TableCell>{c.statut ? statutLabel(c.statut) : "\u2014"}</TableCell>
               <TableCell><Badge variant="outline">{themeLabel(c.theme)}</Badge></TableCell>
               <TableCell>{truncate(c.contenu)}</TableCell>
