@@ -20,6 +20,15 @@ const ContribForm = (): JSX.Element => {
     resolver: zodResolver(contribSchema),
   });
 
+  const onSubmit = async (data: ContribFormData): Promise<void> => {
+    await submit({
+      prenom: data.prenom,
+      service: data.service,
+      theme: data.theme,
+      contenu: data.contenu,
+    });
+  };
+
   if (success) {
     return (
       <UCard className="text-center border-2 border-green">
@@ -31,7 +40,7 @@ const ContribForm = (): JSX.Element => {
   }
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="max-w-lg mx-auto">
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg mx-auto">
       {error && <FormError message={error} />}
       <InputField<ContribFormData> label="Prenom" name="prenom" register={register} error={errors.prenom} placeholder="Votre prenom" />
       <SelectField<ContribFormData> label="Service" name="service" register={register} error={errors.service} options={[
