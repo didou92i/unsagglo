@@ -25,13 +25,14 @@ const AdminPage = (): JSX.Element => {
         <h1 className="font-display text-3xl font-black text-foreground mb-8">Administration</h1>
 
         <Tabs defaultValue="adherents">
-          <TabsList className="mb-6">
+          <TabsList className="mb-6 flex-wrap">
             <TabsTrigger value="adherents">Adherents</TabsTrigger>
             <TabsTrigger value="articles">Articles</TabsTrigger>
-            <TabsTrigger value="stats">Statistiques</TabsTrigger>
-            <TabsTrigger value="pages">Pages</TabsTrigger>
+            <TabsTrigger value="contributions">Contributions</TabsTrigger>
             <TabsTrigger value="sondages">Sondages</TabsTrigger>
             <TabsTrigger value="candidats">Candidats liste</TabsTrigger>
+            <TabsTrigger value="stats">Statistiques</TabsTrigger>
+            <TabsTrigger value="pages">Pages</TabsTrigger>
           </TabsList>
 
           <TabsContent value="adherents">
@@ -40,17 +41,20 @@ const AdminPage = (): JSX.Element => {
           <TabsContent value="articles">
             <ArticlesManager />
           </TabsContent>
-          <TabsContent value="stats">
-            <VisitsStats />
-          </TabsContent>
-          <TabsContent value="pages">
-            <PagesManager />
+          <TabsContent value="contributions">
+            <ContributionsManager />
           </TabsContent>
           <TabsContent value="sondages">
             <SondagesManager />
           </TabsContent>
           <TabsContent value="candidats">
             <CandidatsManager />
+          </TabsContent>
+          <TabsContent value="stats">
+            <VisitsStats />
+          </TabsContent>
+          <TabsContent value="pages">
+            <PagesManager />
           </TabsContent>
         </Tabs>
       </section>

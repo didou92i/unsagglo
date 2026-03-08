@@ -1,6 +1,6 @@
 import { useAdminContributions } from "@/hooks/useAdminContributions";
 import Spinner from "@/components/ui/Spinner";
-import { UBadge } from "@/components/ui/UBadge";
+import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableHeader,
@@ -50,12 +50,12 @@ const ContributionsManager = (): JSX.Element => {
             </TableCell>
             <TableCell>{c.anonyme ? "—" : c.service}</TableCell>
             <TableCell>
-              <UBadge variant="outline">{themeLabel(c.theme)}</UBadge>
+              <Badge variant="outline">{themeLabel(c.theme)}</Badge>
             </TableCell>
             <TableCell>{truncate(c.contenu)}</TableCell>
             <TableCell>
               {c.anonyme ? (
-                <UBadge variant="secondary">Oui</UBadge>
+                <Badge variant="secondary">Oui</Badge>
               ) : (
                 "Non"
               )}
