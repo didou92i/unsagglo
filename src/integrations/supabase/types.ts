@@ -83,6 +83,36 @@ export type Database = {
         }
         Relationships: []
       }
+      candidats_liste: {
+        Row: {
+          adresse: string
+          created_at: string
+          email: string
+          id: string
+          prenom: string
+          service: string
+          telephone: string
+        }
+        Insert: {
+          adresse: string
+          created_at?: string
+          email: string
+          id?: string
+          prenom: string
+          service: string
+          telephone: string
+        }
+        Update: {
+          adresse?: string
+          created_at?: string
+          email?: string
+          id?: string
+          prenom?: string
+          service?: string
+          telephone?: string
+        }
+        Relationships: []
+      }
       contributions_elections: {
         Row: {
           anonyme: boolean
