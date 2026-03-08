@@ -1,21 +1,37 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import UButton from "@/components/ui/UButton";
 import UBadge from "@/components/ui/UBadge";
 import { useAdmin } from "@/hooks/useAdmin";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
-const NAV_LINKS = [
+interface NavLink {
+  label: string;
+  to: string;
+  badge?: boolean;
+  settingKey?: string;
+}
+
+const NAV_LINKS: NavLink[] = [
   { label: "Accueil", to: "/" },
-  { label: "Actualites", to: "/news" },
-  { label: "Vos Droits", to: "/rights" },
-  { label: "Elections 2026", to: "/elections", badge: true },
-  { label: "Contact", to: "/contact" },
+  { label: "Actualites", to: "/news", settingKey: "page_news" },
+  { label: "Vos Droits", to: "/rights", settingKey: "page_rights" },
+  { label: "Elections 2026", to: "/elections", badge: true, settingKey: "page_elections" },
+  { label: "Contact", to: "/contact", settingKey: "page_contact" },
 ];
 
 const Navbar = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { pathname } = useLocation();
   const { isAdmin } = useAdmin();
+  const { settings } = useSiteSettings();
+
+  const visibleLinks = useMemo(() => {
+    return NAV_LINKS.filter((link) => {
+      if (!link.settingKey) return true;
+      return settings[link.settingKey as keyof typeof settings] !== false;
+    });
+  }, [settings]);
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-secondary z-50 shadow-md h-16">
