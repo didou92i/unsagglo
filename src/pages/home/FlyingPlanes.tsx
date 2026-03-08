@@ -5,7 +5,7 @@ const FlyingPlanes = (): JSX.Element => (
     <img
       src={flyingPlanesSvg}
       alt=""
-      className="absolute inset-0 w-full h-full object-cover opacity-30 animate-fly-1"
+      className="absolute inset-0 w-full h-full object-cover opacity-50 animate-fly-1"
     />
   </div>
 );
