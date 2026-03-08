@@ -10,6 +10,7 @@ import { STATUTS } from "@/constants/statuts";
 import { SERVICES } from "@/constants/services";
 import { exportCsv } from "@/lib/exportCsv";
 import ContribFiltersBar from "./ContribFiltersBar";
+import ContribContentCell from "./ContribContentCell";
 
 const themeLabel = (value: string): string =>
   THEMES.find((t) => t.value === value)?.label ?? value;
@@ -20,8 +21,7 @@ const statutLabel = (value: string): string =>
 const serviceLabel = (value: string): string =>
   SERVICES.find((s) => s.value === value)?.label ?? value;
 
-const truncate = (text: string, max = 80): string =>
-  text.length > max ? `${text.slice(0, max)}...` : text;
+
 
 const ContributionsManager = (): JSX.Element => {
   const { contributions, loading } = useAdminContributions();
@@ -67,7 +67,7 @@ const ContributionsManager = (): JSX.Element => {
               <TableCell>{c.anonyme ? "\u2014" : serviceLabel(c.service)}</TableCell>
               <TableCell>{c.statut ? statutLabel(c.statut) : "\u2014"}</TableCell>
               <TableCell><Badge variant="outline">{themeLabel(c.theme)}</Badge></TableCell>
-              <TableCell>{truncate(c.contenu)}</TableCell>
+              <ContribContentCell text={c.contenu} />
               <TableCell>{c.anonyme ? <Badge variant="secondary">Oui</Badge> : "Non"}</TableCell>
               <TableCell className="text-muted-foreground text-sm">
                 {new Date(c.created_at).toLocaleDateString("fr-FR")}
