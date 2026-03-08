@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 
-interface Candidat {
-  id: string;
-  prenom: string;
-  service: string;
-  email: string;
-  telephone: string;
-  adresse: string;
-  created_at: string;
-}
+type Candidat = Tables<"candidats_liste">;
 
 interface UseAdminCandidatsReturn {
   candidats: Candidat[];
@@ -21,15 +14,15 @@ export function useAdminCandidats(): UseAdminCandidatsReturn {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetch = async (): Promise<void> => {
+    const fetchData = async (): Promise<void> => {
       const { data } = await supabase
         .from("candidats_liste")
         .select("*")
         .order("created_at", { ascending: false });
-      setCandidats((data as Candidat[]) ?? []);
+      setCandidats(data ?? []);
       setLoading(false);
     };
-    void fetch();
+    void fetchData();
   }, []);
 
   return { candidats, loading };
