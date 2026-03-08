@@ -43,6 +43,9 @@ const AdminPage = (): JSX.Element => {
           <TabsContent value="pages">
             <PagesManager />
           </TabsContent>
+          <TabsContent value="sondages">
+            <SondagesManager />
+          </TabsContent>
         </Tabs>
       </section>
     </PageWrapper>
