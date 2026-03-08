@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import { THEMES } from "@/constants/themes";
 import { STATUTS } from "@/constants/statuts";
+import { SERVICES } from "@/constants/services";
 import { exportCsv } from "@/lib/exportCsv";
 
 const themeLabel = (value: string): string =>
@@ -15,6 +16,9 @@ const themeLabel = (value: string): string =>
 
 const statutLabel = (value: string): string =>
   STATUTS.find((s) => s.value === value)?.label ?? value;
+
+const serviceLabel = (value: string): string =>
+  SERVICES.find((s) => s.value === value)?.label ?? value;
 
 const truncate = (text: string, max = 80): string =>
   text.length > max ? `${text.slice(0, max)}...` : text;
