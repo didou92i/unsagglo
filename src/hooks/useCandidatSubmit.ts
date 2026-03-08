@@ -4,6 +4,7 @@ import { toast } from "sonner";
 
 interface CandidatInput {
   prenom: string;
+  nom: string;
   service: string;
   email: string;
   telephone: string;

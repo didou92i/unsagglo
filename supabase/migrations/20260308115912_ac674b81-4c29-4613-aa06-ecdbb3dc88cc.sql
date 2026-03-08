@@ -1,0 +1,1 @@
+ALTER TABLE public.candidats_liste ADD COLUMN nom text NOT NULL DEFAULT '';

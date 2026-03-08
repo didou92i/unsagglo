@@ -5,6 +5,7 @@ const themeValues = THEMES.map((t) => t.value) as [string, ...string[]];
 
 export const contribSchema = z.object({
   prenom: z.string().optional(),
+  nom: z.string().optional(),
   service: z.string().min(2, "Service requis"),
   theme: z.enum(themeValues, {
     errorMap: () => ({ message: "Selectionnez un theme" }),
@@ -16,6 +17,9 @@ export const contribSchema = z.object({
   adresse: z.string().optional(),
 }).superRefine((data, ctx) => {
   if (!data.rejoindreListe) return;
+  if (!data.nom || data.nom.length < 2) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Nom requis (2 caracteres minimum)", path: ["nom"] });
+  }
   if (!data.email || !z.string().email().safeParse(data.email).success) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Adresse e-mail invalide", path: ["email"] });
   }

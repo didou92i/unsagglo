@@ -18,6 +18,7 @@ const CandidatsManager = (): JSX.Element => {
       <TableHeader>
         <TableRow>
           <TableHead>Prenom</TableHead>
+          <TableHead>Nom</TableHead>
           <TableHead>Service</TableHead>
           <TableHead>Email</TableHead>
           <TableHead>Telephone</TableHead>
@@ -29,6 +30,7 @@ const CandidatsManager = (): JSX.Element => {
         {candidats.map((c) => (
           <TableRow key={c.id}>
             <TableCell>{c.prenom}</TableCell>
+            <TableCell>{c.nom}</TableCell>
             <TableCell>{c.service}</TableCell>
             <TableCell>{c.email}</TableCell>
             <TableCell>{c.telephone}</TableCell>

@@ -10,6 +10,13 @@ interface ListeElectoraleFieldsProps {
 const ListeElectoraleFields = ({ register, errors }: ListeElectoraleFieldsProps): JSX.Element => (
   <>
     <InputField<ContribFormData>
+      label="Nom"
+      name="nom"
+      register={register}
+      error={errors.nom}
+      placeholder="Votre nom de famille"
+    />
+    <InputField<ContribFormData>
       label="Adresse e-mail professionnelle ou personnelle"
       name="email"
       register={register}
