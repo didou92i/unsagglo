@@ -1,17 +1,30 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDocumentsAdmin } from "@/hooks/useDocumentsAdmin";
 import UButton from "@/components/ui/UButton";
 import Spinner from "@/components/ui/Spinner";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel,
+  AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
+  AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const DocumentsManager = (): JSX.Element => {
   const { docs, loading, uploading, upload, remove } = useDocumentsAdmin();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0];
     if (file) upload(file);
     if (inputRef.current) inputRef.current.value = "";
+  };
+
+  const handleDelete = async (): Promise<void> => {
+    if (deleting) {
+      await remove(deleting);
+      setDeleting(null);
+    }
   };
 
   if (loading) return <div className="flex justify-center py-8"><Spinner size="md" /></div>;
@@ -45,10 +58,28 @@ const DocumentsManager = (): JSX.Element => {
                   <a href={d.url} target="_blank" rel="noopener noreferrer" className="text-primary underline">{d.name}</a>
                 </TableCell>
                 <TableCell className="text-sm text-muted-foreground">
-                  {d.created_at ? new Date(d.created_at).toLocaleDateString("fr-FR") : "—"}
+                  {d.created_at ? new Date(d.created_at).toLocaleDateString("fr-FR") : "\u2014"}
                 </TableCell>
                 <TableCell>
-                  <UButton variant="danger" size="sm" onClick={() => remove(d.name)}>Supprimer</UButton>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <UButton variant="danger" size="sm">Supprimer</UButton>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Confirmer la suppression</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Supprimer le document &laquo; {d.name} &raquo; ? Cette action est irreversible.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Annuler</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => { setDeleting(d.name); handleDelete(); }}>
+                          Supprimer
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </TableCell>
               </TableRow>
             ))}

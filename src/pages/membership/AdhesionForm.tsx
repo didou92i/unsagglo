@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adhesionSchema, type AdhesionFormData } from "./useAdhesion";
+import { adhesionSchema, type AdhesionFormData } from "./adhesionSchema";
 import { useAdhesionSubmit } from "@/hooks/useAdhesionSubmit";
-import { InputField, FormError } from "@/components/forms";
+import { InputField, SelectField, FormError } from "@/components/forms";
+import { SERVICE_GROUPS } from "@/constants/services";
 import UButton from "@/components/ui/UButton";
 import SuccessCard from "@/components/ui/SuccessCard";
 
@@ -28,7 +29,7 @@ const AdhesionForm = (): JSX.Element => {
           <InputField<AdhesionFormData> label="Prenom" name="prenom" register={register} error={errors.prenom} required />
         </div>
         <InputField<AdhesionFormData> label="Email" name="email" register={register} error={errors.email} type="email" required />
-        <InputField<AdhesionFormData> label="Service" name="service" register={register} error={errors.service} required />
+        <SelectField<AdhesionFormData> label="Service" name="service" register={register} error={errors.service} groups={SERVICE_GROUPS} placeholder="Choisir votre service..." />
         <InputField<AdhesionFormData> label="Grade" name="grade" register={register} error={errors.grade} required />
         <InputField<AdhesionFormData> label="Telephone (optionnel)" name="telephone" register={register} error={errors.telephone} type="tel" />
         <UButton type="submit" variant="primary" size="lg" loading={loading} className="w-full mt-2">
