@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import UButton from "@/components/ui/UButton";
 import UBadge from "@/components/ui/UBadge";
+import { useAdmin } from "@/hooks/useAdmin";
 
 const NAV_LINKS = [
   { label: "Accueil", to: "/" },
@@ -14,6 +15,7 @@ const NAV_LINKS = [
 const Navbar = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { pathname } = useLocation();
+  const { isAdmin } = useAdmin();
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-secondary z-50 shadow-md h-16">
@@ -37,6 +39,7 @@ const Navbar = (): JSX.Element => {
         </div>
 
         <div className="hidden lg:flex items-center gap-3">
+          {isAdmin && <Link to="/admin"><UButton variant="outline" size="sm">Admin</UButton></Link>}
           <Link to="/membership"><UButton variant="primary" size="sm">Adherer</UButton></Link>
           <Link to="/members"><UButton variant="outline" size="sm">Espace membres</UButton></Link>
         </div>
@@ -63,6 +66,7 @@ const Navbar = (): JSX.Element => {
             </Link>
           ))}
           <div className="flex flex-col gap-2 mt-2">
+            {isAdmin && <Link to="/admin" onClick={() => setIsOpen(false)}><UButton variant="outline" size="sm" className="w-full">Admin</UButton></Link>}
             <Link to="/membership" onClick={() => setIsOpen(false)}><UButton variant="primary" size="sm" className="w-full">Adherer</UButton></Link>
             <Link to="/members" onClick={() => setIsOpen(false)}><UButton variant="outline" size="sm" className="w-full">Espace membres</UButton></Link>
           </div>
