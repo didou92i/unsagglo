@@ -21,6 +21,8 @@ const NewsPreview = (): JSX.Element => {
       <SectionTitle title="Dernieres actualites" />
       {loading ? (
         <div className="flex justify-center py-8"><Spinner size="lg" /></div>
+      ) : preview.length === 0 ? (
+        <p className="text-center text-muted-foreground py-8">Aucune actualite pour le moment.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {preview.map((article) => (

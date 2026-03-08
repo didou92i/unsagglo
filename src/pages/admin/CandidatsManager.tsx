@@ -1,4 +1,5 @@
 import { useAdminCandidats } from "@/hooks/useAdminCandidats";
+import { serviceLabel } from "@/lib/serviceLabel";
 import Spinner from "@/components/ui/Spinner";
 import {
   Table, TableHeader, TableHead, TableBody, TableRow, TableCell,
@@ -31,7 +32,7 @@ const CandidatsManager = (): JSX.Element => {
           <TableRow key={c.id}>
             <TableCell>{c.prenom}</TableCell>
             <TableCell>{c.nom}</TableCell>
-            <TableCell>{c.service}</TableCell>
+            <TableCell>{serviceLabel(c.service)}</TableCell>
             <TableCell>{c.email}</TableCell>
             <TableCell>{c.telephone}</TableCell>
             <TableCell>{c.adresse}</TableCell>
