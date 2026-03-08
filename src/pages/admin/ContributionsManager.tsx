@@ -10,6 +10,7 @@ import { STATUTS } from "@/constants/statuts";
 import { SERVICES } from "@/constants/services";
 import { exportCsv } from "@/lib/exportCsv";
 import ContribFiltersBar from "./ContribFiltersBar";
+import ContribContentCell from "./ContribContentCell";
 
 const themeLabel = (value: string): string =>
   THEMES.find((t) => t.value === value)?.label ?? value;
