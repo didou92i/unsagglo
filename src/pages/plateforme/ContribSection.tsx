@@ -69,9 +69,6 @@ const ContribSection = (): JSX.Element => {
         </div>
         {!anonyme && (
           <InputField<ContribFormData> label="Prenom" name="prenom" register={register} error={errors.prenom} placeholder="Votre prenom" required={rejoindreListe} />
-        </div>
-        {!anonyme && (
-          <InputField<ContribFormData> label="Prenom" name="prenom" register={register} error={errors.prenom} placeholder="Votre prenom" />
         )}
         <SelectField<ContribFormData> label="Service" name="service" register={register} error={errors.service} options={SERVICES} />
         <SelectField<ContribFormData> label="Theme" name="theme" register={register} error={errors.theme} options={THEMES} />
