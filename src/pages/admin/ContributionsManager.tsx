@@ -32,7 +32,7 @@ const ContributionsManager = (): JSX.Element => {
   const handleExport = (): void => {
     exportCsv(filtered.map((c) => ({
       Prenom: c.anonyme ? "" : c.prenom,
-      Service: c.anonyme ? "" : c.service,
+      Service: c.anonyme ? "" : serviceLabel(c.service),
       Statut: c.statut ? statutLabel(c.statut) : "",
       Theme: themeLabel(c.theme),
       Contenu: c.contenu,
