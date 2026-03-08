@@ -28,7 +28,7 @@ const SectionTitle = ({
         />
       )}
       {subtitle && (
-        <p className="text-muted-foreground mt-2 text-lg max-w-xl mx-auto">
+        <p className="text-muted-foreground mt-2 text-lg max-w-xl mx-auto whitespace-pre-line">
           {subtitle}
         </p>
       )}
