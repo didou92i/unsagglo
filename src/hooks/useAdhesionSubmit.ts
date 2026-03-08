@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 // n8n WORKFLOW -- Adhesion:
 // On Supabase INSERT, an n8n workflow is triggered externally (via Supabase webhook in n8n):
