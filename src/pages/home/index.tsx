@@ -1,4 +1,5 @@
 import { MetaTags } from "@/components/seo";
+import PageWrapper from "@/components/layout/PageWrapper";
 import unsaLogo from "@/assets/unsa-logo.png";
 import cityBg from "@/assets/city-background.png";
 import WaveBackground from "@/pages/home/WaveBackground";
@@ -17,7 +18,7 @@ const ORG_SCHEMA = {
 };
 
 const Home = (): JSX.Element => (
-  <>
+  <PageWrapper className="pt-0">
     <MetaTags
       title="Accueil"
       description="UNSAgglo defend les droits des agents territoriaux de la Communaute Roissy Pays de France."
@@ -43,7 +44,7 @@ const Home = (): JSX.Element => (
       <NewsPreview />
       <RightsGrid />
     </section>
-  </>
+  </PageWrapper>
 );
 
 export default Home;
