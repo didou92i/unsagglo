@@ -42,8 +42,10 @@ export function useAdhesionSubmit(): UseAdhesionSubmitReturn {
     }]);
     if (err) {
       setError(err.message);
+      toast.error("Erreur lors de l'envoi de la demande.");
     } else {
       setSuccess(true);
+      toast.success("Demande d'adhesion envoyee !");
     }
     setLoading(false);
   };
