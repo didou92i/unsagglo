@@ -25,6 +25,22 @@ interface UseNavbarReturn {
   toggle: () => void;
   pathname: string;
   isAdmin: boolean;
+  settings: {
+    page_news: boolean;
+    page_rights: boolean;
+    page_elections: boolean;
+    page_contact: boolean;
+    page_membership: boolean;
+    page_members: boolean;
+    page_plateforme: boolean;
+  };
+  visibleLinks: NavLink[];
+}
+  isOpen: boolean;
+  setIsOpen: (v: boolean) => void;
+  toggle: () => void;
+  pathname: string;
+  isAdmin: boolean;
   settings: Record<string, boolean>;
   visibleLinks: NavLink[];
 }
