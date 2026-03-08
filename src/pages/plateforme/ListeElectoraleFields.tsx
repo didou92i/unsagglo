@@ -1,29 +1,29 @@
 import { InputField } from "@/components/forms";
 import type { UseFormRegister, FieldErrors } from "react-hook-form";
-import type { CandidatFormData } from "./candidatSchema";
+import type { ContribFormData } from "./contribSchema";
 
 interface ListeElectoraleFieldsProps {
-  register: UseFormRegister<CandidatFormData>;
-  errors: FieldErrors<CandidatFormData>;
+  register: UseFormRegister<ContribFormData>;
+  errors: FieldErrors<ContribFormData>;
 }
 
 const ListeElectoraleFields = ({ register, errors }: ListeElectoraleFieldsProps): JSX.Element => (
   <>
-    <InputField<CandidatFormData>
+    <InputField<ContribFormData>
       label="Adresse e-mail professionnelle ou personnelle"
       name="email"
       register={register}
       error={errors.email}
       placeholder="prenom.nom@email.fr"
     />
-    <InputField<CandidatFormData>
+    <InputField<ContribFormData>
       label="Numero de telephone"
       name="telephone"
       register={register}
       error={errors.telephone}
       placeholder="06 12 34 56 78"
     />
-    <InputField<CandidatFormData>
+    <InputField<ContribFormData>
       label="Adresse de domicile"
       name="adresse"
       register={register}

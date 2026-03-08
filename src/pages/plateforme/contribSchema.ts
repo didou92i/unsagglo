@@ -8,6 +8,21 @@ export const contribSchema = z.object({
     { errorMap: () => ({ message: "Selectionnez un theme" }) }
   ),
   contenu: z.string().min(20, "Proposition trop courte (20 caracteres minimum)"),
+  rejoindreListe: z.boolean().optional(),
+  email: z.string().optional(),
+  telephone: z.string().optional(),
+  adresse: z.string().optional(),
+}).superRefine((data, ctx) => {
+  if (!data.rejoindreListe) return;
+  if (!data.email || !z.string().email().safeParse(data.email).success) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Adresse e-mail invalide", path: ["email"] });
+  }
+  if (!data.telephone || data.telephone.length < 10) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Numero de telephone invalide", path: ["telephone"] });
+  }
+  if (!data.adresse || data.adresse.length < 5) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Adresse requise", path: ["adresse"] });
+  }
 });
 
 export type ContribFormData = z.infer<typeof contribSchema>;
