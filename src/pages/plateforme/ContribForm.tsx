@@ -7,7 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import ListeElectoraleInline from "./ListeElectoraleInline";
 import ProposalAssistant from "./ProposalAssistant";
 import { useContribForm } from "./useContribForm";
-import type { UseContribFormReturn } from "./useContribForm";
+import { useContribForm } from "./useContribForm";
 import type { ContribFormData } from "./contribSchema";
 
 interface ContribHook {
