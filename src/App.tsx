@@ -24,20 +24,9 @@ const Register = React.lazy(() => import("@/pages/auth/register"));
 const Contact = React.lazy(() => import("@/pages/contact"));
 const Legal = React.lazy(() => import("@/pages/legal"));
 const Admin = React.lazy(() => import("@/pages/admin"));
+const NotFound = React.lazy(() => import("@/pages/NotFound"));
 
 const queryClient = new QueryClient();
-
-const NotFound = (): JSX.Element => (
-  <div className="flex min-h-screen items-center justify-center bg-background px-4">
-    <div className="text-center">
-      <h1 className="font-display text-5xl font-black text-primary mb-4">404</h1>
-      <p className="text-xl text-foreground mb-6">Page introuvable</p>
-      <a href="/" className="bg-primary text-primary-foreground font-display font-bold px-6 py-3 rounded-[var(--radius-md)] inline-block">
-        Retour a l'accueil
-      </a>
-    </div>
-  </div>
-);
 
 const App = (): JSX.Element => (
   <QueryClientProvider client={queryClient}>
