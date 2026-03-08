@@ -1,5 +1,6 @@
 import { MetaTags } from "@/components/seo";
 import unsaLogo from "@/assets/unsa-logo.png";
+import cityBg from "@/assets/city-background.png";
 import WaveBackground from "@/pages/home/WaveBackground";
 import EntryButton from "@/pages/home/EntryButton";
 
