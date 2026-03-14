@@ -28,7 +28,7 @@ const Home = (): JSX.Element => (
       <img
         src={cityBg}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover object-center opacity-30 pointer-events-none z-0"
+        className="absolute inset-0 w-full h-full object-cover object-center opacity-35 pointer-events-none z-0"
       />
       <WaveBackground />
       <img
