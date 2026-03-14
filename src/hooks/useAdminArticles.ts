@@ -38,9 +38,9 @@ export function useAdminArticles(): UseAdminArticlesReturn {
   const togglePublie = async (id: string, current: boolean): Promise<void> => {
     const { error } = await supabase.from("articles").update({ publie: !current }).eq("id", id);
     if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
+      toast.error(error.message);
     } else {
-      toast({ title: "Succes", description: `Article ${!current ? "publie" : "masque"}.` });
+      toast.success(`Article ${!current ? "publie" : "masque"}.`);
       refresh();
     }
   };
