@@ -41,9 +41,9 @@ export function useAdminAdherents(): UseAdminAdherentsReturn {
   const updateStatut = async (id: string, statut: string): Promise<void> => {
     const { error } = await supabase.from("adherents").update({ statut }).eq("id", id);
     if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
+      toast.error(error.message);
     } else {
-      toast({ title: "Succes", description: `Adherent ${statut === "actif" ? "valide" : "refuse"}.` });
+      toast.success(`Adherent ${statut === "actif" ? "valide" : "refuse"}.`);
       fetch();
     }
   };

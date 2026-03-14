@@ -48,9 +48,9 @@ export function useAdminArticles(): UseAdminArticlesReturn {
   const deleteArticle = async (id: string): Promise<void> => {
     const { error } = await supabase.from("articles").delete().eq("id", id);
     if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
+      toast.error(error.message);
     } else {
-      toast({ title: "Succes", description: "Article supprime." });
+      toast.success("Article supprime.");
       refresh();
     }
   };

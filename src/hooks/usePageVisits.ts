@@ -9,6 +9,6 @@ export function usePageVisits(): void {
     supabase
       .from("page_visits")
       .insert({ page_path: pathname })
-      .then();
+      .then(undefined, console.warn);
   }, [pathname]);
 }

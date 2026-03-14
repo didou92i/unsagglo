@@ -46,10 +46,10 @@ export function useProfile(): UseProfileReturn {
       .eq("user_id", user.id);
     setSaving(false);
     if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
+      toast.error(error.message);
     } else {
       setProfile(data);
-      toast({ title: "Profil mis a jour" });
+      toast.success("Profil mis a jour");
     }
   };
 

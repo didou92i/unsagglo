@@ -30,10 +30,10 @@ export function useArticleForm(): UseArticleFormReturn {
     }]);
     setLoading(false);
     if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
+      toast.error(error.message);
       return false;
     }
-    toast({ title: "Succes", description: "Article cree." });
+    toast.success("Article cree.");
     return true;
   };
 

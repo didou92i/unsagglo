@@ -51,9 +51,9 @@ export function useDocumentsAdmin(): UseDocumentsAdminReturn {
   const remove = async (name: string): Promise<void> => {
     const { error } = await supabase.storage.from("documents").remove([name]);
     if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
+      toast.error(error.message);
     } else {
-      toast({ title: "Succes", description: "Document supprime." });
+      toast.success("Document supprime.");
       refresh();
     }
   };

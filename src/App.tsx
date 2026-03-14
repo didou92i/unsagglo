@@ -31,7 +31,6 @@ const App = (): JSX.Element => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
-      <Sonner />
       <BrowserRouter>
         <ErrorBoundary>
           <Suspense fallback={<PageLoader />}>
