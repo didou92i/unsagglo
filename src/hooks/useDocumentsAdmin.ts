@@ -41,9 +41,9 @@ export function useDocumentsAdmin(): UseDocumentsAdminReturn {
     const { error } = await supabase.storage.from("documents").upload(file.name, file, { upsert: true });
     setUploading(false);
     if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
+      toast.error(error.message);
     } else {
-      toast({ title: "Succes", description: "Document uploade." });
+      toast.success("Document uploade.");
       refresh();
     }
   };
