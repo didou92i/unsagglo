@@ -30,6 +30,7 @@ const Home = (): JSX.Element => (
         alt=""
         className="absolute inset-0 w-full h-full object-cover object-center opacity-35 pointer-events-none z-0"
       />
+      <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-secondary/80 via-secondary/30 to-transparent" />
       <WaveBackground />
       <img
         src={unsaLogo}
