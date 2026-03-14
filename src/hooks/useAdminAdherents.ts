@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { exportCsv } from "@/lib/exportCsv";
 import { serviceLabel } from "@/lib/serviceLabel";
 
