@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { exportCsv } from "@/lib/exportCsv";
 import { serviceLabel } from "@/lib/serviceLabel";
 
@@ -41,9 +41,9 @@ export function useAdminAdherents(): UseAdminAdherentsReturn {
   const updateStatut = async (id: string, statut: string): Promise<void> => {
     const { error } = await supabase.from("adherents").update({ statut }).eq("id", id);
     if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
+      toast.error(error.message);
     } else {
-      toast({ title: "Succes", description: `Adherent ${statut === "actif" ? "valide" : "refuse"}.` });
+      toast.success(`Adherent ${statut === "actif" ? "valide" : "refuse"}.`);
       fetch();
     }
   };

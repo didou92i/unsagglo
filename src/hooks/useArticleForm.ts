@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 interface ArticleInput {
   titre: string;
@@ -30,10 +30,10 @@ export function useArticleForm(): UseArticleFormReturn {
     }]);
     setLoading(false);
     if (error) {
-      toast({ title: "Erreur", description: error.message, variant: "destructive" });
+      toast.error(error.message);
       return false;
     }
-    toast({ title: "Succes", description: "Article cree." });
+    toast.success("Article cree.");
     return true;
   };
 
