@@ -53,7 +53,7 @@ const PlatformHero = (): JSX.Element => {
           <StatItem value={stats.votes} label="Votes" />
         </div>
 
-        <div className="flex items-center justify-center gap-4 mt-8 animate-fade-in-up">
+        <div className="flex items-center justify-center gap-4 mt-8 animate-fade-in-up my-[34px]">
           <a
             href="#contribution"
             className="inline-block px-8 bg-primary text-primary-foreground font-display font-bold tracking-widest uppercase rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg py-[4px]">
