@@ -230,6 +230,33 @@ export type Database = {
         }
         Relationships: []
       }
+      rights_content: {
+        Row: {
+          categorie: string
+          contenu: string
+          created_at: string
+          id: string
+          sources: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          categorie: string
+          contenu?: string
+          created_at?: string
+          id?: string
+          sources?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          categorie?: string
+          contenu?: string
+          created_at?: string
+          id?: string
+          sources?: string[] | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           id: string
