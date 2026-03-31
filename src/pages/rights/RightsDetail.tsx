@@ -3,7 +3,7 @@ import PageWrapper from "@/components/layout/PageWrapper";
 import { MetaTags } from "@/components/seo";
 import { SectionTitle } from "@/components/sections";
 import { RIGHTS_CATEGORIES } from "./rightsData";
-import { useRightsContent } from "@/hooks/useRightsContent";
+
 import RightsContentView from "./RightsContentView";
 
 const RightsDetail = (): JSX.Element => {
