@@ -17,11 +17,6 @@ export function evaluateCriteria(a: SimulatorAnswers): CriterionStatus[] {
       passed: a.hasVehicle === true,
     },
     {
-      id: "status",
-      label: "Statut professionnel actif",
-      passed: a.isActive === true,
-    },
-    {
       id: "income",
       label: "Revenus sous le seuil",
       passed:

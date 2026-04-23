@@ -119,10 +119,11 @@ const renderIntro = (doc: jsPDF, startY: number): number => {
   setText(doc, BLACK);
 
   const intro =
-    "Selon les réponses que vous avez fournies au simulateur UNSAgglo, votre profil correspond aux critères " +
-    "d'éligibilité annoncés par le gouvernement le 21 avril 2026. Les informations ci-dessous vous aideront à " +
-    "remplir sereinement le formulaire officiel sur impots.gouv.fr — sachant que vous n'aurez qu'UNE SEULE " +
-    "information à déclarer : votre kilométrage professionnel.";
+    "Ce guide personnel a été préparé par UNSAgglo pour les agents de la Communauté d'Agglomération " +
+    "Roissy Pays de France. D'après les réponses que vous avez fournies au simulateur, votre profil " +
+    "correspond aux critères d'éligibilité annoncés par le gouvernement le 21 avril 2026. Les informations " +
+    "ci-dessous vous aideront à remplir sereinement le formulaire officiel sur impots.gouv.fr — vous n'aurez " +
+    "qu'UNE SEULE information à déclarer : votre kilométrage professionnel.";
 
   const wrapped = doc.splitTextToSize(intro, CONTENT_WIDTH);
   doc.text(wrapped, MARGIN, startY + 8, { align: "justify", maxWidth: CONTENT_WIDTH });
@@ -150,8 +151,8 @@ const renderTable = (
       render: (d, x, y) => drawValidatedTag(d, x, y, "Validé"),
     },
     {
-      criterion: "Statut professionnel",
-      render: (d, x, y) => drawValidatedTag(d, x, y, "Actif"),
+      criterion: "Agent territorial en activité à la CARPF",
+      render: (d, x, y) => drawValidatedTag(d, x, y, "Validé"),
     },
     {
       criterion: "Composition du foyer",
@@ -167,7 +168,7 @@ const renderTable = (
       render: (d, x, y) => drawValidatedTag(d, x, y, "Validé (sous réserve du décret)"),
     },
     {
-      criterion: "Véhicule personnel (pas de véhicule de fonction employeur)",
+      criterion: "Pas de véhicule de fonction avec carte carburant employeur",
       render: (d, x, y) => drawValidatedTag(d, x, y, "Validé"),
     },
     {
@@ -242,7 +243,7 @@ const renderPage1Footer = (doc: jsPDF, dateDisplay: string, ref: string): void =
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   doc.text(
-    "Document généré par UNSAgglo Roissy Pays de France — unsagglo@roissypaysdefrance.fr",
+    "Document généré par UNSAgglo — section locale Communauté d'Agglomération Roissy Pays de France",
     PAGE_WIDTH / 2,
     y + 13,
     { align: "center" },
@@ -474,6 +475,124 @@ const renderPage2 = (doc: jsPDF): void => {
   renderPage2Footer(doc);
 };
 
+const renderAccompagnement = (doc: jsPDF, startY: number): number => {
+  let y = renderSectionHeading(doc, startY, "UNSAgglo vous accompagne");
+
+  setText(doc, BLACK);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(11);
+
+  const intro =
+    "En tant qu'agent de la Communauté d'Agglomération Roissy Pays de France, vous pouvez " +
+    "solliciter UNSAgglo à chaque étape de votre démarche :";
+  const wrapped = doc.splitTextToSize(intro, CONTENT_WIDTH);
+  doc.text(wrapped, MARGIN, y);
+  y += wrapped.length * 5 + 2;
+
+  const bullets = [
+    "Aide à la vérification de votre éligibilité sur la base de votre avis d'imposition",
+    "Assistance en cas de difficulté de connexion ou de saisie sur impots.gouv.fr",
+    "Accompagnement en cas de refus ou de contestation de la décision fiscale",
+    "Relais auprès de la direction RH de la CARPF si besoin d'information sur la prime transport employeur",
+  ];
+  bullets.forEach((b) => {
+    const lines = doc.splitTextToSize(b, CONTENT_WIDTH - 8);
+    setText(doc, BLUE);
+    doc.text("•", MARGIN + 3, y);
+    setText(doc, BLACK);
+    doc.text(lines, MARGIN + 8, y);
+    y += lines.length * 5 + 1;
+  });
+
+  return y + 4;
+};
+
+const renderRefusLetter = (doc: jsPDF, startY: number): number => {
+  let y = renderSectionHeading(doc, startY, "Courrier type en cas de refus");
+
+  setText(doc, MUTED);
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(10);
+  const note =
+    "À adapter à votre situation et à envoyer à votre centre des finances publiques ou à transmettre à " +
+    "UNSAgglo (unsagglo@roissypaysdefrance.fr) pour relecture avant expédition.";
+  const noteLines = doc.splitTextToSize(note, CONTENT_WIDTH);
+  doc.text(noteLines, MARGIN, y);
+  y += noteLines.length * 5 + 4;
+
+  const letter =
+    "Madame, Monsieur,\n\n" +
+    "J'ai l'honneur de solliciter le réexamen de ma demande d'aide carburant « grands rouleurs » " +
+    "2026, déposée le [DATE] sur mon espace particulier impots.gouv.fr et qui m'a été refusée le " +
+    "[DATE REFUS] sous la référence [RÉFÉRENCE DOSSIER].\n\n" +
+    "Je suis agent de la Communauté d'Agglomération Roissy Pays de France et je remplis les " +
+    "conditions d'éligibilité annoncées par le gouvernement le 21 avril 2026 :\n" +
+    "— je possède un véhicule personnel dont je finance moi-même le carburant ;\n" +
+    "— je réside à [DISTANCE] km de mon lieu de travail / je parcours [KILOMÉTRAGE] km par an à " +
+    "titre professionnel ;\n" +
+    "— mon revenu fiscal de référence pour [ANNÉE] est de [MONTANT] €, pour un foyer de [NB] part(s).\n\n" +
+    "Je vous prie de bien vouloir réexaminer ma demande au regard de ces éléments. Mon syndicat " +
+    "UNSAgglo (unsagglo@roissypaysdefrance.fr) peut être contacté pour toute information " +
+    "complémentaire.\n\n" +
+    "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.\n\n" +
+    "[Nom, Prénom]\n" +
+    "[Adresse]\n" +
+    "[Date et signature]";
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  setText(doc, BLACK);
+
+  const letterLines = doc.splitTextToSize(letter, CONTENT_WIDTH - 10);
+  const boxH = letterLines.length * 4.5 + 10;
+
+  setFill(doc, CARD_BG);
+  doc.rect(MARGIN, y, CONTENT_WIDTH, boxH, "F");
+  setDraw(doc, MARINE);
+  doc.setLineWidth(0.2);
+  doc.rect(MARGIN, y, CONTENT_WIDTH, boxH);
+
+  doc.text(letterLines, MARGIN + 5, y + 6);
+
+  return y + boxH + 6;
+};
+
+const renderPage3Footer = (doc: jsPDF): void => {
+  const y = PAGE_HEIGHT - 18;
+  setDraw(doc, MARINE);
+  doc.setLineWidth(0.3);
+  doc.line(MARGIN, y, PAGE_WIDTH - MARGIN, y);
+
+  setText(doc, MUTED);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.text(
+    "UNSAgglo – Communauté d'Agglomération Roissy Pays de France",
+    PAGE_WIDTH / 2,
+    y + 6,
+    { align: "center" },
+  );
+  doc.setFont("helvetica", "italic");
+  doc.text(
+    "Syndicat affilié UNSA Territoriaux — Libres Ensemble",
+    PAGE_WIDTH / 2,
+    y + 11,
+    { align: "center" },
+  );
+};
+
+const renderPage3 = (doc: jsPDF): void => {
+  setText(doc, MARINE);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.text("Ressources & courrier type", MARGIN, 25);
+
+  let y = 35;
+  y = renderAccompagnement(doc, y);
+  renderRefusLetter(doc, y);
+  renderPage3Footer(doc);
+};
+
 export async function generateAidePdf(params: PdfParams): Promise<void> {
   const { default: JsPDFCtor } = await import("jspdf");
   const doc = new JsPDFCtor({ unit: "mm", format: "a4", orientation: "portrait" });
@@ -486,6 +605,8 @@ export async function generateAidePdf(params: PdfParams): Promise<void> {
   renderPage1(doc, params, dateDisplay, ref);
   doc.addPage();
   renderPage2(doc);
+  doc.addPage();
+  renderPage3(doc);
 
   doc.save(`UNSAgglo_Guide_Aide_Carburant_${dateCompact}.pdf`);
 }

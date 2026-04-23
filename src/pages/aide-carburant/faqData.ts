@@ -33,7 +33,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "q5",
     question: "Que faire si le portail impots.gouv.fr n'est pas encore ouvert ?",
     answer:
-      "Le formulaire officiel ouvrira fin mai 2026. UNSAgglo vous alertera par email dès son ouverture si vous avez souhaité être tenu informé.",
+      "Le formulaire officiel ouvrira fin mai 2026. En téléchargeant le guide UNSAgglo, vous disposez déjà de toutes les informations pour être prêt le jour J. UNSAgglo actualisera cette page dès la mise en ligne du formulaire.",
   },
   {
     id: "q6",

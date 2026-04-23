@@ -103,31 +103,16 @@ const VerdictEligible = ({
             className="font-display font-medium mb-4"
             style={{ color: "#29235c", fontSize: "16px" }}
           >
-            Voici ce qu'il vous reste à faire en 3 étapes
+            Votre guide UNSAgglo personnalisé
           </p>
-          <ol className="space-y-3" style={{ color: "#29235c" }}>
-            {[
-              "Recevez votre guide personnalisé par email (préparé par UNSAgglo)",
-              "Attendez l'ouverture du portail officiel impots.gouv.fr (fin mai 2026)",
-              "Déposez votre demande en 3 minutes sur votre espace fiscal — une seule information à fournir : votre kilométrage",
-            ].map((text, i) => (
-              <li key={text} className="flex gap-3 text-sm leading-relaxed">
-                <span
-                  className="flex-shrink-0 rounded-full flex items-center justify-center font-display font-medium text-white"
-                  style={{
-                    backgroundColor: "#009fe3",
-                    width: "24px",
-                    height: "24px",
-                    fontSize: "12px",
-                    lineHeight: 1,
-                  }}
-                >
-                  {i + 1}
-                </span>
-                <span>{text}</span>
-              </li>
-            ))}
-          </ol>
+          <p className="text-sm leading-relaxed" style={{ color: "#29235c" }}>
+            Téléchargez immédiatement votre guide PDF : synthèse de votre
+            situation, étapes à suivre sur impots.gouv.fr, engagement sur
+            l'honneur pré-rédigé, contacts UNSAgglo dédiés à la Communauté
+            d'Agglomération Roissy Pays de France et courrier type en cas de
+            refus. En échange, laissez-nous votre email pour être alerté dès
+            l'ouverture officielle du portail fin mai 2026.
+          </p>
         </div>
 
         <div className="mt-10">
@@ -137,7 +122,7 @@ const VerdictEligible = ({
             className="text-white font-display font-medium text-base md:text-lg rounded-[6px] px-8 py-4 transition-opacity hover:opacity-90"
             style={{ backgroundColor: "#009fe3" }}
           >
-            📧 Recevoir mon guide par email
+            📄 Télécharger mon guide personnalisé
           </button>
         </div>
 

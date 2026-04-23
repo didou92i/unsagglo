@@ -2,7 +2,6 @@ import { useState } from "react";
 import ProgressHeader from "./ProgressHeader";
 import NavButtons from "./NavButtons";
 import StepVehicle from "./StepVehicle";
-import StepStatus from "./StepStatus";
 import StepHousehold from "./StepHousehold";
 import StepIncome from "./StepIncome";
 import StepCompanyCar from "./StepCompanyCar";
@@ -39,11 +38,10 @@ const Simulator = (): JSX.Element => {
 
   const canContinue = ((): boolean => {
     if (screen === 1) return answers.hasVehicle !== undefined;
-    if (screen === 2) return answers.isActive !== undefined;
-    if (screen === 3) return answers.household !== undefined;
-    if (screen === 4) return typeof answers.income === "number" && answers.income >= 0;
-    if (screen === 5) return answers.companyCarFuel !== undefined;
-    if (screen === 6) return answers.distance !== undefined;
+    if (screen === 2) return answers.household !== undefined;
+    if (screen === 3) return typeof answers.income === "number" && answers.income >= 0;
+    if (screen === 4) return answers.companyCarFuel !== undefined;
+    if (screen === 5) return answers.distance !== undefined;
     return true;
   })();
 
@@ -115,36 +113,30 @@ const Simulator = (): JSX.Element => {
           />
         )}
         {stepNumber === 2 && (
-          <StepStatus
-            value={answers.isActive}
-            onChange={(v: boolean) => update("isActive", v)}
-          />
-        )}
-        {stepNumber === 3 && (
           <StepHousehold
             value={answers.household}
             onChange={(v: HouseholdShares) => update("household", v)}
           />
         )}
-        {stepNumber === 4 && (
+        {stepNumber === 3 && (
           <StepIncome
             value={answers.income}
             onChange={(v: number | undefined) => update("income", v)}
           />
         )}
-        {stepNumber === 5 && (
+        {stepNumber === 4 && (
           <StepCompanyCar
             value={answers.companyCarFuel}
             onChange={(v: boolean) => update("companyCarFuel", v)}
           />
         )}
-        {stepNumber === 6 && (
+        {stepNumber === 5 && (
           <StepDistance
             value={answers.distance}
             onChange={(v: DistanceOption) => update("distance", v)}
           />
         )}
-        {stepNumber === 7 && (
+        {stepNumber === 6 && (
           <StepSummary
             criteria={evaluateCriteria(answers)}
             onReveal={goToVerdict}

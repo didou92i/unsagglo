@@ -9,8 +9,8 @@ interface StepVehicleProps {
 const StepVehicle = ({ value, onChange }: StepVehicleProps): JSX.Element => (
   <div>
     <StepTitle
-      title="Possédez-vous un véhicule personnel ?"
-      subtitle="Voiture thermique, électrique ou hybride — immatriculée à votre nom ou celui de votre conjoint."
+      title="Utilisez-vous un véhicule personnel pour vous rendre au travail ?"
+      subtitle="Voiture thermique, électrique ou hybride, immatriculée à votre nom ou à celui de votre conjoint."
     />
     <div className="space-y-3">
       <OptionButton
@@ -20,7 +20,7 @@ const StepVehicle = ({ value, onChange }: StepVehicleProps): JSX.Element => (
         value="yes"
       >
         <span className="text-lg">✅</span>
-        <span>Oui, je possède un véhicule personnel</span>
+        <span>Oui, j'utilise mon véhicule personnel pour venir travailler à la CARPF</span>
       </OptionButton>
       <OptionButton
         selected={value === false}
@@ -29,7 +29,7 @@ const StepVehicle = ({ value, onChange }: StepVehicleProps): JSX.Element => (
         value="no"
       >
         <span className="text-lg">❌</span>
-        <span>Non, je n'ai pas de véhicule</span>
+        <span>Non, je n'utilise pas de véhicule personnel (transports en commun, covoiturage, vélo…)</span>
       </OptionButton>
     </div>
   </div>
