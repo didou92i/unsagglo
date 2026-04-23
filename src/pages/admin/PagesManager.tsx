@@ -6,7 +6,7 @@ import Spinner from "@/components/ui/Spinner";
 
 
 interface PageToggleItem {
-  key: "page_news" | "page_rights" | "page_elections" | "page_contact" | "page_membership" | "page_members" | "page_plateforme";
+  key: "page_news" | "page_rights" | "page_elections" | "page_contact" | "page_membership" | "page_members" | "page_plateforme" | "page_aide_carburant";
   label: string;
   description: string;
 }
@@ -15,6 +15,7 @@ const PAGES: PageToggleItem[] = [
   { key: "page_news", label: "Actualites", description: "/news" },
   { key: "page_rights", label: "Vos Droits", description: "/rights" },
   { key: "page_elections", label: "Elections 2026", description: "/elections" },
+  { key: "page_aide_carburant", label: "Aide Carburant 50 €", description: "/aide-carburant" },
   { key: "page_contact", label: "Contact", description: "/contact" },
   { key: "page_membership", label: "Adhesion", description: "/membership" },
   { key: "page_members", label: "Espace membres", description: "/members" },

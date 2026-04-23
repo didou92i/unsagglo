@@ -21,6 +21,7 @@ const Members = React.lazy(() => import("@/pages/members"));
 const Login = React.lazy(() => import("@/pages/auth/login"));
 const Register = React.lazy(() => import("@/pages/auth/register"));
 const Contact = React.lazy(() => import("@/pages/contact"));
+const AideCarburant = React.lazy(() => import("@/pages/aide-carburant"));
 const Legal = React.lazy(() => import("@/pages/legal"));
 const Admin = React.lazy(() => import("@/pages/admin"));
 const NotFound = React.lazy(() => import("@/pages/NotFound"));
@@ -47,6 +48,7 @@ const App = (): JSX.Element => (
               <Route path="/members" element={<ProtectedRoute><PageGuard settingKey="page_members"><Members /></PageGuard></ProtectedRoute>} />
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/register" element={<Register />} />
+              <Route path="/aide-carburant" element={<PageGuard settingKey="page_aide_carburant"><AideCarburant /></PageGuard>} />
               <Route path="/contact" element={<PageGuard settingKey="page_contact"><Contact /></PageGuard>} />
               <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
               <Route path="/mentions-legales" element={<Legal />} />

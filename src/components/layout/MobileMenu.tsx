@@ -2,10 +2,15 @@ import { Link } from "react-router-dom";
 import UButton from "@/components/ui/UButton";
 import UBadge from "@/components/ui/UBadge";
 
+interface NavBadge {
+  label: string;
+  variant: "danger" | "warning" | "urgent";
+}
+
 interface NavLink {
   label: string;
   to: string;
-  badge?: boolean;
+  badge?: NavBadge;
 }
 
 interface MobileMenuProps {
@@ -21,7 +26,7 @@ const MobileMenu = ({ links, isAdmin, showMembership, showMembers, onClose }: Mo
     {links.map((link) => (
       <Link key={link.to} to={link.to} onClick={onClose} className="text-secondary-foreground/90 hover:text-secondary-foreground font-semibold text-sm py-2 flex items-center gap-2">
         {link.label}
-        {link.badge && <UBadge variant="danger">Dec. 2026</UBadge>}
+        {link.badge && <UBadge variant={link.badge.variant}>{link.badge.label}</UBadge>}
       </Link>
     ))}
     <div className="flex flex-col gap-2 mt-2">

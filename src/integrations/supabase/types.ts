@@ -83,6 +83,51 @@ export type Database = {
         }
         Relationships: []
       }
+      captations_aide_carburant: {
+        Row: {
+          id: string
+          email: string
+          created_at: string
+          eligibilite: string
+          critere_bloquant: string | null
+          opt_in_newsletter: boolean
+          composition_foyer: string | null
+          profil_kilometrage: string | null
+          source: string
+          pdf_telecharge: boolean
+          statut_relance: string
+          notes_internes: string | null
+        }
+        Insert: {
+          id?: string
+          email: string
+          created_at?: string
+          eligibilite: string
+          critere_bloquant?: string | null
+          opt_in_newsletter?: boolean
+          composition_foyer?: string | null
+          profil_kilometrage?: string | null
+          source?: string
+          pdf_telecharge?: boolean
+          statut_relance?: string
+          notes_internes?: string | null
+        }
+        Update: {
+          id?: string
+          email?: string
+          created_at?: string
+          eligibilite?: string
+          critere_bloquant?: string | null
+          opt_in_newsletter?: boolean
+          composition_foyer?: string | null
+          profil_kilometrage?: string | null
+          source?: string
+          pdf_telecharge?: boolean
+          statut_relance?: string
+          notes_internes?: string | null
+        }
+        Relationships: []
+      }
       candidats_liste: {
         Row: {
           adresse: string
@@ -393,6 +438,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      capture_aide_carburant_email: {
+        Args: {
+          p_email: string
+          p_eligibilite: string
+          p_critere_bloquant: string | null
+          p_opt_in_newsletter: boolean
+          p_composition_foyer: string | null
+          p_profil_kilometrage: string | null
+        }
+        Returns: string
+      }
+      mark_aide_carburant_pdf_downloaded: {
+        Args: {
+          p_email: string
+        }
+        Returns: undefined
+      }
       get_visit_stats: {
         Args: never
         Returns: {

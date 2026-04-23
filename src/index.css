@@ -44,9 +44,9 @@
     --sidebar-ring: 199 100% 45%;
 
     --color-navy: #29235c;
-    --color-cyan: #47b6a8;
+    --color-cyan: #009fe3;
     --color-yellow: #fdc500;
-    --color-orange: #e6680d;
+    --color-orange: #e74124;
     --color-green: #b3ca28;
   }
 
@@ -114,6 +114,15 @@
 
 .animate-fade-in-up {
   animation: fade-in-up 0.8s ease-out both;
+}
+
+@keyframes simulator-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-simulator-fade {
+  animation: simulator-fade 200ms ease-out;
 }
 
 @keyframes spin-y {
