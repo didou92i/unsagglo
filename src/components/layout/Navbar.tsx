@@ -23,7 +23,7 @@ const Navbar = (): JSX.Element => {
               className={`text-sm font-semibold transition-colors flex items-center gap-1.5 ${pathname === link.to ? "text-secondary-foreground underline decoration-primary decoration-2 underline-offset-4" : "text-secondary-foreground/80 hover:text-secondary-foreground"}`}
             >
               {link.label}
-              {link.badge && <UBadge variant="danger">Dec. 2026</UBadge>}
+              {link.badge && <UBadge variant={link.badge.variant}>{link.badge.label}</UBadge>}
             </Link>
           ))}
         </div>

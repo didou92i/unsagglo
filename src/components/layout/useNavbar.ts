@@ -3,10 +3,15 @@ import { useLocation } from "react-router-dom";
 import { useAdmin } from "@/hooks/useAdmin";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 
+interface NavBadge {
+  label: string;
+  variant: "danger" | "warning" | "urgent";
+}
+
 interface NavLink {
   label: string;
   to: string;
-  badge?: boolean;
+  badge?: NavBadge;
   settingKey?: string;
 }
 
@@ -14,8 +19,9 @@ const NAV_LINKS: NavLink[] = [
   { label: "Accueil", to: "/" },
   { label: "Actualites", to: "/news", settingKey: "page_news" },
   { label: "Vos Droits", to: "/rights", settingKey: "page_rights" },
-  { label: "Elections 2026", to: "/elections", badge: true, settingKey: "page_elections" },
+  { label: "Elections 2026", to: "/elections", badge: { label: "Dec. 2026", variant: "warning" }, settingKey: "page_elections" },
   { label: "Plateforme", to: "/plateforme", settingKey: "page_plateforme" },
+  { label: "Aide Carburant", to: "/aide-carburant", badge: { label: "50 €", variant: "urgent" }, settingKey: "page_aide_carburant" },
   { label: "Contact", to: "/contact", settingKey: "page_contact" },
 ];
 
@@ -33,9 +39,12 @@ interface UseNavbarReturn {
     page_membership: boolean;
     page_members: boolean;
     page_plateforme: boolean;
+    page_aide_carburant: boolean;
   };
   visibleLinks: NavLink[];
 }
+
+export type { NavLink, NavBadge };
 
 export function useNavbar(): UseNavbarReturn {
   const [isOpen, setIsOpen] = useState<boolean>(false);
