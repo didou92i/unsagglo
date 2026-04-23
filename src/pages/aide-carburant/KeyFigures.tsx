@@ -4,9 +4,9 @@ interface Figure {
 }
 
 const FIGURES: Figure[] = [
-  { value: "50 €", caption: "Forfait unique versé en juin" },
+  { value: "50 €", caption: "Forfait unique versé en juin 2026" },
   { value: "1", caption: "Seule information à déclarer : votre kilométrage" },
-  { value: "2,9 M", caption: "Bénéficiaires attendus en France" },
+  { value: "3 min", caption: "La démarche en ligne sur impots.gouv.fr" },
 ];
 
 const KeyFigures = (): JSX.Element => (

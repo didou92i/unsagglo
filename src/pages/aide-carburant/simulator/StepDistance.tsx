@@ -36,7 +36,7 @@ const StepDistance = ({ value, onChange }: StepDistanceProps): JSX.Element => (
   <div>
     <StepTitle
       title="À quelle distance habitez-vous de votre lieu de travail ?"
-      subtitle="Au moins une des conditions suivantes doit être remplie pour être éligible."
+      subtitle="Distance de votre domicile à votre site de la CARPF (Roissy, Goussainville, Villepinte, Tremblay-en-France, Le Mesnil-Amelot…) ou kilométrage annuel en mission. Au moins une des conditions doit être remplie pour être éligible."
     />
     <div className="space-y-3">
       {OPTIONS.map((opt) => (

@@ -3,14 +3,14 @@ const RETAIN_POINTS: string[] = [
   "Aide rétroactive pour avril, mai et juin 2026",
   "Demande exclusivement sur impots.gouv.fr (espace particulier)",
   "Ouverture du formulaire officiel : fin mai 2026",
-  "Budget global du paquet d'aides mai 2026 : 180 millions d'euros",
   "Aide non imposable, cumulable avec la prime transport employeur",
+  "UNSAgglo accompagne les agents de la Communauté d'Agglomération Roissy Pays de France à chaque étape",
 ];
 
 const CONDITIONS: string[] = [
-  "Posséder un véhicule personnel (thermique, électrique ou hybride)",
-  "Avoir des revenus sous la médiane nationale (les agents publics territoriaux sont éligibles)",
-  "Parcourir au moins 15 km domicile-travail OU 8 000 km/an à titre professionnel",
+  "Posséder un véhicule personnel (thermique, électrique ou hybride) utilisé pour vos trajets",
+  "Revenu fiscal de référence sous le seuil indicatif (la plupart des agents territoriaux de la CARPF sont éligibles)",
+  "Habiter à au moins 15 km de votre lieu de travail OU parcourir 8 000 km/an en mission professionnelle",
 ];
 
 const InBrief = (): JSX.Element => (
