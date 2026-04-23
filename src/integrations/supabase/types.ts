@@ -128,6 +128,27 @@ export type Database = {
         }
         Relationships: []
       }
+      simulator_funnel_events: {
+        Row: {
+          id: string
+          session_id: string
+          step: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          session_id: string
+          step: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          session_id?: string
+          step?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
       candidats_liste: {
         Row: {
           adresse: string
@@ -435,7 +456,13 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      simulator_funnel_stats: {
+        Row: {
+          step: string | null
+          unique_sessions: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       capture_aide_carburant_email: {
