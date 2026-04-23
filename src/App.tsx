@@ -6,6 +6,7 @@ import React, { Suspense } from "react";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import PageLoader from "@/components/ui/PageLoader";
 import ProtectedRoute from "@/router/ProtectedRoute";
+import AdminProtectedRoute from "@/router/AdminProtectedRoute";
 import PageGuard from "@/router/PageGuard";
 
 const Home = React.lazy(() => import("@/pages/home"));
@@ -24,6 +25,7 @@ const Contact = React.lazy(() => import("@/pages/contact"));
 const AideCarburant = React.lazy(() => import("@/pages/aide-carburant"));
 const Legal = React.lazy(() => import("@/pages/legal"));
 const Admin = React.lazy(() => import("@/pages/admin"));
+const AdminLogin = React.lazy(() => import("@/pages/admin/login"));
 const NotFound = React.lazy(() => import("@/pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -50,7 +52,8 @@ const App = (): JSX.Element => (
               <Route path="/auth/register" element={<Register />} />
               <Route path="/aide-carburant" element={<PageGuard settingKey="page_aide_carburant"><AideCarburant /></PageGuard>} />
               <Route path="/contact" element={<PageGuard settingKey="page_contact"><Contact /></PageGuard>} />
-              <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminProtectedRoute><Admin /></AdminProtectedRoute>} />
               <Route path="/mentions-legales" element={<Legal />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
