@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import Spinner from "@/components/ui/Spinner";
 import KpiCards from "./KpiCards";
+import FunnelStats from "./FunnelStats";
 import CaptationsFilters from "./CaptationsFilters";
 import CaptationsTable from "./CaptationsTable";
 import CaptationDetailModal from "./CaptationDetailModal";
@@ -118,6 +119,7 @@ const CaptationsManager = (): JSX.Element => {
   return (
     <div>
       <KpiCards rows={rows} />
+      <FunnelStats />
 
       <div className="flex items-center justify-between gap-4 mb-2">
         <h2 className="font-display font-medium text-secondary text-lg">

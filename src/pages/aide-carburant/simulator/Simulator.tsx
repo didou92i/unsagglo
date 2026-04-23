@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProgressHeader from "./ProgressHeader";
 import NavButtons from "./NavButtons";
 import StepVehicle from "./StepVehicle";
@@ -10,6 +10,7 @@ import StepSummary from "./StepSummary";
 import VerdictEligible from "./VerdictEligible";
 import VerdictNotEligible from "./VerdictNotEligible";
 import { evaluateCriteria, primaryBlockingReason } from "./logic";
+import { useFunnelTracking, type FunnelStep } from "./useFunnelTracking";
 import type {
   DistanceOption,
   HouseholdShares,
@@ -28,6 +29,17 @@ const INITIAL_ANSWERS: SimulatorAnswers = {};
 const Simulator = (): JSX.Element => {
   const [screen, setScreen] = useState<Screen>(1);
   const [answers, setAnswers] = useState<SimulatorAnswers>(INITIAL_ANSWERS);
+  const { trackStep } = useFunnelTracking();
+
+  useEffect(() => {
+    if (typeof screen === "number") {
+      trackStep(`step_${screen}` as FunnelStep);
+      return;
+    }
+    const blocking = primaryBlockingReason(evaluateCriteria(answers));
+    trackStep(blocking === null ? "verdict_eligible" : "verdict_not_eligible");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screen]);
 
   const update = <K extends keyof SimulatorAnswers>(
     key: K,
