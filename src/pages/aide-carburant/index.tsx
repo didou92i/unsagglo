@@ -5,7 +5,7 @@ import Hero from "./Hero";
 import KeyFigures from "./KeyFigures";
 import InBrief from "./InBrief";
 import ThreeSteps from "./ThreeSteps";
-import SimulatorPlaceholder from "./SimulatorPlaceholder";
+import SimulatorSection from "./SimulatorSection";
 import Faq from "./Faq";
 import ContactCta from "./ContactCta";
 
@@ -21,7 +21,7 @@ const AideCarburantPage = (): JSX.Element => (
     <KeyFigures />
     <InBrief />
     <ThreeSteps />
-    <SimulatorPlaceholder />
+    <SimulatorSection />
     <Faq />
     <ContactCta />
   </PageWrapper>

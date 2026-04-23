@@ -116,6 +116,15 @@
   animation: fade-in-up 0.8s ease-out both;
 }
 
+@keyframes simulator-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-simulator-fade {
+  animation: simulator-fade 200ms ease-out;
+}
+
 @keyframes spin-y {
   from { transform: rotateY(0deg); }
   to { transform: rotateY(360deg); }
