@@ -16,7 +16,11 @@ import type {
   HouseholdShares,
   SimulatorAnswers,
 } from "./types";
-import { TOTAL_STEPS } from "./types";
+import {
+  DISTANCE_LABELS,
+  HOUSEHOLD_LABELS,
+  TOTAL_STEPS,
+} from "./types";
 
 type Screen = number | "verdict";
 
@@ -73,10 +77,20 @@ const Simulator = (): JSX.Element => {
   if (screen === "verdict") {
     const criteria = evaluateCriteria(answers);
     const blocking = primaryBlockingReason(criteria);
+    const compositionFoyer = answers.household
+      ? HOUSEHOLD_LABELS[answers.household]
+      : null;
+    const profilKilometrage = answers.distance
+      ? DISTANCE_LABELS[answers.distance]
+      : null;
     return (
       <div key="verdict" className="animate-simulator-fade">
         {blocking === null ? (
-          <VerdictEligible onRestart={handleRestart} />
+          <VerdictEligible
+            onRestart={handleRestart}
+            compositionFoyer={compositionFoyer}
+            profilKilometrage={profilKilometrage}
+          />
         ) : (
           <VerdictNotEligible reason={blocking} onRestart={handleRestart} />
         )}

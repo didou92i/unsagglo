@@ -32,3 +32,26 @@ export const STEP_TITLES: Record<number, string> = {
   6: "Trajet",
   7: "Récapitulatif",
 };
+
+export const HOUSEHOLD_LABELS: Record<HouseholdShares, string> = {
+  "1": "1 part",
+  "1.5": "1,5 part",
+  "2": "2 parts",
+  "2.5": "2,5 parts",
+  "3+": "3 parts ou plus",
+};
+
+export const DISTANCE_LABELS: Record<DistanceOption, string> = {
+  under15: "Moins de 15 km (aller simple)",
+  over15: "15 km ou plus (aller simple)",
+  professional8000: "Plus de 8 000 km/an en déplacements professionnels",
+  unsure: "Non déterminé",
+};
+
+export const BLOCKING_REASON_LABELS: Record<BlockingReason, string> = {
+  vehicle: "Pas de véhicule",
+  status: "Statut",
+  income: "Revenus",
+  companyCar: "Véhicule employeur",
+  distance: "Kilométrage",
+};
