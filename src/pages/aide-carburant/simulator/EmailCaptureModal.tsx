@@ -2,6 +2,7 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import { toast } from "sonner";
 import { useCaptationSubmit } from "./useCaptationSubmit";
+import { generateAidePdf } from "./pdfGenerator";
 
 interface EmailCaptureModalProps {
   open: boolean;
@@ -26,6 +27,7 @@ const EmailCaptureModal = ({
   const [submittedEmail, setSubmittedEmail] = useState<string>("");
 
   const { submit, markPdfDownloaded, loading } = useCaptationSubmit();
+  const [pdfLoading, setPdfLoading] = useState<boolean>(false);
 
   if (!open) return null;
 
@@ -61,11 +63,22 @@ const EmailCaptureModal = ({
   };
 
   const handlePdfDownload = async (): Promise<void> => {
-    // PDF generation itself is handled in a follow-up prompt.
-    await markPdfDownloaded(submittedEmail);
-    toast.info(
-      "La génération du PDF sera disponible au prochain prompt. Votre consentement a bien été enregistré.",
-    );
+    if (pdfLoading) return;
+    setPdfLoading(true);
+    try {
+      await generateAidePdf({
+        compositionFoyer,
+        profilKilometrage,
+      });
+      await markPdfDownloaded(submittedEmail);
+      toast.success("Votre guide UNSAgglo est téléchargé.");
+    } catch {
+      toast.error(
+        "Une erreur est survenue pendant la génération du PDF. Réessayez ou contactez unsagglo@roissypaysdefrance.fr.",
+      );
+    } finally {
+      setPdfLoading(false);
+    }
   };
 
   const handleClose = (): void => {
@@ -230,10 +243,11 @@ const EmailCaptureModal = ({
                 onClick={() => {
                   void handlePdfDownload();
                 }}
-                className="text-white text-sm font-medium px-6 py-3 rounded-[6px] transition-opacity hover:opacity-90"
+                disabled={pdfLoading}
+                className="text-white text-sm font-medium px-6 py-3 rounded-[6px] transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ backgroundColor: "#009fe3" }}
               >
-                Télécharger le PDF
+                {pdfLoading ? "Génération..." : "Télécharger le PDF"}
               </button>
             </div>
           </div>
