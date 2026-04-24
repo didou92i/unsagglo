@@ -462,7 +462,13 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      simulator_funnel_stats: {
+        Row: {
+          step: string | null
+          unique_sessions: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       capture_aide_carburant_email: {
