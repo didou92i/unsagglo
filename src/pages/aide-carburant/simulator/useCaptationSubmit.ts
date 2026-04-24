@@ -37,10 +37,10 @@ export function useCaptationSubmit(): UseCaptationSubmitReturn {
     const { error: err } = await supabase.rpc("capture_aide_carburant_email", {
       p_email: payload.email.trim().toLowerCase(),
       p_eligibilite: payload.eligibilite,
-      p_critere_bloquant: payload.critere_bloquant,
+      p_critere_bloquant: payload.critere_bloquant ?? "",
       p_opt_in_newsletter: payload.opt_in_newsletter,
-      p_composition_foyer: payload.composition_foyer,
-      p_profil_kilometrage: payload.profil_kilometrage,
+      p_composition_foyer: payload.composition_foyer ?? "",
+      p_profil_kilometrage: payload.profil_kilometrage ?? "",
     });
 
     setLoading(false);

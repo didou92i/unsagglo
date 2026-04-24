@@ -83,72 +83,6 @@ export type Database = {
         }
         Relationships: []
       }
-      captations_aide_carburant: {
-        Row: {
-          id: string
-          email: string
-          created_at: string
-          eligibilite: string
-          critere_bloquant: string | null
-          opt_in_newsletter: boolean
-          composition_foyer: string | null
-          profil_kilometrage: string | null
-          source: string
-          pdf_telecharge: boolean
-          statut_relance: string
-          notes_internes: string | null
-        }
-        Insert: {
-          id?: string
-          email: string
-          created_at?: string
-          eligibilite: string
-          critere_bloquant?: string | null
-          opt_in_newsletter?: boolean
-          composition_foyer?: string | null
-          profil_kilometrage?: string | null
-          source?: string
-          pdf_telecharge?: boolean
-          statut_relance?: string
-          notes_internes?: string | null
-        }
-        Update: {
-          id?: string
-          email?: string
-          created_at?: string
-          eligibilite?: string
-          critere_bloquant?: string | null
-          opt_in_newsletter?: boolean
-          composition_foyer?: string | null
-          profil_kilometrage?: string | null
-          source?: string
-          pdf_telecharge?: boolean
-          statut_relance?: string
-          notes_internes?: string | null
-        }
-        Relationships: []
-      }
-      simulator_funnel_events: {
-        Row: {
-          id: string
-          session_id: string
-          step: string
-          created_at: string
-        }
-        Insert: {
-          id?: string
-          session_id: string
-          step: string
-          created_at?: string
-        }
-        Update: {
-          id?: string
-          session_id?: string
-          step?: string
-          created_at?: string
-        }
-        Relationships: []
-      }
       candidats_liste: {
         Row: {
           adresse: string
@@ -179,6 +113,57 @@ export type Database = {
           prenom?: string
           service?: string
           telephone?: string
+        }
+        Relationships: []
+      }
+      captations_aide_carburant: {
+        Row: {
+          composition_foyer: string | null
+          created_at: string
+          critere_bloquant: string | null
+          eligibilite: string
+          email: string
+          id: string
+          notes_internes: string | null
+          opt_in_newsletter: boolean
+          pdf_telecharge: boolean
+          pdf_telecharge_at: string | null
+          profil_kilometrage: string | null
+          source: string
+          statut_relance: string
+          updated_at: string
+        }
+        Insert: {
+          composition_foyer?: string | null
+          created_at?: string
+          critere_bloquant?: string | null
+          eligibilite: string
+          email: string
+          id?: string
+          notes_internes?: string | null
+          opt_in_newsletter?: boolean
+          pdf_telecharge?: boolean
+          pdf_telecharge_at?: string | null
+          profil_kilometrage?: string | null
+          source?: string
+          statut_relance?: string
+          updated_at?: string
+        }
+        Update: {
+          composition_foyer?: string | null
+          created_at?: string
+          critere_bloquant?: string | null
+          eligibilite?: string
+          email?: string
+          id?: string
+          notes_internes?: string | null
+          opt_in_newsletter?: boolean
+          pdf_telecharge?: boolean
+          pdf_telecharge_at?: string | null
+          profil_kilometrage?: string | null
+          source?: string
+          statut_relance?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -320,6 +305,27 @@ export type Database = {
           id?: string
           sources?: string[] | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      simulator_funnel_events: {
+        Row: {
+          created_at: string
+          id: string
+          session_id: string
+          step: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          session_id: string
+          step: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          session_id?: string
+          step?: string
         }
         Relationships: []
       }
@@ -467,18 +473,12 @@ export type Database = {
     Functions: {
       capture_aide_carburant_email: {
         Args: {
-          p_email: string
+          p_composition_foyer: string
+          p_critere_bloquant: string
           p_eligibilite: string
-          p_critere_bloquant: string | null
-          p_opt_in_newsletter: boolean
-          p_composition_foyer: string | null
-          p_profil_kilometrage: string | null
-        }
-        Returns: string
-      }
-      mark_aide_carburant_pdf_downloaded: {
-        Args: {
           p_email: string
+          p_opt_in_newsletter: boolean
+          p_profil_kilometrage: string
         }
         Returns: undefined
       }
@@ -495,6 +495,10 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      mark_aide_carburant_pdf_downloaded: {
+        Args: { p_email: string }
+        Returns: undefined
       }
       vote_sondage: {
         Args: {

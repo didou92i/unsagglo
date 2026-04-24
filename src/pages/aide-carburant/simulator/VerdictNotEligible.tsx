@@ -9,8 +9,6 @@ interface VerdictNotEligibleProps {
 const REASON_MESSAGES: Record<BlockingReason, string> = {
   vehicle:
     "Ce dispositif s'adresse aux travailleurs possédant un véhicule personnel (thermique, électrique ou hybride). D'autres aides au transport peuvent néanmoins vous concerner.",
-  status:
-    "Ce dispositif est réservé aux travailleurs actifs. Les retraités, les demandeurs d'emploi et les étudiants sans activité ne sont pas concernés.",
   income:
     "Vos revenus déclarés dépassent le seuil indicatif fixé par le gouvernement pour votre composition de foyer. Ce seuil sera précisé par décret avant la fin mai 2026 — il pourra évoluer à la marge.",
   companyCar:
