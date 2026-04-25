@@ -1,9 +1,22 @@
 import type { jsPDF } from "jspdf";
+import logoUrl from "@/assets/unsa-logo.png";
 
 export interface PdfParams {
   compositionFoyer: string | null;
   profilKilometrage: string | null;
 }
+
+const IMPOTS_URL = "https://www.impots.gouv.fr";
+const UNSAGGLO_EMAIL = "unsagglo@roissypaysdefrance.fr";
+
+const loadLogo = (): Promise<HTMLImageElement> =>
+  new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("Impossible de charger le logo"));
+    img.src = logoUrl;
+  });
 
 const MARINE: [number, number, number] = [41, 35, 92];
 const BLUE: [number, number, number] = [0, 159, 227];
@@ -56,29 +69,81 @@ const drawValidatedTag = (doc: jsPDF, x: number, y: number, label: string): void
   doc.text(label, x + 5, y);
 };
 
-const renderHeaderBand = (doc: jsPDF): void => {
-  setFill(doc, MARINE);
-  doc.rect(0, 0, PAGE_WIDTH, 25, "F");
+const HEADER_HEIGHT = 28;
+const LOGO_SIZE = 20;
 
+const renderHeaderBand = (doc: jsPDF, logo: HTMLImageElement | null): void => {
+  setFill(doc, MARINE);
+  doc.rect(0, 0, PAGE_WIDTH, HEADER_HEIGHT, "F");
+
+  if (logo) {
+    const logoY = (HEADER_HEIGHT - LOGO_SIZE) / 2;
+    doc.addImage(logo, "PNG", MARGIN, logoY, LOGO_SIZE, LOGO_SIZE);
+  }
+
+  const textLeft = MARGIN + LOGO_SIZE + 6;
   setText(doc, [255, 255, 255]);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(14);
-  doc.text("UNSAgglo", MARGIN, 11);
+  doc.setFontSize(13);
+  doc.text("UNSAgglo", textLeft, 13);
 
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.text("Roissy Pays de France", MARGIN, 17);
+  doc.setFontSize(8.5);
+  doc.text(
+    "Communauté d'Agglomération Roissy Pays de France",
+    textLeft,
+    18,
+  );
 
+  doc.setFont("helvetica", "bold");
   doc.setFontSize(10);
-  doc.text("Guide préparatoire personnel", PAGE_WIDTH - MARGIN, 11, { align: "right" });
+  doc.text("Guide préparatoire personnel", PAGE_WIDTH - MARGIN, 13, { align: "right" });
 
+  doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   doc.text(
     "Aide carburant grands rouleurs 2026",
     PAGE_WIDTH - MARGIN,
-    17,
+    18,
     { align: "right" },
   );
+};
+
+interface FooterContext {
+  pageNum: number;
+  totalPages: number;
+  ref: string;
+  dateDisplay: string;
+}
+
+const renderFooter = (doc: jsPDF, ctx: FooterContext): void => {
+  const y = PAGE_HEIGHT - 18;
+  setDraw(doc, MARINE);
+  doc.setLineWidth(0.3);
+  doc.line(MARGIN, y, PAGE_WIDTH - MARGIN, y);
+
+  setText(doc, MUTED);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+
+  doc.text(`Réf. ${ctx.ref}`, MARGIN, y + 6);
+  doc.text(
+    `UNSAgglo — Syndicat UNSA Territoriaux de la CARPF`,
+    PAGE_WIDTH / 2,
+    y + 6,
+    { align: "center" },
+  );
+  doc.text(
+    `Page ${ctx.pageNum} / ${ctx.totalPages}`,
+    PAGE_WIDTH - MARGIN,
+    y + 6,
+    { align: "right" },
+  );
+
+  doc.setFont("helvetica", "italic");
+  doc.text(`Édité le ${ctx.dateDisplay} — Libres Ensemble`, PAGE_WIDTH / 2, y + 11, {
+    align: "center",
+  });
 };
 
 const renderWarningBox = (doc: jsPDF, startY: number): number => {
@@ -227,43 +292,16 @@ const renderTable = (
   return bottomY + 5;
 };
 
-const renderPage1Footer = (doc: jsPDF, dateDisplay: string, ref: string): void => {
-  const y = PAGE_HEIGHT - 25;
-  setDraw(doc, MARINE);
-  doc.setLineWidth(0.3);
-  doc.line(MARGIN, y, PAGE_WIDTH - MARGIN, y);
-
-  setText(doc, MARINE);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.text(`Référence : ${ref}`, MARGIN, y + 6);
-  doc.text(`Édité le ${dateDisplay}`, PAGE_WIDTH - MARGIN, y + 6, { align: "right" });
-
-  setText(doc, MUTED);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(8);
-  doc.text(
-    "Document généré par UNSAgglo — section locale Communauté d'Agglomération Roissy Pays de France",
-    PAGE_WIDTH / 2,
-    y + 13,
-    { align: "center" },
-  );
-  doc.setFont("helvetica", "italic");
-  doc.text(
-    "Ce document ne constitue ni une demande officielle, ni une attestation juridiquement opposable.",
-    PAGE_WIDTH / 2,
-    y + 18,
-    { align: "center" },
-  );
-};
-
-const renderPage1 = (doc: jsPDF, params: PdfParams, dateDisplay: string, ref: string): void => {
-  renderHeaderBand(doc);
-  let y = 32;
+const renderPage1 = (
+  doc: jsPDF,
+  params: PdfParams,
+  logo: HTMLImageElement | null,
+): number => {
+  renderHeaderBand(doc, logo);
+  let y = HEADER_HEIGHT + 7;
   y = renderWarningBox(doc, y);
   y = renderIntro(doc, y);
-  renderTable(doc, y, params);
-  renderPage1Footer(doc, dateDisplay, ref);
+  return renderTable(doc, y, params);
 };
 
 const renderSectionHeading = (doc: jsPDF, y: number, text: string): number => {
@@ -395,26 +433,77 @@ const renderSection3 = (doc: jsPDF, startY: number): number => {
   doc.setFont("helvetica", "normal");
   doc.setFontSize(11);
 
-  const rows: Array<[string, string]> = [
-    ["Site officiel", "impots.gouv.fr, dans votre espace particulier"],
-    ["Ouverture du formulaire", "fin mai 2026"],
-    ["Durée estimée", "3 minutes"],
-    ["Versement", "juin 2026, virement sur votre compte bancaire enregistré"],
-    [
-      "Attention aux arnaques",
-      "aucun autre site ne peut traiter cette demande. Méfiez-vous des sollicitations par SMS, email ou téléphone.",
-    ],
+  interface SiteRow {
+    label: string;
+    render: (x: number, cursorY: number) => number;
+  }
+
+  const rows: SiteRow[] = [
+    {
+      label: "Site officiel",
+      render: (x, cy) => {
+        doc.setFont("helvetica", "normal");
+        doc.textWithLink("impots.gouv.fr", x, cy, { url: IMPOTS_URL });
+        const linkW = doc.getTextWidth("impots.gouv.fr");
+        const rest = ", dans votre espace particulier";
+        const wrapped = doc.splitTextToSize(rest, CONTENT_WIDTH - x - linkW + MARGIN);
+        doc.text(wrapped, x + linkW, cy);
+        return wrapped.length * 5;
+      },
+    },
+    {
+      label: "Ouverture du formulaire",
+      render: (x, cy) => {
+        doc.setFont("helvetica", "normal");
+        const wrapped = doc.splitTextToSize(
+          "fin mai 2026",
+          CONTENT_WIDTH - x + MARGIN,
+        );
+        doc.text(wrapped, x, cy);
+        return wrapped.length * 5;
+      },
+    },
+    {
+      label: "Durée estimée",
+      render: (x, cy) => {
+        doc.setFont("helvetica", "normal");
+        doc.text("3 minutes", x, cy);
+        return 5;
+      },
+    },
+    {
+      label: "Versement",
+      render: (x, cy) => {
+        doc.setFont("helvetica", "normal");
+        const wrapped = doc.splitTextToSize(
+          "juin 2026, virement sur votre compte bancaire enregistré",
+          CONTENT_WIDTH - x + MARGIN,
+        );
+        doc.text(wrapped, x, cy);
+        return wrapped.length * 5;
+      },
+    },
+    {
+      label: "Attention aux arnaques",
+      render: (x, cy) => {
+        doc.setFont("helvetica", "normal");
+        const wrapped = doc.splitTextToSize(
+          "aucun autre site ne peut traiter cette demande. Méfiez-vous des sollicitations par SMS, email ou téléphone.",
+          CONTENT_WIDTH - x + MARGIN,
+        );
+        doc.text(wrapped, x, cy);
+        return wrapped.length * 5;
+      },
+    },
   ];
 
-  rows.forEach(([label, value]) => {
+  rows.forEach((row) => {
     doc.setFont("helvetica", "bold");
-    const l = `${label} : `;
+    const l = `${row.label} : `;
     doc.text(l, MARGIN, y);
     const labelWidth = doc.getTextWidth(l);
-    doc.setFont("helvetica", "normal");
-    const wrapped = doc.splitTextToSize(value, CONTENT_WIDTH - labelWidth);
-    doc.text(wrapped, MARGIN + labelWidth, y);
-    y += wrapped.length * 5 + 2;
+    const consumed = row.render(MARGIN + labelWidth, y);
+    y += consumed + 2;
   });
 
   return y + 4;
@@ -437,42 +526,26 @@ const renderContactBox = (doc: jsPDF, startY: number): number => {
     startY + 15,
   );
   doc.setFont("helvetica", "bold");
-  doc.text("Email : unsagglo@roissypaysdefrance.fr", MARGIN + 7, startY + 22);
+  doc.textWithLink(`Email : ${UNSAGGLO_EMAIL}`, MARGIN + 7, startY + 22, {
+    url: `mailto:${UNSAGGLO_EMAIL}`,
+  });
 
   return startY + boxH + 6;
 };
 
-const renderPage2Footer = (doc: jsPDF): void => {
-  const y = PAGE_HEIGHT - 18;
-  setDraw(doc, MARINE);
-  doc.setLineWidth(0.3);
-  doc.line(MARGIN, y, PAGE_WIDTH - MARGIN, y);
+const renderPage2 = (doc: jsPDF, logo: HTMLImageElement | null): void => {
+  renderHeaderBand(doc, logo);
 
-  setText(doc, MUTED);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.text(
-    "UNSAgglo – Roissy Pays de France — Syndicat affilié UNSA Territoriaux",
-    PAGE_WIDTH / 2,
-    y + 6,
-    { align: "center" },
-  );
-  doc.setFont("helvetica", "italic");
-  doc.text("Libres Ensemble", PAGE_WIDTH / 2, y + 11, { align: "center" });
-};
-
-const renderPage2 = (doc: jsPDF): void => {
   setText(doc, MARINE);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
-  doc.text("Checklist et mode d'emploi", MARGIN, 25);
+  doc.text("Checklist et mode d'emploi", MARGIN, HEADER_HEIGHT + 12);
 
-  let y = 35;
+  let y = HEADER_HEIGHT + 22;
   y = renderSection1(doc, y);
   y = renderSection2(doc, y);
   y = renderSection3(doc, y);
   renderContactBox(doc, y);
-  renderPage2Footer(doc);
 };
 
 const renderAccompagnement = (doc: jsPDF, startY: number): number => {
@@ -508,89 +581,110 @@ const renderAccompagnement = (doc: jsPDF, startY: number): number => {
 };
 
 const renderRefusLetter = (doc: jsPDF, startY: number): number => {
-  let y = renderSectionHeading(doc, startY, "Courrier type en cas de refus");
+  let y = renderSectionHeading(doc, startY, "Courrier type — recours gracieux en cas de refus");
 
   setText(doc, MUTED);
   doc.setFont("helvetica", "italic");
-  doc.setFontSize(10);
+  doc.setFontSize(9.5);
   const note =
-    "À adapter à votre situation et à envoyer à votre centre des finances publiques ou à transmettre à " +
-    "UNSAgglo (unsagglo@roissypaysdefrance.fr) pour relecture avant expédition.";
+    "Modèle à adapter. Transmettez une copie à UNSAgglo pour relecture avant envoi. " +
+    "Envoi recommandé avec accusé de réception au Service des impôts des particuliers (SIP) " +
+    "dont vous dépendez, dans les deux mois suivant la notification de refus.";
   const noteLines = doc.splitTextToSize(note, CONTENT_WIDTH);
   doc.text(noteLines, MARGIN, y);
-  y += noteLines.length * 5 + 4;
+  y += noteLines.length * 4 + 4;
 
-  const letter =
-    "Madame, Monsieur,\n\n" +
-    "J'ai l'honneur de solliciter le réexamen de ma demande d'aide carburant « grands rouleurs » " +
-    "2026, déposée le [DATE] sur mon espace particulier impots.gouv.fr et qui m'a été refusée le " +
-    "[DATE REFUS] sous la référence [RÉFÉRENCE DOSSIER].\n\n" +
-    "Je suis agent de la Communauté d'Agglomération Roissy Pays de France et je remplis les " +
-    "conditions d'éligibilité annoncées par le gouvernement le 21 avril 2026 :\n" +
-    "— je possède un véhicule personnel dont je finance moi-même le carburant ;\n" +
-    "— je réside à [DISTANCE] km de mon lieu de travail / je parcours [KILOMÉTRAGE] km par an à " +
-    "titre professionnel ;\n" +
-    "— mon revenu fiscal de référence pour [ANNÉE] est de [MONTANT] €, pour un foyer de [NB] part(s).\n\n" +
-    "Je vous prie de bien vouloir réexaminer ma demande au regard de ces éléments. Mon syndicat " +
-    "UNSAgglo (unsagglo@roissypaysdefrance.fr) peut être contacté pour toute information " +
-    "complémentaire.\n\n" +
-    "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.\n\n" +
-    "[Nom, Prénom]\n" +
-    "[Adresse]\n" +
-    "[Date et signature]";
-
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  setText(doc, BLACK);
-
-  const letterLines = doc.splitTextToSize(letter, CONTENT_WIDTH - 10);
-  const boxH = letterLines.length * 4.5 + 10;
+  // Fixed-height letter card for a clean administrative layout.
+  const innerX = MARGIN + 6;
+  const innerWidth = CONTENT_WIDTH - 12;
+  const boxTop = y;
+  const boxBottom = PAGE_HEIGHT - 30;
+  const boxH = boxBottom - boxTop;
 
   setFill(doc, CARD_BG);
-  doc.rect(MARGIN, y, CONTENT_WIDTH, boxH, "F");
+  doc.rect(MARGIN, boxTop, CONTENT_WIDTH, boxH, "F");
   setDraw(doc, MARINE);
   doc.setLineWidth(0.2);
-  doc.rect(MARGIN, y, CONTENT_WIDTH, boxH);
+  doc.rect(MARGIN, boxTop, CONTENT_WIDTH, boxH);
 
-  doc.text(letterLines, MARGIN + 5, y + 6);
-
-  return y + boxH + 6;
-};
-
-const renderPage3Footer = (doc: jsPDF): void => {
-  const y = PAGE_HEIGHT - 18;
-  setDraw(doc, MARINE);
-  doc.setLineWidth(0.3);
-  doc.line(MARGIN, y, PAGE_WIDTH - MARGIN, y);
-
-  setText(doc, MUTED);
   doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.text(
-    "UNSAgglo – Communauté d'Agglomération Roissy Pays de France",
-    PAGE_WIDTH / 2,
-    y + 6,
-    { align: "center" },
-  );
+  doc.setFontSize(9.5);
+  setText(doc, BLACK);
+
+  let cy = boxTop + 7;
+
+  // Sender (top-left)
   doc.setFont("helvetica", "italic");
-  doc.text(
-    "Syndicat affilié UNSA Territoriaux — Libres Ensemble",
-    PAGE_WIDTH / 2,
-    y + 11,
-    { align: "center" },
-  );
+  setText(doc, MUTED);
+  doc.text("[Nom Prénom]", innerX, cy);
+  doc.text("[Adresse]", innerX, cy + 4);
+  doc.text("[Code postal — Ville]", innerX, cy + 8);
+
+  // Recipient (top-right)
+  const rightX = MARGIN + CONTENT_WIDTH - 6;
+  doc.text("Service des impôts des particuliers", rightX, cy, { align: "right" });
+  doc.text("[Adresse du SIP]", rightX, cy + 4, { align: "right" });
+  doc.text("[Code postal — Ville]", rightX, cy + 8, { align: "right" });
+
+  cy += 18;
+
+  // Date + place
+  setText(doc, BLACK);
+  doc.setFont("helvetica", "normal");
+  doc.text("Fait à [VILLE], le [DATE]", rightX, cy, { align: "right" });
+  cy += 10;
+
+  // Object + reference
+  doc.setFont("helvetica", "bold");
+  doc.text("Objet :", innerX, cy);
+  doc.setFont("helvetica", "normal");
+  doc.text("recours gracieux — refus d'aide carburant 2026", innerX + 12, cy);
+  cy += 5;
+  doc.setFont("helvetica", "bold");
+  doc.text("Réf. :", innerX, cy);
+  doc.setFont("helvetica", "normal");
+  doc.text("[Numéro fiscal] · dossier [RÉFÉRENCE DOSSIER]", innerX + 12, cy);
+  cy += 7;
+
+  // Body
+  const body =
+    "Madame, Monsieur,\n\n" +
+    "J'ai l'honneur de solliciter le réexamen de ma demande d'aide carburant « grands rouleurs » " +
+    "2026, déposée le [DATE DÉPÔT] sur mon espace particulier impots.gouv.fr et qui m'a été " +
+    "refusée le [DATE REFUS].\n\n" +
+    "Agent de la Communauté d'Agglomération Roissy Pays de France, je remplis les conditions " +
+    "d'éligibilité :\n" +
+    "• véhicule personnel dont je finance moi-même le carburant ;\n" +
+    "• [DISTANCE] km domicile-travail (aller simple) / [KILOMÉTRAGE] km/an professionnels ;\n" +
+    "• revenu fiscal de référence [ANNÉE] : [MONTANT] €, foyer de [NB] part(s).\n\n" +
+    "Je sollicite par conséquent le réexamen de mon dossier et la révision de cette décision. " +
+    "Mon organisation syndicale UNSAgglo peut être contactée pour toute information complémentaire.\n\n" +
+    "Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.";
+
+  const bodyLines = doc.splitTextToSize(body, innerWidth);
+  doc.text(bodyLines, innerX, cy);
+  cy += bodyLines.length * 4.2 + 8;
+
+  // Signature
+  doc.text("Signature", rightX - 10, cy, { align: "right" });
+  doc.setDrawColor(120, 120, 120);
+  doc.setLineWidth(0.2);
+  doc.line(rightX - 35, cy + 2, rightX, cy + 2);
+
+  return boxBottom + 4;
 };
 
-const renderPage3 = (doc: jsPDF): void => {
+const renderPage3 = (doc: jsPDF, logo: HTMLImageElement | null): void => {
+  renderHeaderBand(doc, logo);
+
   setText(doc, MARINE);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
-  doc.text("Ressources & courrier type", MARGIN, 25);
+  doc.text("Ressources & courrier type", MARGIN, HEADER_HEIGHT + 12);
 
-  let y = 35;
+  let y = HEADER_HEIGHT + 22;
   y = renderAccompagnement(doc, y);
   renderRefusLetter(doc, y);
-  renderPage3Footer(doc);
 };
 
 export async function generateAidePdf(params: PdfParams): Promise<void> {
@@ -602,11 +696,24 @@ export async function generateAidePdf(params: PdfParams): Promise<void> {
   const dateCompact = formatDateCompact(now);
   const ref = `UNSAGGLO-AIDECARB-${dateCompact}-${randomRef()}`;
 
-  renderPage1(doc, params, dateDisplay, ref);
+  let logo: HTMLImageElement | null = null;
+  try {
+    logo = await loadLogo();
+  } catch {
+    // Silently degrade to text-only header if the logo asset fails to load.
+  }
+
+  renderPage1(doc, params, logo);
   doc.addPage();
-  renderPage2(doc);
+  renderPage2(doc, logo);
   doc.addPage();
-  renderPage3(doc);
+  renderPage3(doc, logo);
+
+  const totalPages = 3;
+  for (let i = 1; i <= totalPages; i += 1) {
+    doc.setPage(i);
+    renderFooter(doc, { pageNum: i, totalPages, ref, dateDisplay });
+  }
 
   doc.save(`UNSAgglo_Guide_Aide_Carburant_${dateCompact}.pdf`);
 }
