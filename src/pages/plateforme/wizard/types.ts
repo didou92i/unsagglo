@@ -59,7 +59,7 @@ export const STEP_LABELS: Record<WizardStepId, string> = {
 
 export const TOTAL_PROGRESS_STEPS = STEP_ORDER.length;
 
-export const MAX_THEMES = 3;
+export const MAX_THEMES = 5;
 
 interface ThemeMeta {
   icon: LucideIcon;
