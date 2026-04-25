@@ -1,5 +1,6 @@
 import { Sparkles, Info } from "lucide-react";
 import ContribWizard from "./wizard/ContribWizard";
+import CampaignBanner from "./campaign/CampaignBanner";
 
 const ContribSection = (): JSX.Element => (
   <section
@@ -7,6 +8,8 @@ const ContribSection = (): JSX.Element => (
     className="px-4 md:px-6 py-20"
     style={{ backgroundColor: "#ffffff" }}
   >
+    <CampaignBanner />
+
     <div className="max-w-3xl mx-auto">
       <div className="text-center mb-8">
         <p className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase mb-4 text-primary">

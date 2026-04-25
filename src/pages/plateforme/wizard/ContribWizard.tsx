@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contribSchema, type ContribFormData } from "../contribSchema";
@@ -17,6 +17,7 @@ import StepIdentity from "./StepIdentity";
 import StepListe from "./StepListe";
 import StepReview from "./StepReview";
 import { STEP_ORDER, type WizardStepId, MAX_THEMES, THEME_VISUAL } from "./types";
+import { CAMPAIGN_THEME_KEY } from "../campaign/types";
 
 const composeContenu = (
   story: string,
@@ -49,6 +50,9 @@ const ContribWizard = (): JSX.Element => {
   const [assistantOpen, setAssistantOpen] = useState<boolean>(false);
   const [stepError, setStepError] = useState<string | null>(null);
 
+  // Pre-select the campaign theme when the agent landed via the campaign CTA
+  // and jump them straight to the theme step so they see it highlighted.
+
   const {
     register,
     setValue,
@@ -61,6 +65,23 @@ const ContribWizard = (): JSX.Element => {
     mode: "onChange",
     defaultValues: { rejoindreListe: false },
   });
+
+  // Pre-select the campaign theme when the agent landed via the campaign CTA,
+  // and jump them straight to the theme step so they see it highlighted.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const seed = sessionStorage.getItem(CAMPAIGN_THEME_KEY);
+      if (!seed) return;
+      sessionStorage.removeItem(CAMPAIGN_THEME_KEY);
+      if (!THEME_VISUAL[seed]) return;
+      setThemes([seed]);
+      setValue("theme", seed, { shouldValidate: true });
+      setStepIndex(STEP_ORDER.indexOf("theme"));
+    } catch {
+      // sessionStorage unavailable — silently skip.
+    }
+  }, [setValue]);
 
   const service = watch("service");
   const statut = watch("statut");

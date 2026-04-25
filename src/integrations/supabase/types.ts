@@ -83,6 +83,51 @@ export type Database = {
         }
         Relationships: []
       }
+      campaigns: {
+        Row: {
+          id: string
+          title: string
+          theme: string
+          description: string | null
+          objective_count: number
+          start_date: string
+          end_date: string
+          deliverable_label: string | null
+          deliverable_date: string | null
+          active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          theme: string
+          description?: string | null
+          objective_count?: number
+          start_date: string
+          end_date: string
+          deliverable_label?: string | null
+          deliverable_date?: string | null
+          active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          theme?: string
+          description?: string | null
+          objective_count?: number
+          start_date?: string
+          end_date?: string
+          deliverable_label?: string | null
+          deliverable_date?: string | null
+          active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       candidats_liste: {
         Row: {
           adresse: string
@@ -508,6 +553,21 @@ export type Database = {
       }
     }
     Functions: {
+      get_active_campaign: {
+        Args: Record<string, never>
+        Returns: {
+          id: string
+          title: string
+          theme: string
+          description: string | null
+          objective_count: number
+          start_date: string
+          end_date: string
+          deliverable_label: string | null
+          deliverable_date: string | null
+          contribution_count: number
+        }[]
+      }
       capture_aide_carburant_email: {
         Args: {
           p_composition_foyer: string
