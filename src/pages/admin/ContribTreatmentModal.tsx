@@ -11,8 +11,8 @@ interface Contribution {
   id: string;
   contenu: string;
   statut_traitement: string;
-  cst_date: string | null;
   reponse_direction: string | null;
+  action_unsagglo: string | null;
 }
 
 interface ContribTreatmentModalProps {
@@ -22,8 +22,8 @@ interface ContribTreatmentModalProps {
     id: string,
     data: {
       statut_traitement: string;
-      cst_date: string | null;
       reponse_direction: string | null;
+      action_unsagglo: string | null;
     },
   ) => Promise<boolean>;
 }
@@ -34,15 +34,15 @@ const ContribTreatmentModal = ({
   onSave,
 }: ContribTreatmentModalProps): JSX.Element | null => {
   const [statut, setStatut] = useState<StatutTraitement>("recue");
-  const [cstDate, setCstDate] = useState<string>("");
-  const [reponse, setReponse] = useState<string>("");
+  const [engagement, setEngagement] = useState<string>("");
+  const [action, setAction] = useState<string>("");
   const [saving, setSaving] = useState<boolean>(false);
 
   useEffect(() => {
     if (!contribution) return;
     setStatut(contribution.statut_traitement as StatutTraitement);
-    setCstDate(contribution.cst_date ?? "");
-    setReponse(contribution.reponse_direction ?? "");
+    setEngagement(contribution.reponse_direction ?? "");
+    setAction(contribution.action_unsagglo ?? "");
   }, [contribution]);
 
   if (!contribution) return null;
@@ -51,8 +51,8 @@ const ContribTreatmentModal = ({
     setSaving(true);
     const ok = await onSave(contribution.id, {
       statut_traitement: statut,
-      cst_date: cstDate.trim() === "" ? null : cstDate,
-      reponse_direction: reponse.trim() === "" ? null : reponse,
+      reponse_direction: engagement.trim() === "" ? null : engagement,
+      action_unsagglo: action.trim() === "" ? null : action,
     });
     setSaving(false);
     if (ok) onClose();
@@ -80,7 +80,10 @@ const ContribTreatmentModal = ({
           <X className="h-5 w-5" />
         </button>
 
-        <h3 className="font-display font-medium text-secondary" style={{ fontSize: "20px" }}>
+        <h3
+          className="font-display font-medium text-secondary"
+          style={{ fontSize: "20px" }}
+        >
           Mettre à jour le suivi
         </h3>
         <p className="text-xs text-muted-foreground mt-1">
@@ -98,7 +101,7 @@ const ContribTreatmentModal = ({
 
         <div className="mt-6">
           <label className="text-xs uppercase tracking-wide text-muted-foreground block mb-3">
-            Statut
+            Statut programme 2026
           </label>
           <div className="flex flex-wrap gap-2">
             {STATUS_OPTIONS_ADMIN.map((s) => {
@@ -125,41 +128,49 @@ const ContribTreatmentModal = ({
           </div>
         </div>
 
-        {(statut === "portee_cst" ||
-          statut === "obtenue" ||
-          statut === "refusee" ||
-          statut === "en_negociation") && (
-          <div className="mt-5">
-            <label className="text-xs uppercase tracking-wide text-muted-foreground block mb-2">
-              Date du CST
-            </label>
-            <input
-              type="date"
-              value={cstDate}
-              onChange={(e) => setCstDate(e.target.value)}
-              className="w-full rounded-md border px-3 py-2 text-sm text-secondary bg-white focus:outline-none focus:ring-2 focus:ring-primary"
-              style={{ borderColor: "#e6eaf0" }}
-            />
-          </div>
-        )}
-
         <div className="mt-5">
           <label className="text-xs uppercase tracking-wide text-muted-foreground block mb-2">
-            Réponse de la direction (visible sur le mur)
+            Action UNSAgglo déjà réalisée (optionnel)
           </label>
+          <p className="text-xs text-muted-foreground italic mb-2">
+            Ce qu'UNSAgglo a déjà fait sur cette contribution dans la vie de
+            la section : café syndical, accompagnement individuel, note
+            partagée, point en bureau, etc.
+          </p>
           <textarea
-            rows={4}
-            value={reponse}
-            onChange={(e) => setReponse(e.target.value)}
-            placeholder="Synthèse de la réponse obtenue, négociation en cours, etc."
+            rows={3}
+            value={action}
+            onChange={(e) => setAction(e.target.value)}
+            placeholder="Ex : Café syndical du 12/05 à Roissy, accompagnement individuel en cours, note technique partagée…"
             className="w-full rounded-md border px-3 py-2 text-sm text-secondary bg-white focus:outline-none focus:ring-2 focus:ring-primary resize-y"
             style={{ borderColor: "#e6eaf0" }}
           />
         </div>
 
-        <div className="mt-4 rounded-md p-3 text-xs" style={{ backgroundColor: "#eff9fe" }}>
-          <p className="text-muted-foreground mb-2">Aperçu :</p>
-          <StatusBadge statut={statut} cstDate={cstDate || null} />
+        <div className="mt-5">
+          <label className="text-xs uppercase tracking-wide text-muted-foreground block mb-2">
+            Engagement UNSAgglo si élus (optionnel)
+          </label>
+          <p className="text-xs text-muted-foreground italic mb-2">
+            Phrase courte qui formule l'engagement de campagne lié à cette
+            contribution.
+          </p>
+          <textarea
+            rows={3}
+            value={engagement}
+            onChange={(e) => setEngagement(e.target.value)}
+            placeholder="Ex : Si UNSAgglo est élu en décembre 2026, nous porterons en CST l'extension du télétravail à 3 jours par semaine."
+            className="w-full rounded-md border px-3 py-2 text-sm text-secondary bg-white focus:outline-none focus:ring-2 focus:ring-primary resize-y"
+            style={{ borderColor: "#e6eaf0" }}
+          />
+        </div>
+
+        <div
+          className="mt-4 rounded-md p-3 text-xs"
+          style={{ backgroundColor: "#eff9fe" }}
+        >
+          <p className="text-muted-foreground mb-2">Aperçu du badge :</p>
+          <StatusBadge statut={statut} />
         </div>
 
         <div className="mt-6 flex items-center justify-end gap-4">

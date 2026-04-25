@@ -84,7 +84,7 @@ const StepReview = ({
   <div>
     <StepHeader
       eyebrow="Dernière étape"
-      title="Voilà ce qu'on s'apprête à porter pour vous."
+      title="Voilà ce que vous allez verser au programme UNSAgglo 2026."
       subtitle="Relisez avant d'envoyer. Vous pouvez revenir en arrière à tout moment."
     />
 

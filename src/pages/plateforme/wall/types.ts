@@ -1,20 +1,18 @@
 import {
   Inbox,
   Search,
-  Megaphone,
-  CheckCircle2,
-  XCircle,
-  Handshake,
+  ScrollText,
+  Star,
+  CircleSlash,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export type StatutTraitement =
   | "recue"
   | "analysee"
-  | "portee_cst"
-  | "obtenue"
-  | "refusee"
-  | "en_negociation";
+  | "integree_programme"
+  | "engagement_phare"
+  | "non_retenue";
 
 export interface PublicContribution {
   id: string;
@@ -29,6 +27,7 @@ export interface PublicContribution {
   statut_traitement: StatutTraitement;
   cst_date: string | null;
   reponse_direction: string | null;
+  action_unsagglo: string | null;
   derniere_maj: string;
 }
 
@@ -49,55 +48,47 @@ export const STATUS_META: Record<StatutTraitement, StatusMeta> = {
     bg: "#f1f5f9",
   },
   analysee: {
-    label: "Analysée par UNSAgglo",
+    label: "Analysée par le bureau UNSAgglo",
     shortLabel: "Analysée",
     icon: Search,
     color: "#29235c",
     bg: "#eef0f6",
   },
-  portee_cst: {
-    label: "Portée au CST",
-    shortLabel: "Portée CST",
-    icon: Megaphone,
+  integree_programme: {
+    label: "Intégrée au programme 2026",
+    shortLabel: "Intégrée au programme",
+    icon: ScrollText,
     color: "#009fe3",
     bg: "#eff9fe",
   },
-  en_negociation: {
-    label: "En négociation",
-    shortLabel: "Négociation",
-    icon: Handshake,
-    color: "#a04000",
-    bg: "#fff8e1",
-  },
-  obtenue: {
-    label: "Obtenue",
-    shortLabel: "Obtenue",
-    icon: CheckCircle2,
+  engagement_phare: {
+    label: "Engagement phare de campagne",
+    shortLabel: "Engagement phare",
+    icon: Star,
     color: "#15803d",
     bg: "#dcfce7",
   },
-  refusee: {
-    label: "Refusée par la direction",
-    shortLabel: "Refusée",
-    icon: XCircle,
+  non_retenue: {
+    label: "Non retenue dans le programme",
+    shortLabel: "Non retenue",
+    icon: CircleSlash,
     color: "#e74124",
     bg: "#fff4f1",
   },
 };
 
-/** Linear progression — used by the timeline. Refusee/Obtenue are terminal forks. */
+/** Linear progression. non_retenue est une issue alternative à integree_programme. */
 export const STATUS_PROGRESSION: StatutTraitement[] = [
   "recue",
   "analysee",
-  "portee_cst",
-  "obtenue",
+  "integree_programme",
+  "engagement_phare",
 ];
 
 export const STATUS_OPTIONS_ADMIN: StatutTraitement[] = [
   "recue",
   "analysee",
-  "portee_cst",
-  "en_negociation",
-  "obtenue",
-  "refusee",
+  "integree_programme",
+  "engagement_phare",
+  "non_retenue",
 ];

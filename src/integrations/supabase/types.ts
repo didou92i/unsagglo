@@ -196,6 +196,7 @@ export type Database = {
       }
       contributions_elections: {
         Row: {
+          action_unsagglo: string | null
           anonyme: boolean
           contenu: string
           created_at: string
@@ -211,6 +212,7 @@ export type Database = {
           themes: string[]
         }
         Insert: {
+          action_unsagglo?: string | null
           anonyme?: boolean
           contenu: string
           created_at?: string
@@ -226,6 +228,7 @@ export type Database = {
           themes?: string[]
         }
         Update: {
+          action_unsagglo?: string | null
           anonyme?: boolean
           contenu?: string
           created_at?: string
@@ -486,6 +489,7 @@ export type Database = {
       }
       public_contributions_feed: {
         Row: {
+          action_unsagglo: string | null
           anonyme: boolean | null
           contenu: string | null
           created_at: string | null

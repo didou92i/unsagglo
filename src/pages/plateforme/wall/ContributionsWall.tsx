@@ -9,10 +9,10 @@ type FilterValue = "all" | StatutTraitement;
 
 const FILTERS: Array<{ value: FilterValue; label: string }> = [
   { value: "all", label: "Toutes" },
-  { value: "portee_cst", label: "Portées au CST" },
-  { value: "en_negociation", label: "En négociation" },
-  { value: "obtenue", label: "Obtenues" },
-  { value: "refusee", label: "Refusées" },
+  { value: "analysee", label: "Analysées" },
+  { value: "integree_programme", label: "Au programme 2026" },
+  { value: "engagement_phare", label: "Engagements phares" },
+  { value: "non_retenue", label: "Non retenues" },
 ];
 
 const ContributionsWall = (): JSX.Element => {
@@ -95,9 +95,11 @@ const ContributionsWall = (): JSX.Element => {
           strokeWidth={1.75}
         />
         <span>
-          Les contributions sont publiées de manière transparente. Si vous avez
-          coché « Anonyme », votre prénom n'apparaît jamais. Le statut est mis
-          à jour par UNSAgglo au fur et à mesure du suivi en CST.
+          UNSAgglo n'a pas encore d'élu au CST de la CARPF. Mais notre section
+          syndicale est opérationnelle : nous lisons et analysons chaque
+          contribution, intégrons les meilleures à notre programme 2026, et
+          vous accompagnons individuellement si nécessaire dès aujourd'hui. Si
+          vous avez coché « Anonyme », votre prénom n'apparaît jamais.
         </span>
       </div>
     </div>

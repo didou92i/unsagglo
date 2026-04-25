@@ -1,4 +1,4 @@
-import UCard from "@/components/ui/UCard";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 
 interface ContribSuccessProps {
   candidature: boolean;
@@ -6,16 +6,45 @@ interface ContribSuccessProps {
 
 const ContribSuccess = ({ candidature }: ContribSuccessProps): JSX.Element => (
   <section id="contribution" className="px-4 md:px-6 py-16 bg-background">
-    <UCard className="text-center border-2 border-[var(--color-green)] max-w-lg mx-auto">
-      <svg className="h-12 w-12 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="var(--color-green)">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-      </svg>
-      <h3 className="font-display text-xl font-bold text-foreground">Contribution envoy&eacute;e</h3>
-      <p className="text-muted-foreground mt-2">Merci ! Votre proposition sera &eacute;tudi&eacute;e.</p>
+    <div className="max-w-2xl mx-auto text-center">
+      <div
+        className="inline-flex items-center justify-center rounded-full mb-6 animate-wizard-pop"
+        style={{
+          width: "72px",
+          height: "72px",
+          backgroundColor: "#dcfce7",
+        }}
+      >
+        <CheckCircle2 className="h-9 w-9" style={{ color: "#15803d" }} strokeWidth={1.75} />
+      </div>
+
+      <h3 className="font-display font-medium text-secondary text-2xl md:text-3xl leading-tight">
+        Merci, votre voix vient de rejoindre le programme UNSAgglo 2026.
+      </h3>
+      <p className="text-sm text-muted-foreground mt-3 max-w-md mx-auto leading-relaxed">
+        Votre contribution est enregistrée. Le bureau UNSAgglo va l'analyser
+        dans les prochains jours et la traiter en transparence — vous pourrez
+        suivre son cheminement publiquement sur le mur ci-dessous.
+      </p>
+
       {candidature && (
-        <p className="text-muted-foreground mt-2">Votre candidature &agrave; la liste &eacute;lectorale a aussi &eacute;t&eacute; enregistr&eacute;e.</p>
+        <div
+          className="rounded-md p-4 mt-6 max-w-md mx-auto text-sm text-secondary leading-relaxed"
+          style={{ backgroundColor: "#eff9fe" }}
+        >
+          Votre candidature à la liste UNSAgglo 2026 a aussi été enregistrée.
+          Le secrétaire général reviendra vers vous très rapidement.
+        </div>
       )}
-    </UCard>
+
+      <a
+        href="#suivi"
+        className="inline-flex items-center gap-2 mt-8 text-sm font-medium text-primary hover:opacity-80 transition-opacity"
+      >
+        Voir le mur des contributions
+        <ArrowRight className="h-4 w-4" strokeWidth={2} />
+      </a>
+    </div>
   </section>
 );
 

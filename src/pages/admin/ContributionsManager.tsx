@@ -34,15 +34,19 @@ const ContributionsManager = (): JSX.Element => {
       Contenu: c.contenu,
       Anonyme: c.anonyme ? "Oui" : "Non",
       Suivi: STATUS_META[c.statut_traitement as StatutTraitement]?.label ?? c.statut_traitement,
-      DateCST: c.cst_date ?? "",
-      ReponseDirection: c.reponse_direction ?? "",
+      ActionUNSAgglo: c.action_unsagglo ?? "",
+      EngagementUNSAgglo: c.reponse_direction ?? "",
       Date: c.created_at,
     })), "contributions.csv");
   };
 
   const handleSave = async (
     id: string,
-    data: { statut_traitement: string; cst_date: string | null; reponse_direction: string | null },
+    data: {
+      statut_traitement: string;
+      reponse_direction: string | null;
+      action_unsagglo: string | null;
+    },
   ): Promise<boolean> => {
     const ok = await updateTreatment(id, data);
     if (ok) toast.success("Suivi mis à jour.");
@@ -89,7 +93,6 @@ const ContributionsManager = (): JSX.Element => {
               <TableCell>
                 <StatusBadge
                   statut={c.statut_traitement as StatutTraitement}
-                  cstDate={c.cst_date}
                   size="sm"
                 />
               </TableCell>
