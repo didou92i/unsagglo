@@ -15,6 +15,7 @@ import CandidatsManager from "./CandidatsManager";
 import ContributionsManager from "./ContributionsManager";
 import ContactManager from "./ContactManager";
 import CaptationsManager from "./captations/CaptationsManager";
+import CampaignsManager from "./campaigns/CampaignsManager";
 
 const firstNameFromEmail = (email: string | null | undefined): string => {
   if (!email) return "administrateur";
@@ -74,10 +75,11 @@ const AdminPage = (): JSX.Element => {
         <Tabs defaultValue="captations">
           <TabsList className="mb-6 flex-wrap">
             <TabsTrigger value="captations">Captations Aide Carburant</TabsTrigger>
+            <TabsTrigger value="campagnes">Campagnes</TabsTrigger>
+            <TabsTrigger value="contributions">Contributions</TabsTrigger>
             <TabsTrigger value="adherents">Adherents</TabsTrigger>
             <TabsTrigger value="articles">Articles</TabsTrigger>
             <TabsTrigger value="documents">Documents</TabsTrigger>
-            <TabsTrigger value="contributions">Contributions</TabsTrigger>
             <TabsTrigger value="sondages">Sondages</TabsTrigger>
             <TabsTrigger value="candidats">Candidats liste</TabsTrigger>
             <TabsTrigger value="contact">Messages contact</TabsTrigger>
@@ -86,10 +88,11 @@ const AdminPage = (): JSX.Element => {
           </TabsList>
 
           <TabsContent value="captations"><CaptationsManager /></TabsContent>
+          <TabsContent value="campagnes"><CampaignsManager /></TabsContent>
+          <TabsContent value="contributions"><ContributionsManager /></TabsContent>
           <TabsContent value="adherents"><AdherentsManager /></TabsContent>
           <TabsContent value="articles"><ArticlesManager /></TabsContent>
           <TabsContent value="documents"><DocumentsManager /></TabsContent>
-          <TabsContent value="contributions"><ContributionsManager /></TabsContent>
           <TabsContent value="sondages"><SondagesManager /></TabsContent>
           <TabsContent value="candidats"><CandidatsManager /></TabsContent>
           <TabsContent value="contact"><ContactManager /></TabsContent>
