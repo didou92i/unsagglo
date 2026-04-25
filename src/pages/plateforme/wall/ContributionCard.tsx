@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, MessageSquareReply } from "lucide-react";
+import { ChevronDown, ChevronUp, Megaphone, Activity } from "lucide-react";
 import { THEME_VISUAL } from "../wizard/types";
 import { THEMES } from "@/constants/themes";
 import StatusBadge from "./StatusBadge";
@@ -65,16 +65,10 @@ const ContributionCard = ({ contribution }: ContributionCardProps): JSX.Element 
             );
           })}
         </div>
-        <StatusBadge
-          statut={contribution.statut_traitement}
-          cstDate={contribution.cst_date}
-          size="sm"
-        />
+        <StatusBadge statut={contribution.statut_traitement} size="sm" />
       </div>
 
-      <p
-        className="text-sm text-foreground/85 leading-relaxed whitespace-pre-line"
-      >
+      <p className="text-sm text-foreground/85 leading-relaxed whitespace-pre-line">
         « {displayedContenu} »
       </p>
 
@@ -96,14 +90,29 @@ const ContributionCard = ({ contribution }: ContributionCardProps): JSX.Element 
         </button>
       )}
 
-      {contribution.reponse_direction && (
+      {contribution.action_unsagglo && (
         <div
           className="mt-4 rounded-md p-3 border-l-2"
+          style={{ backgroundColor: "#eff9fe", borderColor: "#009fe3" }}
+        >
+          <p className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-wide font-semibold mb-1" style={{ color: "#009fe3" }}>
+            <Activity className="h-3 w-3" strokeWidth={2.25} />
+            Ce qu'UNSAgglo a déjà fait
+          </p>
+          <p className="text-xs text-foreground/85 leading-relaxed">
+            {contribution.action_unsagglo}
+          </p>
+        </div>
+      )}
+
+      {contribution.reponse_direction && (
+        <div
+          className="mt-3 rounded-md p-3 border-l-2"
           style={{ backgroundColor: "#f5f5f7", borderColor: "#29235c" }}
         >
           <p className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-secondary font-semibold mb-1">
-            <MessageSquareReply className="h-3 w-3" strokeWidth={2.25} />
-            Réponse de la direction
+            <Megaphone className="h-3 w-3" strokeWidth={2.25} />
+            Engagement UNSAgglo si élus
           </p>
           <p className="text-xs text-foreground/85 leading-relaxed">
             {contribution.reponse_direction}
@@ -112,10 +121,7 @@ const ContributionCard = ({ contribution }: ContributionCardProps): JSX.Element 
       )}
 
       <div className="mt-5 pt-4 border-t" style={{ borderColor: "#f0f2f6" }}>
-        <StatusTimeline
-          statut={contribution.statut_traitement}
-          cstDate={contribution.cst_date}
-        />
+        <StatusTimeline statut={contribution.statut_traitement} />
       </div>
 
       <div className="mt-4 flex items-center justify-between text-[11px] text-muted-foreground">

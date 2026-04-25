@@ -14,6 +14,7 @@ interface Contribution {
   statut_traitement: string;
   cst_date: string | null;
   reponse_direction: string | null;
+  action_unsagglo: string | null;
   derniere_maj: string;
 }
 
@@ -21,6 +22,7 @@ interface UpdateTreatmentInput {
   statut_traitement?: string;
   cst_date?: string | null;
   reponse_direction?: string | null;
+  action_unsagglo?: string | null;
 }
 
 interface UseAdminContributionsReturn {

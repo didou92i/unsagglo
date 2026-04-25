@@ -19,8 +19,8 @@ const FEATURES: Array<{ icon: typeof Sparkles; title: string; body: string }> = 
   },
   {
     icon: Sparkles,
-    title: "Portée au CST",
-    body: "Vos meilleures idées sont défendues directement par UNSAgglo.",
+    title: "Au cœur de notre programme 2026",
+    body: "Vos meilleures idées seront défendues au CST si nous sommes élus en décembre 2026.",
   },
 ];
 

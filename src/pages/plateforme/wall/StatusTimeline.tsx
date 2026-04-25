@@ -7,25 +7,13 @@ import {
 
 interface StatusTimelineProps {
   statut: StatutTraitement;
-  cstDate?: string | null;
 }
 
-const formatShortFr = (iso: string): string => {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
-};
+const StatusTimeline = ({ statut }: StatusTimelineProps): JSX.Element => {
+  const isNonRetenue = statut === "non_retenue";
 
-const StatusTimeline = ({ statut, cstDate }: StatusTimelineProps): JSX.Element => {
-  const isRefusee = statut === "refusee";
-  const isNegociation = statut === "en_negociation";
-
-  // For refusee: progression stops at portee_cst, then forks to refusal indicator.
-  // For en_negociation: progression stops at portee_cst with a "negotiation" pulse.
-  const effectiveStatus: StatutTraitement = isRefusee || isNegociation
-    ? "portee_cst"
-    : statut;
-
+  // For non_retenue: progression stops at "analysee", we draw a fork after.
+  const effectiveStatus: StatutTraitement = isNonRetenue ? "analysee" : statut;
   const currentIndex = STATUS_PROGRESSION.indexOf(effectiveStatus);
 
   return (
@@ -33,7 +21,7 @@ const StatusTimeline = ({ statut, cstDate }: StatusTimelineProps): JSX.Element =
       {STATUS_PROGRESSION.map((step, i) => {
         const meta = STATUS_META[step];
         const reached = i <= currentIndex;
-        const isCurrent = i === currentIndex && !isRefusee;
+        const isCurrent = i === currentIndex && !isNonRetenue;
         const isLast = i === STATUS_PROGRESSION.length - 1;
 
         return (
@@ -46,9 +34,7 @@ const StatusTimeline = ({ statut, cstDate }: StatusTimelineProps): JSX.Element =
                   height: "24px",
                   backgroundColor: reached ? meta.color : "#e6eaf0",
                   color: reached ? "#ffffff" : "#94a3b8",
-                  boxShadow: isCurrent
-                    ? `0 0 0 4px ${meta.bg}`
-                    : "none",
+                  boxShadow: isCurrent ? `0 0 0 4px ${meta.bg}` : "none",
                 }}
               >
                 {reached ? (
@@ -67,32 +53,28 @@ const StatusTimeline = ({ statut, cstDate }: StatusTimelineProps): JSX.Element =
                 }}
               >
                 {meta.shortLabel}
-                {step === "portee_cst" && cstDate && reached && (
-                  <span className="block text-[9px] text-muted-foreground">
-                    {formatShortFr(cstDate)}
-                  </span>
-                )}
               </span>
             </div>
             {!isLast && (
               <div
                 className="flex-1 h-0.5 mx-1 rounded transition-colors duration-200 self-start mt-3"
                 style={{
-                  backgroundColor: i < currentIndex ? STATUS_META[step].color : "#e6eaf0",
+                  backgroundColor:
+                    i < currentIndex ? STATUS_META[step].color : "#e6eaf0",
                 }}
               />
             )}
           </div>
         );
       })}
-      {isRefusee && (
+      {isNonRetenue && (
         <div className="ml-3 flex flex-col items-center">
           <div
             className="rounded-full flex items-center justify-center"
             style={{
               width: "24px",
               height: "24px",
-              backgroundColor: STATUS_META.refusee.color,
+              backgroundColor: STATUS_META.non_retenue.color,
               color: "#ffffff",
             }}
           >
@@ -100,9 +82,12 @@ const StatusTimeline = ({ statut, cstDate }: StatusTimelineProps): JSX.Element =
           </div>
           <span
             className="text-[10px] mt-1.5"
-            style={{ color: STATUS_META.refusee.color, fontWeight: 600 }}
+            style={{
+              color: STATUS_META.non_retenue.color,
+              fontWeight: 600,
+            }}
           >
-            Refusée
+            Non retenue
           </span>
         </div>
       )}

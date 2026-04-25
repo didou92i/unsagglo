@@ -1,4 +1,4 @@
-import { Activity } from "lucide-react";
+import { ScrollText } from "lucide-react";
 import ContributionsWall from "./wall/ContributionsWall";
 
 const WallSection = (): JSX.Element => (
@@ -10,16 +10,17 @@ const WallSection = (): JSX.Element => (
     <div className="max-w-5xl mx-auto">
       <div className="text-center mb-10">
         <p className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase mb-4 text-primary">
-          <Activity className="h-3.5 w-3.5" strokeWidth={2} />
-          Suivi en temps réel
+          <ScrollText className="h-3.5 w-3.5" strokeWidth={2} />
+          Construction du programme 2026
         </p>
         <h2 className="font-display font-medium text-secondary text-3xl md:text-4xl leading-tight">
-          Le suivi des contributions UNSAgglo
+          Comment vos contributions construisent notre programme
         </h2>
         <p className="text-sm text-muted-foreground mt-3 max-w-2xl mx-auto leading-relaxed">
-          Chaque contribution est suivie publiquement de la réception au verdict
-          en CST. Aucune ne disparaît dans une boîte noire — vous voyez où en
-          est la vôtre, et celle de vos collègues.
+          Chaque idée déposée est lue, analysée et — si elle fait écho —
+          intégrée à notre programme 2026. Les plus mobilisatrices deviennent
+          des engagements phares de notre campagne. Certaines déclenchent dès
+          maintenant un café syndical ou un accompagnement individuel.
         </p>
       </div>
 
