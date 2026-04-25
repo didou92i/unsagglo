@@ -11,22 +11,22 @@ const PILLARS: Pillar[] = [
   {
     icon: Users,
     title: "Co-construction",
-    body: "Notre programme s'écrit avec vous, pas pour vous. Chaque idée déposée sur la plateforme est lue, classée et défendue. Le syndicalisme top-down, c'est terminé.",
+    body: "Notre programme se construit avec les agents de la CARPF. Chaque idée déposée sur la plateforme rejoint un programme collectif que vous voyez s'écrire au fil de l'eau.",
   },
   {
     icon: Eye,
     title: "Transparence totale",
-    body: "Chaque contribution est suivie publiquement de la réception au verdict. Vous voyez ce qu'elle devient — pas de boîte noire, pas de promesses oubliées.",
+    body: "Chaque contribution est suivie publiquement, de la réception à son intégration au programme. Vous savez à tout moment où en est votre idée.",
   },
   {
     icon: MapPin,
     title: "100 % local",
-    body: "Une section dédiée à la CARPF, jamais une voix nationale au-dessus de la vôtre. Nos engagements collent au terrain de Roissy Pays de France.",
+    body: "Une section syndicale entièrement dédiée à la CARPF, conçue pour la réalité de nos sites — Roissy, Goussainville, Villepinte, Tremblay-en-France, Le Mesnil-Amelot.",
   },
   {
     icon: Sparkles,
     title: "Modernes & accessibles",
-    body: "Une plateforme participative, des simulateurs, un contact direct. Le syndicat à hauteur d'agent — pas de jargon, pas de formulaires papier.",
+    body: "Plateforme participative, simulateurs, contact direct par email. Le syndicat à hauteur d'agent, en quelques clics depuis votre téléphone.",
   },
 ];
 
