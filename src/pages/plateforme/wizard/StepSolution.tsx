@@ -35,7 +35,7 @@ const StepSolution = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Ce qui pourrait vraiment changer la donne, c'est…"
-        className="w-full rounded-md border px-4 py-3 text-base text-secondary placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary resize-y"
+        className="w-full rounded-md border px-4 py-3 text-base text-secondary placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 resize-y"
         style={{ borderColor: "#e6eaf0", minHeight: "150px" }}
       />
 

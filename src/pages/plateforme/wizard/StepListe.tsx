@@ -1,3 +1,4 @@
+import { PenLine, Handshake } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import StepHeader from "./StepHeader";
 import ChoiceCard from "./ChoiceCard";
@@ -29,14 +30,14 @@ const StepListe = ({
       <ChoiceCard
         selected={!willJoin}
         onClick={() => onChange(false)}
-        emoji="📝"
+        icon={PenLine}
         title="Juste contribuer"
         description="Je dépose mon idée, sans m'engager au-delà."
       />
       <ChoiceCard
         selected={willJoin}
         onClick={() => onChange(true)}
-        emoji="🤝"
+        icon={Handshake}
         title="Rejoindre la liste UNSAgglo 2026"
         description="Je veux candidater aux élections de décembre 2026."
       />

@@ -204,6 +204,7 @@ export type Database = {
           service: string
           statut: string | null
           theme: string
+          themes: string[]
         }
         Insert: {
           anonyme?: boolean
@@ -214,6 +215,7 @@ export type Database = {
           service: string
           statut?: string | null
           theme: string
+          themes?: string[]
         }
         Update: {
           anonyme?: boolean
@@ -224,6 +226,7 @@ export type Database = {
           service?: string
           statut?: string | null
           theme?: string
+          themes?: string[]
         }
         Relationships: []
       }

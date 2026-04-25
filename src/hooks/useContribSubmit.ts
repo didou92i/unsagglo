@@ -7,6 +7,7 @@ interface ContribInput {
   service: string;
   statut: string;
   theme: string;
+  themes?: string[];
   contenu: string;
   anonyme?: boolean;
 }
@@ -27,11 +28,14 @@ export function useContribSubmit(): UseContribSubmitReturn {
   const submit = async (data: ContribInput): Promise<void> => {
     setLoading(true);
     setError(null);
+    const themes =
+      data.themes && data.themes.length > 0 ? data.themes : [data.theme];
     const { error: err } = await supabase.from("contributions_elections").insert([{
       prenom: data.prenom,
       service: data.service,
       statut: data.statut,
       theme: data.theme,
+      themes,
       contenu: data.contenu,
       anonyme: data.anonyme ?? false,
     }]);

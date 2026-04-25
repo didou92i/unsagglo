@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 
 interface Filterable {
   theme: string;
+  themes?: string[];
   statut: string | null;
   service: string;
 }
@@ -23,7 +24,10 @@ export function useContribFilters<T extends Filterable>(items: T[]): UseContribF
 
   const filtered = useMemo(() => {
     return items.filter((c) => {
-      if (themeFilter && c.theme !== themeFilter) return false;
+      if (themeFilter) {
+        const allThemes = c.themes && c.themes.length > 0 ? c.themes : [c.theme];
+        if (!allThemes.includes(themeFilter)) return false;
+      }
       if (statutFilter && c.statut !== statutFilter) return false;
       if (serviceFilter && c.service !== serviceFilter) return false;
       return true;
