@@ -1,3 +1,4 @@
+import { EyeOff, User } from "lucide-react";
 import { SelectField, InputField } from "@/components/forms";
 import { SERVICE_GROUPS } from "@/constants/services";
 import { STATUT_GROUPS } from "@/constants/statuts";
@@ -33,14 +34,14 @@ const StepIdentity = ({
       <ChoiceCard
         selected={anonyme && !willJoinList}
         onClick={() => !willJoinList && onAnonymeChange(true)}
-        emoji="🕶️"
+        icon={EyeOff}
         title="Anonyme"
         description="Aucune information identifiante n'est conservée."
       />
       <ChoiceCard
         selected={!anonyme}
         onClick={() => onAnonymeChange(false)}
-        emoji="✋"
+        icon={User}
         title="Avec mon prénom"
         description="UNSAgglo peut revenir vers vous si besoin."
       />

@@ -55,7 +55,15 @@ const ContributionsManager = (): JSX.Element => {
               <TableCell className="font-medium">{c.anonyme ? "\u2014" : c.prenom}</TableCell>
               <TableCell>{c.anonyme ? "\u2014" : serviceLabel(c.service)}</TableCell>
               <TableCell>{c.statut ? statutLabel(c.statut) : "\u2014"}</TableCell>
-              <TableCell><Badge variant="outline">{themeLabel(c.theme)}</Badge></TableCell>
+              <TableCell>
+                <div className="flex flex-wrap gap-1 max-w-[220px]">
+                  {(c.themes && c.themes.length > 0 ? c.themes : [c.theme]).map((t) => (
+                    <Badge key={t} variant="outline" className="text-xs">
+                      {themeLabel(t)}
+                    </Badge>
+                  ))}
+                </div>
+              </TableCell>
               <ContribContentCell text={c.contenu} />
               <TableCell>{c.anonyme ? <Badge variant="secondary">Oui</Badge> : "Non"}</TableCell>
               <TableCell className="text-muted-foreground text-sm">

@@ -16,15 +16,23 @@ import StepSolution from "./StepSolution";
 import StepIdentity from "./StepIdentity";
 import StepListe from "./StepListe";
 import StepReview from "./StepReview";
-import { STEP_ORDER, type WizardStepId } from "./types";
+import { STEP_ORDER, type WizardStepId, MAX_THEMES, THEME_VISUAL } from "./types";
 
-const composeContenu = (story: string, solution: string): string => {
+const composeContenu = (
+  story: string,
+  solution: string,
+  themes: string[],
+): string => {
   const cleanedStory = story.trim();
   const cleanedSolution = solution.trim();
+  const themeLabels = themes
+    .map((t) => THEME_VISUAL[t]?.short ?? t)
+    .filter(Boolean);
+  const header = themeLabels.length > 1 ? `Thèmes : ${themeLabels.join(", ")}\n\n` : "";
   if (cleanedSolution === "") {
-    return `Constat :\n${cleanedStory}`;
+    return `${header}Constat :\n${cleanedStory}`;
   }
-  return `Constat :\n${cleanedStory}\n\nProposition :\n${cleanedSolution}`;
+  return `${header}Constat :\n${cleanedStory}\n\nProposition :\n${cleanedSolution}`;
 };
 
 const ContribWizard = (): JSX.Element => {
@@ -33,6 +41,7 @@ const ContribWizard = (): JSX.Element => {
   const { stats } = usePlatformStats();
 
   const [stepIndex, setStepIndex] = useState<number>(0);
+  const [themes, setThemes] = useState<string[]>([]);
   const [story, setStory] = useState<string>("");
   const [solution, setSolution] = useState<string>("");
   const [anonyme, setAnonyme] = useState<boolean>(false);
@@ -53,15 +62,30 @@ const ContribWizard = (): JSX.Element => {
     defaultValues: { rejoindreListe: false },
   });
 
-  const theme = watch("theme");
   const service = watch("service");
   const statut = watch("statut");
   const prenom = watch("prenom");
 
   const currentStep: WizardStepId = STEP_ORDER[stepIndex] ?? "welcome";
+  const primaryTheme = themes[0];
+
+  const toggleTheme = (theme: string): void => {
+    setThemes((prev) => {
+      if (prev.includes(theme)) {
+        const next = prev.filter((t) => t !== theme);
+        // Keep the form's primary `theme` field in sync for schema validation.
+        setValue("theme", next[0] ?? "", { shouldValidate: true });
+        return next;
+      }
+      if (prev.length >= MAX_THEMES) return prev;
+      const next = [...prev, theme];
+      setValue("theme", next[0] ?? "", { shouldValidate: true });
+      return next;
+    });
+  };
 
   const onAnonymeChange = (v: boolean): void => {
-    if (willJoin && v) return; // anon and listing are mutually exclusive
+    if (willJoin && v) return;
     setAnonyme(v);
   };
 
@@ -80,11 +104,11 @@ const ContribWizard = (): JSX.Element => {
       case "welcome":
         return true;
       case "theme":
-        return Boolean(theme);
+        return themes.length >= 1;
       case "story":
         return story.trim().length >= 20;
       case "solution":
-        return true; // optional step
+        return true;
       case "identity":
         return Boolean(service && statut && (anonyme || (prenom && prenom.length >= 2)));
       case "liste":
@@ -102,8 +126,6 @@ const ContribWizard = (): JSX.Element => {
   const handleNext = async (): Promise<void> => {
     setStepError(null);
     if (currentStep === "liste" && willJoin) {
-      // Validate the listing fields (nom, email, telephone, adresse) before
-      // letting the agent move on.
       const ok = await trigger(["nom", "email", "telephone", "adresse", "prenom"]);
       if (!ok) {
         setStepError("Merci de compléter les informations pour rejoindre la liste.");
@@ -117,24 +139,30 @@ const ContribWizard = (): JSX.Element => {
     setStepError(null);
     const data = getValues();
 
+    if (themes.length === 0) {
+      setStepError("Sélectionnez au moins une thématique.");
+      setStepIndex(STEP_ORDER.indexOf("theme"));
+      return;
+    }
     if (story.trim().length < 20) {
       setStepError("Le constat est trop court (20 caractères minimum).");
       setStepIndex(STEP_ORDER.indexOf("story"));
       return;
     }
-    if (!data.service || !data.statut || !data.theme) {
-      setStepError("Service, statut ou thème manquant.");
+    if (!data.service || !data.statut) {
+      setStepError("Service ou statut manquant.");
       return;
     }
 
-    const contenu = composeContenu(story, solution);
+    const contenu = composeContenu(story, solution, themes);
     const finalPrenom = anonyme ? "Anonyme" : (data.prenom ?? "Anonyme");
 
     await contrib.submit({
       prenom: finalPrenom,
       service: data.service,
       statut: data.statut,
-      theme: data.theme,
+      theme: themes[0]!,
+      themes,
       contenu,
       anonyme,
     });
@@ -165,14 +193,14 @@ const ContribWizard = (): JSX.Element => {
           <StepWelcome totalContributions={stats.contributions} />
         )}
         {currentStep === "theme" && (
-          <StepTheme value={theme} onChange={(v) => setValue("theme", v, { shouldValidate: true })} />
+          <StepTheme values={themes} onToggle={toggleTheme} />
         )}
         {currentStep === "story" && (
-          <StepStory theme={theme} value={story} onChange={setStory} />
+          <StepStory theme={primaryTheme} value={story} onChange={setStory} />
         )}
         {currentStep === "solution" && (
           <StepSolution
-            theme={theme ?? ""}
+            theme={primaryTheme ?? ""}
             story={story}
             value={solution}
             onChange={setSolution}
@@ -199,7 +227,7 @@ const ContribWizard = (): JSX.Element => {
         )}
         {currentStep === "review" && (
           <StepReview
-            theme={theme}
+            themes={themes}
             story={story}
             solution={solution}
             anonyme={anonyme}

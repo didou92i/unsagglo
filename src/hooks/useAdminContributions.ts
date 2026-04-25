@@ -7,6 +7,7 @@ interface Contribution {
   service: string;
   statut: string | null;
   theme: string;
+  themes: string[];
   contenu: string;
   anonyme: boolean;
   created_at: string;
