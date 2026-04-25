@@ -16,7 +16,7 @@ const FILTERS: Array<{ value: FilterValue; label: string }> = [
 ];
 
 const ContributionsWall = (): JSX.Element => {
-  const { contributions, loading } = usePublicContributions(20);
+  const { contributions, loading } = usePublicContributions(8);
   const [filter, setFilter] = useState<FilterValue>("all");
 
   const visible = useMemo(

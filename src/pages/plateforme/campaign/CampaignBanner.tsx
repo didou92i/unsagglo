@@ -1,5 +1,4 @@
-import { Megaphone, Calendar, Target } from "lucide-react";
-import { useCountUp } from "@/hooks/useCountUp";
+import { Megaphone, Calendar, Activity } from "lucide-react";
 import { useActiveCampaign } from "./useActiveCampaign";
 import { CAMPAIGN_THEME_KEY } from "./types";
 import { THEME_VISUAL } from "../wizard/types";
@@ -27,17 +26,9 @@ const daysLeft = (iso: string): number => {
 
 const CampaignBanner = (): JSX.Element | null => {
   const { campaign, loading } = useActiveCampaign();
-  const animatedCount = useCountUp({
-    end: campaign?.contribution_count ?? 0,
-    duration: 1200,
-  });
 
   if (loading || !campaign) return null;
 
-  const percent = Math.min(
-    100,
-    Math.round((campaign.contribution_count / campaign.objective_count) * 100),
-  );
   const remaining = daysLeft(campaign.end_date);
   const themeMeta = THEME_VISUAL[campaign.theme];
   const ThemeIcon = themeMeta?.icon;
@@ -46,11 +37,11 @@ const CampaignBanner = (): JSX.Element | null => {
     try {
       sessionStorage.setItem(CAMPAIGN_THEME_KEY, campaign.theme);
     } catch {
-      // sessionStorage unavailable (private mode) — ignore, the user just won't
-      // get the theme pre-selected. Better to fail soft than block the flow.
+      // sessionStorage unavailable (private mode) — ignore.
     }
-    const wizardSection = document.getElementById("contribution");
-    wizardSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document
+      .getElementById("contribution")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -93,36 +84,16 @@ const CampaignBanner = (): JSX.Element | null => {
             </p>
           )}
 
-          <div className="mt-6 max-w-xl">
-            <div className="flex items-center justify-between mb-2">
-              <p className="inline-flex items-center gap-2 text-xs text-white/70">
-                <Target className="h-3.5 w-3.5" strokeWidth={2} />
-                Objectif :{" "}
-                <span className="text-white font-medium tabular-nums">
-                  {animatedCount}
-                </span>{" "}
-                / {campaign.objective_count} témoignages
-              </p>
-              <p className="text-xs font-medium tabular-nums" style={{ color: "#009fe3" }}>
-                {percent} %
-              </p>
-            </div>
-            <div
-              className="w-full rounded-full overflow-hidden"
-              style={{ height: "6px", backgroundColor: "rgba(255, 255, 255, 0.15)" }}
-              role="progressbar"
-              aria-valuenow={percent}
-              aria-valuemin={0}
-              aria-valuemax={100}
-            >
-              <div
-                className="h-full transition-all duration-700 ease-out"
-                style={{
-                  width: `${Math.max(2, percent)}%`,
-                  backgroundColor: "#009fe3",
-                }}
-              />
-            </div>
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full px-3 py-1.5"
+               style={{ backgroundColor: "rgba(0, 159, 227, 0.15)" }}>
+            <Activity
+              className="h-3.5 w-3.5 animate-pulse"
+              style={{ color: "#009fe3" }}
+              strokeWidth={2.25}
+            />
+            <span className="text-xs font-medium" style={{ color: "#009fe3" }}>
+              Mobilisation en cours
+            </span>
           </div>
 
           <div className="mt-5 flex items-center flex-wrap gap-x-5 gap-y-2 text-xs text-white/75">
