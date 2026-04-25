@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contribSchema, type ContribFormData } from "../contribSchema";
 import { useContribSubmit } from "@/hooks/useContribSubmit";
 import { useCandidatSubmit } from "@/hooks/useCandidatSubmit";
-import { usePlatformStats } from "../usePlatformStats";
 import ContribSuccess from "../ContribSuccess";
 import { FormError } from "@/components/forms";
 import WizardProgress from "./WizardProgress";
@@ -39,7 +38,6 @@ const composeContenu = (
 const ContribWizard = (): JSX.Element => {
   const contrib = useContribSubmit();
   const candidat = useCandidatSubmit();
-  const { stats } = usePlatformStats();
 
   const [stepIndex, setStepIndex] = useState<number>(0);
   const [themes, setThemes] = useState<string[]>([]);
@@ -210,9 +208,7 @@ const ContribWizard = (): JSX.Element => {
       <WizardProgress current={currentStep} />
 
       <div key={currentStep} className="animate-simulator-fade mt-8">
-        {currentStep === "welcome" && (
-          <StepWelcome totalContributions={stats.contributions} />
-        )}
+        {currentStep === "welcome" && <StepWelcome />}
         {currentStep === "theme" && (
           <StepTheme values={themes} onToggle={toggleTheme} />
         )}
