@@ -199,10 +199,14 @@ export type Database = {
           anonyme: boolean
           contenu: string
           created_at: string
+          cst_date: string | null
+          derniere_maj: string
           id: string
           prenom: string
+          reponse_direction: string | null
           service: string
           statut: string | null
+          statut_traitement: string
           theme: string
           themes: string[]
         }
@@ -210,10 +214,14 @@ export type Database = {
           anonyme?: boolean
           contenu: string
           created_at?: string
+          cst_date?: string | null
+          derniere_maj?: string
           id?: string
           prenom: string
+          reponse_direction?: string | null
           service: string
           statut?: string | null
+          statut_traitement?: string
           theme: string
           themes?: string[]
         }
@@ -221,10 +229,14 @@ export type Database = {
           anonyme?: boolean
           contenu?: string
           created_at?: string
+          cst_date?: string | null
+          derniere_maj?: string
           id?: string
           prenom?: string
+          reponse_direction?: string | null
           service?: string
           statut?: string | null
+          statut_traitement?: string
           theme?: string
           themes?: string[]
         }
@@ -469,6 +481,24 @@ export type Database = {
         Row: {
           step: string | null
           unique_sessions: number | null
+        }
+        Relationships: []
+      }
+      public_contributions_feed: {
+        Row: {
+          anonyme: boolean | null
+          contenu: string | null
+          created_at: string | null
+          cst_date: string | null
+          derniere_maj: string | null
+          id: string | null
+          prenom: string | null
+          reponse_direction: string | null
+          service: string | null
+          statut: string | null
+          statut_traitement: string | null
+          theme: string | null
+          themes: string[] | null
         }
         Relationships: []
       }
