@@ -1,75 +1,62 @@
-import { Euro, Building2, TrendingUp, ShieldAlert } from "lucide-react";
-import type { ElementType } from "react";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { MetaTags } from "@/components/seo";
-import { HeroBanner, SectionTitle } from "@/components/sections";
-import UCard from "@/components/ui/UCard";
-import UButton from "@/components/ui/UButton";
+import { SectionTitle } from "@/components/sections";
+import Hero from "./Hero";
+import WhyUnsagglo from "./WhyUnsagglo";
+import HowToVote from "./HowToVote";
 import ProgramSection from "./ProgramSection";
 
-interface Engagement {
-  titre: string;
-  description: string;
-  icon: ElementType;
-}
+const ElectionsPage = (): JSX.Element => (
+  <PageWrapper>
+    <MetaTags
+      title="Élections 2026"
+      description="UNSAgglo se présente pour la première fois aux élections professionnelles de la CARPF en décembre 2026. Programme co-construit avec les agents, transparence totale."
+    />
+    <Hero />
+    <WhyUnsagglo />
+    <HowToVote />
 
-const ENGAGEMENTS: Engagement[] = [
-  { titre: "Rémunération", description: "Défense du RIFSEEP, revalorisation du point d'indice, NBI.", icon: Euro },
-  { titre: "Conditions de travail", description: "Télétravail, aménagement horaires, locaux adaptés.", icon: Building2 },
-  { titre: "Carrière", description: "Avancement équitable, promotion interne, formation.", icon: TrendingUp },
-  { titre: "Risques psychosociaux", description: "Prévention, droit d'alerte, accompagnement.", icon: ShieldAlert },
-];
+    <section
+      id="programme"
+      className="px-4 md:px-6 py-20 bg-white scroll-mt-24"
+    >
+      <SectionTitle title="Calendrier électoral" />
+      <ProgramSection />
+    </section>
 
-const ElectionsPage = (): JSX.Element => {
-  return (
-    <PageWrapper>
-      <MetaTags title="Élections 2026" description="UNSAgglo se prépare aux élections professionnelles de décembre 2026. Contribuez à notre programme." />
-      <HeroBanner
-        title="Élections "
-        highlight="2026"
-        subtitle="Construisons ensemble le programme qui défend vos intérêts."
-        badge="Décembre 2026"
-        ctaPrimaryLabel="Je contribue"
-        ctaPrimaryHref="/plateforme#contribution"
-        ctaSecondaryLabel="Notre programme"
-        ctaSecondaryHref="#programme"
-      />
-      <section className="px-4 md:px-6 py-16">
-        <SectionTitle title="Nos engagements" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {ENGAGEMENTS.map((e) => (
-            <UCard key={e.titre}>
-              <div className="flex items-start gap-4">
-                <div className="rounded-[var(--radius-md)] bg-primary/10 p-3 flex-shrink-0">
-                  <e.icon className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-display text-lg font-bold text-foreground">{e.titre}</h3>
-                  <p className="text-muted-foreground text-sm mt-2">{e.description}</p>
-                </div>
-              </div>
-            </UCard>
-          ))}
-        </div>
-      </section>
-      <section id="programme" className="px-4 md:px-6 py-16 bg-muted">
-        <SectionTitle title="Calendrier électoral" />
-        <ProgramSection />
-      </section>
-      <section id="contribution" className="px-4 md:px-6 py-16">
-        <SectionTitle title="Faites entendre votre voix" subtitle="Proposez vos idées sur notre plateforme participative." />
-        <div className="text-center max-w-lg mx-auto">
-          <p className="text-muted-foreground mb-6">
-            Toutes les contributions sont centralisées sur notre plateforme participative. Partagez vos propositions et participez aux sondages thématiques.
-          </p>
+    <section
+      id="contribution"
+      className="px-4 md:px-6 py-20"
+      style={{ backgroundColor: "#29235c" }}
+    >
+      <div className="max-w-3xl mx-auto text-center text-white">
+        <h2 className="font-display font-medium text-3xl md:text-4xl leading-tight">
+          Faites entendre votre voix
+        </h2>
+        <p className="text-sm md:text-base text-white/85 mt-4 max-w-xl mx-auto leading-relaxed">
+          Le programme UNSAgglo se construit en ce moment, contribution après
+          contribution. Déposez la vôtre — anonymement si vous préférez.
+        </p>
+        <div className="mt-8 flex justify-center">
           <Link to="/plateforme#contribution">
-            <UButton variant="primary" size="lg">Accéder à la plateforme</UButton>
+            <button
+              type="button"
+              className="group inline-flex items-center gap-2 text-white text-sm font-medium rounded-[6px] px-7 py-3 transition-opacity hover:opacity-90"
+              style={{ backgroundColor: "#009fe3" }}
+            >
+              Accéder à la plateforme
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                strokeWidth={2}
+              />
+            </button>
           </Link>
         </div>
-      </section>
-    </PageWrapper>
-  );
-};
+      </div>
+    </section>
+  </PageWrapper>
+);
 
 export default ElectionsPage;
