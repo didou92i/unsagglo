@@ -135,9 +135,12 @@ export type Database = {
         Row: {
           active: boolean
           created_at: string
-          description: string
+          deliverable_date: string | null
+          deliverable_label: string | null
+          description: string | null
           end_date: string
           id: string
+          objective_count: number
           start_date: string
           theme: string
           title: string
@@ -146,9 +149,12 @@ export type Database = {
         Insert: {
           active?: boolean
           created_at?: string
-          description: string
+          deliverable_date?: string | null
+          deliverable_label?: string | null
+          description?: string | null
           end_date: string
           id?: string
+          objective_count?: number
           start_date: string
           theme: string
           title: string
@@ -157,9 +163,12 @@ export type Database = {
         Update: {
           active?: boolean
           created_at?: string
-          description?: string
+          deliverable_date?: string | null
+          deliverable_label?: string | null
+          description?: string | null
           end_date?: string
           id?: string
+          objective_count?: number
           start_date?: string
           theme?: string
           title?: string
@@ -638,16 +647,16 @@ export type Database = {
       get_active_campaign: {
         Args: never
         Returns: {
-          active: boolean
-          contributions_count: number
-          created_at: string
+          contribution_count: number
+          deliverable_date: string
+          deliverable_label: string
           description: string
           end_date: string
           id: string
+          objective_count: number
           start_date: string
           theme: string
           title: string
-          updated_at: string
         }[]
       }
       get_visit_stats: {
