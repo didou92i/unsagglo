@@ -67,6 +67,14 @@ const AdhesionForm = (): JSX.Element => {
         toast.error(
           "Une demande d'adhésion existe déjà avec cette adresse e-mail.",
         );
+      } else if (error.code === "23514") {
+        toast.error(
+          "Une valeur saisie n'est pas reconnue par le serveur. Vérifiez vos sélections (catégorie, statut, mode de paiement).",
+        );
+      } else if (error.code === "23502") {
+        toast.error(
+          "Un champ obligatoire est manquant. Vérifiez votre saisie.",
+        );
       } else {
         toast.error("Erreur lors de la soumission. Merci de réessayer.");
       }
@@ -561,14 +569,13 @@ const AdhesionForm = (): JSX.Element => {
               Je déclare adhérer librement à UNSAgglo et accepter sans réserve
               les{" "}
               <a
-                href="/statuts.pdf"
-                target="_blank"
-                rel="noreferrer"
+                href="mailto:unsagglo@roissypaysdefrance.fr?subject=Demande%20des%20statuts%20UNSAgglo"
                 className="text-primary underline"
               >
-                statuts d'UNSAgglo
+                statuts d'UNSAgglo (disponibles sur demande)
               </a>
-              .
+              . Une copie sera fournie par e-mail dès réception de votre
+              bulletin signé.
             </label>
           </div>
           {errors.statuts_acceptes && (
