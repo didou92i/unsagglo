@@ -1,14 +1,13 @@
-import type { ReactNode } from "react";
+import { forwardRef } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "outline" | "danger";
   size?: "sm" | "md" | "lg";
   loading?: boolean;
   type?: "button" | "submit" | "reset";
-  onClick?: () => void;
   children: ReactNode;
   className?: string;
-  disabled?: boolean;
 }
 
 const variantStyles: Record<string, string> = {
@@ -24,22 +23,14 @@ const sizeStyles: Record<string, string> = {
   lg: "px-8 py-3 text-lg",
 };
 
-const UButton = ({
-  variant = "primary",
-  size = "md",
-  loading = false,
-  type = "button",
-  onClick,
-  children,
-  className = "",
-  disabled = false,
-}: ButtonProps): JSX.Element => {
-  return (
+const UButton = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = "primary", size = "md", loading = false, type = "button", children, className = "", disabled = false, ...props }, ref): JSX.Element => (
     <button
+      ref={ref}
       type={type}
-      onClick={onClick}
       disabled={disabled || loading}
       className={`font-display font-bold tracking-wide rounded-[var(--radius-md)] transition-all duration-200 inline-flex items-center justify-center gap-2 ${variantStyles[variant]} ${sizeStyles[size]} ${loading || disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"} ${className}`}
+      {...props}
     >
       {loading && (
         <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
@@ -49,7 +40,8 @@ const UButton = ({
       )}
       {children}
     </button>
-  );
-};
+  ),
+);
+UButton.displayName = "UButton";
 
 export default UButton;
