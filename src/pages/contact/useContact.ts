@@ -50,7 +50,7 @@ export function useContact(): UseContactReturn {
       setState({ loading: false, success: true, error: null });
       toast.success("Message envoye avec succes !");
     } catch {
-      setState({ loading: false, success: false, error: "Envoi impossible. Reessayez ou ecrivez directement a unsagglo@unsa.org" });
+      setState({ loading: false, success: false, error: "Envoi impossible. Reessayez ou ecrivez directement a unsagglo@roissypaysdefrance.fr" });
       toast.error("Erreur lors de l'envoi du message.");
     }
   };

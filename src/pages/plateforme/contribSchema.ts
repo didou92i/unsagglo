@@ -30,9 +30,6 @@ export const contribSchema = z.object({
   if (!data.telephone || data.telephone.length < 10) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Numero de telephone invalide", path: ["telephone"] });
   }
-  if (!data.adresse || data.adresse.length < 5) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Adresse requise", path: ["adresse"] });
-  }
 });
 
 export type ContribFormData = z.infer<typeof contribSchema>;

@@ -47,6 +47,10 @@ const ContribWizard = (): JSX.Element => {
   const [willJoin, setWillJoin] = useState<boolean>(false);
   const [assistantOpen, setAssistantOpen] = useState<boolean>(false);
   const [stepError, setStepError] = useState<string | null>(null);
+  const [rgpdConsent, setRgpdConsent] = useState<boolean>(false);
+  const [rgpdError, setRgpdError] = useState<string | null>(null);
+  const [listeConsent, setListeConsent] = useState<boolean>(false);
+  const [listeConsentError, setListeConsentError] = useState<string | null>(null);
 
   // Pre-select the campaign theme when the agent landed via the campaign CTA
   // and jump them straight to the theme step so they see it highlighted.
@@ -145,17 +149,33 @@ const ContribWizard = (): JSX.Element => {
   const handleNext = async (): Promise<void> => {
     setStepError(null);
     if (currentStep === "liste" && willJoin) {
-      const ok = await trigger(["nom", "email", "telephone", "adresse", "prenom"]);
+      const ok = await trigger(["nom", "email", "telephone", "prenom"]);
       if (!ok) {
         setStepError("Merci de compléter les informations pour rejoindre la liste.");
         return;
       }
+      if (!listeConsent) {
+        setListeConsentError(
+          "Vous devez accepter la politique de confidentialité pour rejoindre la liste.",
+        );
+        return;
+      }
     }
+    setListeConsentError(null);
     setStepIndex((i) => Math.min(STEP_ORDER.length - 1, i + 1));
   };
 
   const handleSubmit = async (): Promise<void> => {
     setStepError(null);
+
+    if (!rgpdConsent) {
+      setRgpdError(
+        "Vous devez accepter la politique de confidentialité pour soumettre votre contribution.",
+      );
+      return;
+    }
+    setRgpdError(null);
+
     const data = getValues();
 
     if (themes.length === 0) {
@@ -186,14 +206,14 @@ const ContribWizard = (): JSX.Element => {
       anonyme,
     });
 
-    if (willJoin && data.nom && data.email && data.telephone && data.adresse) {
+    if (willJoin && data.nom && data.email && data.telephone) {
       await candidat.submit({
         prenom: data.prenom ?? "",
         nom: data.nom,
         service: data.service,
         email: data.email,
         telephone: data.telephone,
-        adresse: data.adresse,
+        adresse: "",
       });
     }
   };
@@ -238,6 +258,12 @@ const ContribWizard = (): JSX.Element => {
           <StepListe
             willJoin={willJoin}
             onChange={onWillJoinChange}
+            listeConsent={listeConsent}
+            onListeConsentChange={(v) => {
+              setListeConsent(v);
+              if (v) setListeConsentError(null);
+            }}
+            listeConsentError={listeConsentError}
             register={register}
             errors={errors}
           />
@@ -252,6 +278,12 @@ const ContribWizard = (): JSX.Element => {
             service={service}
             statut={statut}
             willJoin={willJoin}
+            rgpdConsent={rgpdConsent}
+            onRgpdChange={(v) => {
+              setRgpdConsent(v);
+              if (v) setRgpdError(null);
+            }}
+            rgpdError={rgpdError}
             onSubmit={() => void handleSubmit()}
             loading={loading}
           />

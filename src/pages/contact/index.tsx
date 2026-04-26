@@ -14,7 +14,7 @@ const ContactPage = (): JSX.Element => {
           <div className="bg-muted p-8 rounded-[var(--radius-lg)]">
             <h3 className="font-display text-xl font-bold text-foreground mb-4">Coordonnees</h3>
             <p className="text-foreground text-sm mb-2">
-              Email : <a href="mailto:unsagglo@unsa.org" className="text-primary underline">unsagglo@unsa.org</a>
+              Email : <a href="mailto:unsagglo@roissypaysdefrance.fr" className="text-primary underline">unsagglo@roissypaysdefrance.fr</a>
             </p>
             <p className="text-foreground text-sm mb-6">
               Permanences : Lundi 12h--13h / Jeudi 17h--18h
