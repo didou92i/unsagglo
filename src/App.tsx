@@ -48,7 +48,9 @@ const App = (): JSX.Element => (
               <Route path="/rights/:categorie" element={<PageGuard settingKey="page_rights"><RightsDetail /></PageGuard>} />
               <Route path="/elections" element={<PageGuard settingKey="page_elections"><Elections /></PageGuard>} />
               <Route path="/plateforme" element={<PageGuard settingKey="page_plateforme"><Plateforme /></PageGuard>} />
+              <Route path="/adhesion" element={<PageGuard settingKey="page_membership"><Membership /></PageGuard>} />
               <Route path="/membership" element={<PageGuard settingKey="page_membership"><Membership /></PageGuard>} />
+              <Route path="/confirmation" element={<Confirmation />} />
               <Route path="/membership/confirmation" element={<Confirmation />} />
               <Route path="/members" element={<ProtectedRoute><PageGuard settingKey="page_members"><Members /></PageGuard></ProtectedRoute>} />
               <Route path="/auth/login" element={<Login />} />
@@ -57,7 +59,9 @@ const App = (): JSX.Element => (
               <Route path="/contact" element={<PageGuard settingKey="page_contact"><Contact /></PageGuard>} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminProtectedRoute><Admin /></AdminProtectedRoute>} />
+              <Route path="/admin/*" element={<AdminProtectedRoute><Admin /></AdminProtectedRoute>} />
               <Route path="/mentions-legales" element={<Legal />} />
+              <Route path="/privacy" element={<Privacy />} />
               <Route path="/politique-confidentialite" element={<Privacy />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
