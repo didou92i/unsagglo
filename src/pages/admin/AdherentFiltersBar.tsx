@@ -13,7 +13,7 @@ interface AdherentFiltersBarProps {
 const selectClass = "text-sm border rounded px-2 py-1 bg-background text-foreground";
 
 const STATUTS = [
-  { value: "en_attente", label: "En attente" },
+  { value: "pending_validation", label: "En attente de validation" },
   { value: "actif", label: "Actif" },
   { value: "resilie", label: "Resilie" },
 ];
