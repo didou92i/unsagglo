@@ -5,6 +5,3 @@ verify_jwt = false
 
 [functions.veille-generator]
 verify_jwt = false
-
-[functions.rights-generator]
-verify_jwt = false
