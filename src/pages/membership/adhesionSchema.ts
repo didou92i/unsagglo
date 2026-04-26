@@ -126,16 +126,12 @@ export const adhesionSchema = z
   // Réintroduire le choix mensuel/annuel en Phase 2 (Stripe).
 
   // ----- Engagement -----
-  rgpd_consent: z.literal(true, {
-    errorMap: () => ({
-      message:
-        "Vous devez accepter la politique de confidentialité pour adhérer.",
-    }),
+  rgpd_consent: z.boolean().refine((v) => v === true, {
+    message:
+      "Vous devez accepter la politique de confidentialité pour adhérer.",
   }),
-  statuts_acceptes: z.literal(true, {
-    errorMap: () => ({
-      message: "Vous devez déclarer adhérer aux statuts d'UNSAgglo.",
-    }),
+  statuts_acceptes: z.boolean().refine((v) => v === true, {
+    message: "Vous devez déclarer adhérer aux statuts d'UNSAgglo.",
   }),
   })
   .superRefine((values, ctx) => {
