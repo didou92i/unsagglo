@@ -7,7 +7,8 @@ export type StatutPro =
   | 'stagiaire'
   | 'contractuel_cdi'
   | 'contractuel_cdd'
-  | 'apprenti';
+  | 'apprenti'
+  | 'retraite';
 
 export type ModePaiement =
   | 'cheque'

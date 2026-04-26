@@ -9,8 +9,8 @@ import UInput from "@/components/ui/UInput";
 import { Checkbox } from "@/components/ui/checkbox";
 import { adhesionSchema, type AdhesionFormValues } from "./adhesionSchema";
 import { SITES_CARPF } from "./sitesCARPF";
-
-const COTISATION_MENSUELLE = 9.99;
+import { generateAdhesionBulletin } from "@/lib/pdf/generateAdhesionBulletin";
+import { COTISATION_MENSUELLE } from "@/lib/orgInfo";
 
 const AdhesionForm = (): JSX.Element => {
   const navigate = useNavigate();
@@ -73,6 +73,10 @@ const AdhesionForm = (): JSX.Element => {
       return;
     }
 
+    // Génération du bulletin PDF côté client
+    const pdfBlob = generateAdhesionBulletin(values);
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
     sessionStorage.setItem(
       "unsagglo:lastAdhesion",
       JSON.stringify({
@@ -80,6 +84,7 @@ const AdhesionForm = (): JSX.Element => {
         nom: values.nom,
         email: values.email,
         mode_paiement: values.mode_paiement,
+        pdfUrl,
       }),
     );
 
@@ -339,6 +344,7 @@ const AdhesionForm = (): JSX.Element => {
               <option value="contractuel_cdi">Contractuel CDI</option>
               <option value="contractuel_cdd">Contractuel CDD</option>
               <option value="apprenti">Apprenti</option>
+              <option value="retraite">Retraité de la CARPF</option>
             </select>
             {errors.statut_pro && (
               <p className="text-destructive text-xs mt-1">

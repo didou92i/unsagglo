@@ -83,6 +83,7 @@ export const adhesionSchema = z.object({
       "contractuel_cdi",
       "contractuel_cdd",
       "apprenti",
+      "retraite",
     ],
     {
       errorMap: () => ({
