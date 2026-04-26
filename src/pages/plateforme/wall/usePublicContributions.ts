@@ -37,6 +37,8 @@ const sanitize = (raw: Record<string, unknown>): PublicContribution | null => {
     cst_date: typeof raw.cst_date === "string" ? raw.cst_date : null,
     reponse_direction:
       typeof raw.reponse_direction === "string" ? raw.reponse_direction : null,
+    action_unsagglo:
+      typeof raw.action_unsagglo === "string" ? raw.action_unsagglo : null,
     derniere_maj: typeof raw.derniere_maj === "string" ? raw.derniere_maj : created_at,
   };
 };
