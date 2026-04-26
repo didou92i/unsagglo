@@ -5,18 +5,18 @@ export type ServiceGroup = SelectOptionGroup;
 
 export const SERVICE_GROUPS: ServiceGroup[] = [
   {
-    group: "Direction Generale et Pilotage",
+    group: "Direction Générale et Pilotage",
     options: [
-      { value: "dgs", label: "Direction Generale des Services (DGS)" },
-      { value: "dgst", label: "Direction Generale des Services Techniques (DGST)" },
+      { value: "dgs", label: "Direction Générale des Services (DGS)" },
+      { value: "dgst", label: "Direction Générale des Services Techniques (DGST)" },
       { value: "dga_ressources", label: "DGA Ressources" },
-      { value: "dga_population", label: "DGA Services a la Population" },
+      { value: "dga_population", label: "DGA Services à la Population" },
       { value: "dga_mutualisation", label: "DGA Mutualisation" },
-      { value: "audit_controle_info", label: "Direction Audit, Controle de Gestion et Informatique" },
+      { value: "audit_controle_info", label: "Direction Audit, Contrôle de Gestion et Informatique" },
     ],
   },
   {
-    group: "Services a la Population",
+    group: "Services à la Population",
     options: [
       { value: "sports", label: "Direction des Sports" },
       { value: "affaires_sociales", label: "Direction des Affaires Sociales" },
@@ -25,10 +25,10 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     ],
   },
   {
-    group: "Securite",
+    group: "Sécurité",
     options: [
-      { value: "police_intercommunale", label: "Direction Securite — Police Intercommunale" },
-      { value: "videoprotection", label: "Direction Videoprotection" },
+      { value: "police_intercommunale", label: "Direction Sécurité — Police Intercommunale" },
+      { value: "videoprotection", label: "Direction Vidéoprotection" },
     ],
   },
   {
@@ -38,17 +38,17 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
       { value: "finances", label: "Direction des Finances" },
       { value: "commande_publique", label: "Direction de la Commande Publique" },
       { value: "juridique_foncier", label: "Direction des Affaires Juridiques et du Foncier" },
-      { value: "dsi_telecoms", label: "Direction des Systemes d'Information et Telecoms" },
+      { value: "dsi_telecoms", label: "Direction des Systèmes d'Information et Télécoms" },
       { value: "communication", label: "Direction Communication" },
     ],
   },
   {
-    group: "Amenagement et Technique",
+    group: "Aménagement et Technique",
     options: [
-      { value: "amenagement", label: "Direction de l'Amenagement" },
-      { value: "batiments_architecture", label: "Direction Batiments et Architecture" },
-      { value: "economie_territoires", label: "Direction Economie, Territoires, Innovation et Numerique" },
-      { value: "developpement_durable", label: "Direction Developpement Durable" },
+      { value: "amenagement", label: "Direction de l'Aménagement" },
+      { value: "batiments_architecture", label: "Direction Bâtiments et Architecture" },
+      { value: "economie_territoires", label: "Direction Économie, Territoires, Innovation et Numérique" },
+      { value: "developpement_durable", label: "Direction Développement Durable" },
       { value: "eau_assainissement", label: "Eau et Assainissement" },
       { value: "espaces_verts_voirie", label: "Espaces Verts — Voirie" },
     ],
@@ -56,7 +56,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
   {
     group: "Autre",
     options: [
-      { value: "autre_service", label: "Autre service (preciser)" },
+      { value: "autre_service", label: "Autre service (à préciser)" },
     ],
   },
 ];

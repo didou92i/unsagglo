@@ -34,6 +34,7 @@ export type Database = {
           prenom: string
           rgpd_consent_at: string | null
           service: string | null
+          service_libre: string | null
           site_affectation: string | null
           statut: string
           statut_pro: string | null
@@ -60,6 +61,7 @@ export type Database = {
           prenom: string
           rgpd_consent_at?: string | null
           service?: string | null
+          service_libre?: string | null
           site_affectation?: string | null
           statut?: string
           statut_pro?: string | null
@@ -86,6 +88,7 @@ export type Database = {
           prenom?: string
           rgpd_consent_at?: string | null
           service?: string | null
+          service_libre?: string | null
           site_affectation?: string | null
           statut?: string
           statut_pro?: string | null
