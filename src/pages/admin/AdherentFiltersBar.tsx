@@ -15,7 +15,7 @@ const selectClass = "text-sm border rounded px-2 py-1 bg-background text-foregro
 const STATUTS = [
   { value: "pending_validation", label: "En attente de validation" },
   { value: "actif", label: "Actif" },
-  { value: "resilie", label: "Resilie" },
+  { value: "resilie", label: "Résilié" },
 ];
 
 const AdherentFiltersBar = ({
@@ -39,7 +39,7 @@ const AdherentFiltersBar = ({
       </select>
     </div>
     <div className="flex items-center gap-3">
-      <p className="text-sm text-muted-foreground">{count} adherent(s)</p>
+      <p className="text-sm text-muted-foreground">{count} adhérent(s)</p>
       <UButton variant="outline" size="sm" onClick={onExport}>Exporter CSV</UButton>
     </div>
   </div>

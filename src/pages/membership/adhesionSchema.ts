@@ -9,7 +9,8 @@ const todayMinusYears = (years: number): Date => {
   return d;
 };
 
-export const adhesionSchema = z.object({
+export const adhesionSchema = z
+  .object({
   // ----- Identité civile -----
   nom: z
     .string()
@@ -93,8 +94,12 @@ export const adhesionSchema = z.object({
   ),
   service: z
     .string()
-    .min(2, "Indiquez votre service ou direction.")
-    .max(120, "Service trop long."),
+    .min(1, "Sélectionnez votre service ou direction."),
+  service_libre: z
+    .string()
+    .max(120, "Précision trop longue.")
+    .optional()
+    .or(z.literal("")),
   site_affectation: z
     .string()
     .min(2, "Indiquez votre site d'affectation.")
@@ -132,7 +137,19 @@ export const adhesionSchema = z.object({
       message: "Vous devez déclarer adhérer aux statuts d'UNSAgglo.",
     }),
   }),
-});
+  })
+  .superRefine((values, ctx) => {
+    if (values.service === "autre_service") {
+      const v = values.service_libre?.trim();
+      if (!v || v.length < 2) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["service_libre"],
+          message: "Précisez votre service.",
+        });
+      }
+    }
+  });
 
 export type AdhesionFormValues = z.infer<typeof adhesionSchema>;
 

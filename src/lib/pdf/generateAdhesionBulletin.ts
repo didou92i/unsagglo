@@ -4,7 +4,17 @@ import {
   COTISATION_MENSUELLE,
   ribDisplayLines,
 } from "@/lib/orgInfo";
+import { SERVICES } from "@/constants/services";
 import type { AdhesionFormValues } from "@/pages/membership/adhesionSchema";
+
+const resolveServiceLabel = (
+  service: string,
+  serviceLibre: string | undefined,
+): string => {
+  if (service === "autre_service" && serviceLibre) return serviceLibre;
+  const match = SERVICES.find((s) => s.value === service);
+  return match?.label ?? service;
+};
 
 // =============================================
 // Constantes de mise en page (millimètres)
@@ -219,7 +229,7 @@ export const generateAdhesionBulletin = (values: AdhesionFormValues): Blob => {
     ["Catégorie :", `Catégorie ${values.categorie}`],
     ["Grade :", values.grade],
     ["Échelon :", String(values.echelon)],
-    ["Service / direction :", values.service],
+    ["Service / direction :", resolveServiceLabel(values.service, values.service_libre)],
     ["Site d'affectation :", values.site_affectation],
     ...(values.date_entree_carpf
       ? [["Date d'entrée à la CARPF :", formatDateFR(values.date_entree_carpf)]]

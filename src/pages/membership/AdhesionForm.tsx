@@ -9,6 +9,7 @@ import UInput from "@/components/ui/UInput";
 import { Checkbox } from "@/components/ui/checkbox";
 import { adhesionSchema, type AdhesionFormValues } from "./adhesionSchema";
 import { SITES_CARPF } from "./sitesCARPF";
+import { SERVICE_GROUPS } from "@/constants/services";
 import { generateAdhesionBulletin } from "@/lib/pdf/generateAdhesionBulletin";
 import { COTISATION_MENSUELLE } from "@/lib/orgInfo";
 
@@ -51,6 +52,10 @@ const AdhesionForm = (): JSX.Element => {
       echelon: values.echelon,
       statut_pro: values.statut_pro,
       service: values.service,
+      service_libre:
+        values.service === "autre_service"
+          ? values.service_libre || null
+          : null,
       site_affectation: values.site_affectation,
       date_entree_carpf: values.date_entree_carpf || null,
       mode_paiement: values.mode_paiement,
@@ -407,18 +412,54 @@ const AdhesionForm = (): JSX.Element => {
           <label htmlFor="service" className="block text-sm font-medium mb-1">
             Service ou direction <span className="text-destructive">*</span>
           </label>
-          <UInput
+          <select
             id="service"
-            placeholder="Ex. Police municipale intercommunale, DRH, Petite enfance…"
             {...register("service")}
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             aria-invalid={!!errors.service}
-          />
+            defaultValue=""
+          >
+            <option value="" disabled>
+              — Sélectionner —
+            </option>
+            {SERVICE_GROUPS.map((group) => (
+              <optgroup key={group.group} label={group.group}>
+                {group.options.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
           {errors.service && (
             <p className="text-destructive text-xs mt-1">
               {errors.service.message}
             </p>
           )}
         </div>
+
+        {watch("service") === "autre_service" && (
+          <div>
+            <label
+              htmlFor="service_libre"
+              className="block text-sm font-medium mb-1"
+            >
+              Précisez votre service <span className="text-destructive">*</span>
+            </label>
+            <UInput
+              id="service_libre"
+              placeholder="Ex. Service propreté urbaine"
+              {...register("service_libre")}
+              aria-invalid={!!errors.service_libre}
+            />
+            {errors.service_libre && (
+              <p className="text-destructive text-xs mt-1">
+                {errors.service_libre.message}
+              </p>
+            )}
+          </div>
+        )}
 
         <div>
           <label
