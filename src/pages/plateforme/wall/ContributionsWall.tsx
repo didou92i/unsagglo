@@ -3,7 +3,7 @@ import { LineChart } from "lucide-react";
 import Spinner from "@/components/ui/Spinner";
 import { usePublicContributions } from "./usePublicContributions";
 import ContributionCard from "./ContributionCard";
-import { STATUS_META, type StatutTraitement } from "./types";
+import type { StatutTraitement } from "./types";
 
 type FilterValue = "all" | StatutTraitement;
 
