@@ -18,6 +18,7 @@ const RightsDetail = React.lazy(() => import("@/pages/rights/RightsDetail"));
 const Elections = React.lazy(() => import("@/pages/elections"));
 const Plateforme = React.lazy(() => import("@/pages/plateforme"));
 const Membership = React.lazy(() => import("@/pages/membership"));
+const Confirmation = React.lazy(() => import("@/pages/membership/ConfirmationPage"));
 const Members = React.lazy(() => import("@/pages/members"));
 const Login = React.lazy(() => import("@/pages/auth/login"));
 const Register = React.lazy(() => import("@/pages/auth/register"));
@@ -48,6 +49,7 @@ const App = (): JSX.Element => (
               <Route path="/elections" element={<PageGuard settingKey="page_elections"><Elections /></PageGuard>} />
               <Route path="/plateforme" element={<PageGuard settingKey="page_plateforme"><Plateforme /></PageGuard>} />
               <Route path="/membership" element={<PageGuard settingKey="page_membership"><Membership /></PageGuard>} />
+              <Route path="/membership/confirmation" element={<Confirmation />} />
               <Route path="/members" element={<ProtectedRoute><PageGuard settingKey="page_members"><Members /></PageGuard></ProtectedRoute>} />
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/register" element={<Register />} />

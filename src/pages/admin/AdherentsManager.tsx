@@ -40,12 +40,12 @@ const AdherentsManager = (): JSX.Element => {
               <TableCell>{a.email}</TableCell>
               <TableCell>{serviceLabel(a.service)}</TableCell>
               <TableCell>
-                <UBadge variant={a.statut === "actif" ? "success" : a.statut === "en_attente" ? "warning" : "danger"}>
-                  {a.statut}
+                <UBadge variant={a.statut === "actif" ? "success" : a.statut === "pending_validation" ? "warning" : "danger"}>
+                  {a.statut === "pending_validation" ? "En attente" : a.statut}
                 </UBadge>
               </TableCell>
               <TableCell>
-                {a.statut === "en_attente" && (
+                {a.statut === "pending_validation" && (
                   <div className="flex gap-2">
                     <UButton size="sm" variant="primary" onClick={() => updateStatut(a.id, "actif")}>Valider</UButton>
                     <UButton size="sm" variant="outline" onClick={() => updateStatut(a.id, "resilie")}>Refuser</UButton>

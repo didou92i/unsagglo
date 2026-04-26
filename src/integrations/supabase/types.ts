@@ -16,37 +16,82 @@ export type Database = {
     Tables: {
       adherents: {
         Row: {
+          adresse_cp: string | null
+          adresse_ligne1: string | null
+          adresse_ligne2: string | null
+          adresse_ville: string | null
+          categorie: string | null
           created_at: string
+          date_entree_carpf: string | null
+          date_naissance: string | null
+          echelon: number | null
           email: string
           grade: string | null
           id: string
+          mode_paiement: string | null
           nom: string
+          periodicite_paiement: string | null
           prenom: string
+          rgpd_consent_at: string | null
           service: string | null
+          site_affectation: string | null
           statut: string
+          statut_pro: string | null
+          statuts_acceptes_at: string | null
           telephone: string | null
+          updated_at: string
         }
         Insert: {
+          adresse_cp?: string | null
+          adresse_ligne1?: string | null
+          adresse_ligne2?: string | null
+          adresse_ville?: string | null
+          categorie?: string | null
           created_at?: string
+          date_entree_carpf?: string | null
+          date_naissance?: string | null
+          echelon?: number | null
           email: string
           grade?: string | null
           id?: string
+          mode_paiement?: string | null
           nom: string
+          periodicite_paiement?: string | null
           prenom: string
+          rgpd_consent_at?: string | null
           service?: string | null
+          site_affectation?: string | null
           statut?: string
+          statut_pro?: string | null
+          statuts_acceptes_at?: string | null
           telephone?: string | null
+          updated_at?: string
         }
         Update: {
+          adresse_cp?: string | null
+          adresse_ligne1?: string | null
+          adresse_ligne2?: string | null
+          adresse_ville?: string | null
+          categorie?: string | null
           created_at?: string
+          date_entree_carpf?: string | null
+          date_naissance?: string | null
+          echelon?: number | null
           email?: string
           grade?: string | null
           id?: string
+          mode_paiement?: string | null
           nom?: string
+          periodicite_paiement?: string | null
           prenom?: string
+          rgpd_consent_at?: string | null
           service?: string | null
+          site_affectation?: string | null
           statut?: string
+          statut_pro?: string | null
+          statuts_acceptes_at?: string | null
           telephone?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
