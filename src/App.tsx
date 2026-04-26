@@ -24,6 +24,7 @@ const Register = React.lazy(() => import("@/pages/auth/register"));
 const Contact = React.lazy(() => import("@/pages/contact"));
 const AideCarburant = React.lazy(() => import("@/pages/aide-carburant"));
 const Legal = React.lazy(() => import("@/pages/legal"));
+const Privacy = React.lazy(() => import("@/pages/legal/PrivacyPage"));
 const Admin = React.lazy(() => import("@/pages/admin"));
 const AdminLogin = React.lazy(() => import("@/pages/admin/login"));
 const NotFound = React.lazy(() => import("@/pages/NotFound"));
@@ -55,6 +56,7 @@ const App = (): JSX.Element => (
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminProtectedRoute><Admin /></AdminProtectedRoute>} />
               <Route path="/mentions-legales" element={<Legal />} />
+              <Route path="/politique-confidentialite" element={<Privacy />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

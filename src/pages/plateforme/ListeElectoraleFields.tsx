@@ -7,7 +7,10 @@ interface ListeElectoraleFieldsProps {
   errors: FieldErrors<ContribFormData>;
 }
 
-const ListeElectoraleFields = ({ register, errors }: ListeElectoraleFieldsProps): JSX.Element => (
+const ListeElectoraleFields = ({
+  register,
+  errors,
+}: ListeElectoraleFieldsProps): JSX.Element => (
   <>
     <InputField<ContribFormData>
       label="Nom"
@@ -17,25 +20,18 @@ const ListeElectoraleFields = ({ register, errors }: ListeElectoraleFieldsProps)
       placeholder="Votre nom de famille"
     />
     <InputField<ContribFormData>
-      label="Adresse e-mail professionnelle ou personnelle"
+      label="Adresse e-mail (préférablement personnelle)"
       name="email"
       register={register}
       error={errors.email}
       placeholder="prenom.nom@email.fr"
     />
     <InputField<ContribFormData>
-      label="Numero de telephone"
+      label="Numéro de téléphone"
       name="telephone"
       register={register}
       error={errors.telephone}
       placeholder="06 12 34 56 78"
-    />
-    <InputField<ContribFormData>
-      label="Adresse de domicile"
-      name="adresse"
-      register={register}
-      error={errors.adresse}
-      placeholder="12 rue de la Republique, 75001 Paris"
     />
   </>
 );

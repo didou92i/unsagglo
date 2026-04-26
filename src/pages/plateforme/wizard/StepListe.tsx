@@ -1,14 +1,17 @@
 import { PenLine, Handshake } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
 import StepHeader from "./StepHeader";
 import ChoiceCard from "./ChoiceCard";
 import ListeElectoraleFields from "../ListeElectoraleFields";
+import { RGPDConsent } from "@/components/forms";
 import type { UseFormRegister, FieldErrors } from "react-hook-form";
 import type { ContribFormData } from "../contribSchema";
 
 interface StepListeProps {
   willJoin: boolean;
   onChange: (v: boolean) => void;
+  listeConsent: boolean;
+  onListeConsentChange: (v: boolean) => void;
+  listeConsentError?: string | null;
   register: UseFormRegister<ContribFormData>;
   errors: FieldErrors<ContribFormData>;
 }
@@ -16,6 +19,9 @@ interface StepListeProps {
 const StepListe = ({
   willJoin,
   onChange,
+  listeConsent,
+  onListeConsentChange,
+  listeConsentError,
   register,
   errors,
 }: StepListeProps): JSX.Element => (
@@ -45,15 +51,14 @@ const StepListe = ({
 
     {willJoin && (
       <div className="rounded-md p-4" style={{ backgroundColor: "#eff9fe" }}>
-        <div className="flex items-start gap-2 mb-3">
-          <Checkbox id="liste_confirm" checked disabled />
-          <label htmlFor="liste_confirm" className="text-xs text-secondary leading-relaxed">
-            En cochant, vous nous transmettez vos coordonnées (strictement
-            confidentielles, accessibles uniquement aux responsables UNSAgglo
-            habilités, jamais publiées ni transmises à des tiers).
-          </label>
-        </div>
         <ListeElectoraleFields register={register} errors={errors} />
+        <RGPDConsent
+          id="liste-rgpd"
+          variant="candidature"
+          checked={listeConsent}
+          onCheckedChange={onListeConsentChange}
+          error={listeConsentError ?? undefined}
+        />
       </div>
     )}
   </div>

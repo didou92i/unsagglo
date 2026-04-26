@@ -11,10 +11,18 @@ import HomeCTA from "@/pages/home/HomeCTA";
 const ORG_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "UNSAgglo -- Libres Ensemble",
-  description: "Syndicat UNSA representant les agents de la Communaute Roissy Pays de France",
+  name: "UNSAgglo — Libres Ensemble",
+  description:
+    "Section syndicale UNSA Territoriaux représentant les agents de la Communauté d'Agglomération Roissy Pays de France",
   url: "https://unsagglo.fr",
-  email: "unsagglo@unsa.org",
+  email: "unsagglo@roissypaysdefrance.fr",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "32 rue de la Briqueterie",
+    postalCode: "95380",
+    addressLocality: "Louvres",
+    addressCountry: "FR",
+  },
 };
 
 const Home = (): JSX.Element => (

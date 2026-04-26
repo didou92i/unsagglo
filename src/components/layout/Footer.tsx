@@ -61,12 +61,34 @@ const Footer = (): JSX.Element => {
         <div>
           <h3 className="font-display text-lg font-bold mb-4">Contact</h3>
           <p className="text-secondary-foreground/70 text-sm mb-2">
-            Email : <a href="mailto:unsagglo@unsa.org" className="underline hover:text-secondary-foreground">unsagglo@unsa.org</a>
+            Email :{" "}
+            <a
+              href="mailto:unsagglo@roissypaysdefrance.fr"
+              className="underline hover:text-secondary-foreground"
+            >
+              unsagglo@roissypaysdefrance.fr
+            </a>
           </p>
-          <p className="text-secondary-foreground/70 text-sm mb-4">Permanences : Lundi 12h-13h, Jeudi 17h-18h</p>
+          <p className="text-secondary-foreground/70 text-sm mb-4">
+            Permanences : Lundi 12h-13h, Jeudi 17h-18h
+          </p>
           <ul className="space-y-1">
-            <li><Link to="/mentions-legales" className="text-secondary-foreground/70 hover:text-secondary-foreground text-sm transition-colors">Mentions legales</Link></li>
-            <li><Link to="/mentions-legales" className="text-secondary-foreground/70 hover:text-secondary-foreground text-sm transition-colors">Politique de confidentialite</Link></li>
+            <li>
+              <Link
+                to="/mentions-legales"
+                className="text-secondary-foreground/70 hover:text-secondary-foreground text-sm transition-colors"
+              >
+                Mentions légales
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/politique-confidentialite"
+                className="text-secondary-foreground/70 hover:text-secondary-foreground text-sm transition-colors"
+              >
+                Politique de confidentialité
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
