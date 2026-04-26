@@ -1,4 +1,4 @@
-import { Scale, BookOpen, Users, Network } from "lucide-react";
+import { Scale, Users, Handshake, Network } from "lucide-react";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { MetaTags } from "@/components/seo";
 import { HeroBanner, SectionTitle } from "@/components/sections";
@@ -15,27 +15,27 @@ interface Reason {
 const REASONS: Reason[] = [
   {
     Icon: Scale,
-    titre: "Défense juridique individuelle",
+    titre: "Accompagnement individuel sur vos droits",
     description:
-      "Accompagnement et conseil en cas de litige avec votre administration : entretien préalable, sanction, mobilité contrainte, accident de service.",
-  },
-  {
-    Icon: BookOpen,
-    titre: "Information sur vos droits",
-    description:
-      "Fiches pratiques mises à jour, veille statutaire, réponses personnalisées sur les régimes indemnitaires, congés et carrière.",
+      "Conseil et appui en cas de litige : entretien préalable, sanction, mobilité contrainte, accident de service. Décryptage des Lignes Directrices de Gestion (LDG) de la CARPF, invocables en recours individuel devant la CAP.",
   },
   {
     Icon: Users,
-    titre: "Représentation en CST et F3SCT",
+    titre: "Représentation aux instances CARPF",
     description:
-      "Une fois élus, vos représentants UNSAgglo porteront votre voix dans les instances du dialogue social de la CARPF.",
+      "Objectif décembre 2026 : porter votre voix au CST et à la F3SCT de la Communauté d'Agglomération Roissy Pays de France. Une fois élus, vos représentants UNSAgglo défendront les agents de tous les sites — Roissy, Goussainville, Villepinte, Tremblay, Le Mesnil-Amelot.",
+  },
+  {
+    Icon: Handshake,
+    titre: "Programme co-construit avec les agents",
+    description:
+      "Notre programme s'écrit avec vous, en continu, sur la plateforme participative. Chaque idée déposée rejoint un programme collectif que vous voyez s'écrire au fil de l'eau.",
   },
   {
     Icon: Network,
-    titre: "Réseau syndical national UNSA",
+    titre: "Affiliation UNSA Territoriaux + URTIF",
     description:
-      "La force du 3ème syndicat de France : appui juridique national, formations, ressources fédérales mutualisées.",
+      "La force du 3ᵉ syndicat de France : appui juridique national, formations, et le relais régional de l'Union Régionale des Territoriaux d'Île-de-France (URTIF) pour les dossiers transverses.",
   },
 ];
 
@@ -49,7 +49,7 @@ const MembershipPage = (): JSX.Element => {
       <HeroBanner
         title="Rejoignez "
         highlight="UNSAgglo"
-        subtitle="Un syndicat indépendant et de proximité pour défendre vos droits au quotidien."
+        subtitle="Un syndicat indépendant, fédérant et participatif pour les agents de la CARPF — Val-d'Oise et Seine-et-Marne."
         ctaPrimaryLabel="Demande d'adhésion"
         ctaPrimaryHref="#adhesion"
       />
