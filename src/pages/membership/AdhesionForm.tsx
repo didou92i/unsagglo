@@ -569,13 +569,14 @@ const AdhesionForm = (): JSX.Element => {
               Je déclare adhérer librement à UNSAgglo et accepter sans réserve
               les{" "}
               <a
-                href="mailto:unsagglo@roissypaysdefrance.fr?subject=Demande%20des%20statuts%20UNSAgglo"
+                href="/statuts.pdf"
+                target="_blank"
+                rel="noreferrer"
                 className="text-primary underline"
               >
-                statuts d'UNSAgglo (disponibles sur demande)
+                statuts d'UNSAgglo
               </a>
-              . Une copie sera fournie par e-mail dès réception de votre
-              bulletin signé.
+              .
             </label>
           </div>
           {errors.statuts_acceptes && (
