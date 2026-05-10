@@ -12,7 +12,7 @@ const QUICK_LINKS: FooterLink[] = [
   { label: "Actualites", to: "/news", settingKey: "page_news" },
   { label: "Vos Droits", to: "/rights", settingKey: "page_rights" },
   { label: "Elections 2026", to: "/elections", settingKey: "page_elections" },
-  { label: "Adherer", to: "/membership", settingKey: "page_membership" },
+  { label: "Adherer", to: "/adhesion", settingKey: "page_membership" },
 ];
 
 const RIGHTS_LINKS: FooterLink[] = [

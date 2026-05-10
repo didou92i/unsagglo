@@ -50,7 +50,7 @@ const LoginPage = (): JSX.Element => {
             <UButton type="submit" variant="primary" size="lg" loading={loading} className="w-full mt-2">Se connecter</UButton>
           </form>
           <p className="text-center text-sm text-muted-foreground mt-4">
-            Pas encore membre ? <Link to="/membership" className="text-primary font-semibold hover:underline">Adherer</Link>
+            Pas encore membre ? <Link to="/adhesion" className="text-primary font-semibold hover:underline">Adherer</Link>
           </p>
         </div>
       </div>

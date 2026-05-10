@@ -22,13 +22,13 @@ const ConfirmationPage = (): JSX.Element => {
   useEffect(() => {
     const raw = sessionStorage.getItem("unsagglo:lastAdhesion");
     if (!raw) {
-      navigate("/membership", { replace: true });
+      navigate("/adhesion", { replace: true });
       return;
     }
     try {
       setData(JSON.parse(raw) as StoredAdhesion);
     } catch {
-      navigate("/membership", { replace: true });
+      navigate("/adhesion", { replace: true });
     }
   }, [navigate]);
 

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import PageWrapper from "@/components/layout/PageWrapper";
 import { MetaTags } from "@/components/seo";
-import { SectionTitle } from "@/components/sections";
+import { ElectoralTransparencyBanner, SectionTitle } from "@/components/sections";
 import Hero from "./Hero";
 import WhyUnsagglo from "./WhyUnsagglo";
 import HowToVote from "./HowToVote";
@@ -15,6 +15,11 @@ const ElectionsPage = (): JSX.Element => (
       description="UNSAgglo se présente pour la première fois aux élections professionnelles de la CARPF en décembre 2026. Programme co-construit avec les agents, transparence totale."
     />
     <Hero />
+    <section className="px-4 md:px-6 py-10 bg-white">
+      <div className="max-w-3xl mx-auto">
+        <ElectoralTransparencyBanner />
+      </div>
+    </section>
     <WhyUnsagglo />
     <HowToVote />
 

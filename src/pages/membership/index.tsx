@@ -35,7 +35,7 @@ const REASONS: Reason[] = [
     Icon: Network,
     titre: "Affiliation UNSA Territoriaux + URTIF",
     description:
-      "La force du 3ᵉ syndicat de France : appui juridique national, formations, et le relais régional de l'Union Régionale des Territoriaux d'Île-de-France (URTIF) pour les dossiers transverses.",
+      "Une organisation représentative dans la fonction publique territoriale : appui juridique national, formations, et relais régional de l'Union Régionale UNSA Territoriaux Île-de-France (URTIF) pour les dossiers transverses.",
   },
 ];
 

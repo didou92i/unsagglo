@@ -30,7 +30,7 @@ const Navbar = (): JSX.Element => {
 
         <div className="hidden lg:flex items-center gap-3">
           {isAdmin && <Link to="/admin"><UButton variant="outline" size="sm">Admin</UButton></Link>}
-          {settings.page_membership && <Link to="/membership"><UButton variant="primary" size="sm">Adherer</UButton></Link>}
+          {settings.page_membership && <Link to="/adhesion"><UButton variant="primary" size="sm">Adherer</UButton></Link>}
           {settings.page_members && <Link to="/members"><UButton variant="outline" size="sm">Espace membres</UButton></Link>}
         </div>
 

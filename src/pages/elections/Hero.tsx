@@ -5,16 +5,21 @@ import { ArrowRight } from "lucide-react";
 // publication du décret officiel.
 const ELECTION_DATE = new Date("2026-12-08T08:00:00");
 
+const computeDaysUntil = (target: Date): number => {
+  const diff = target.getTime() - Date.now();
+  return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+};
+
 const useDaysUntil = (target: Date): number => {
-  const compute = (): number => {
-    const diff = target.getTime() - Date.now();
-    return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
-  };
-  const [days, setDays] = useState<number>(compute);
+  const [days, setDays] = useState<number>(() => computeDaysUntil(target));
+
   useEffect(() => {
-    const id = window.setInterval(() => setDays(compute()), 60 * 60 * 1000);
+    const update = (): void => setDays(computeDaysUntil(target));
+    update();
+    const id = window.setInterval(update, 60 * 60 * 1000);
     return () => window.clearInterval(id);
-  }, []);
+  }, [target]);
+
   return days;
 };
 

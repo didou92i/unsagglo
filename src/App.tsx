@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import React, { Suspense } from "react";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import PageLoader from "@/components/ui/PageLoader";
@@ -49,9 +49,10 @@ const App = (): JSX.Element => (
               <Route path="/elections" element={<PageGuard settingKey="page_elections"><Elections /></PageGuard>} />
               <Route path="/plateforme" element={<PageGuard settingKey="page_plateforme"><Plateforme /></PageGuard>} />
               <Route path="/adhesion" element={<PageGuard settingKey="page_membership"><Membership /></PageGuard>} />
-              <Route path="/membership" element={<PageGuard settingKey="page_membership"><Membership /></PageGuard>} />
-              <Route path="/confirmation" element={<Confirmation />} />
-              <Route path="/membership/confirmation" element={<Confirmation />} />
+              <Route path="/adhesion/confirmation" element={<Confirmation />} />
+              <Route path="/membership" element={<Navigate to="/adhesion" replace />} />
+              <Route path="/confirmation" element={<Navigate to="/adhesion/confirmation" replace />} />
+              <Route path="/membership/confirmation" element={<Navigate to="/adhesion/confirmation" replace />} />
               <Route path="/members" element={<ProtectedRoute><PageGuard settingKey="page_members"><Members /></PageGuard></ProtectedRoute>} />
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/register" element={<Register />} />
@@ -61,7 +62,7 @@ const App = (): JSX.Element => (
               <Route path="/admin" element={<AdminProtectedRoute><Admin /></AdminProtectedRoute>} />
               <Route path="/admin/*" element={<AdminProtectedRoute><Admin /></AdminProtectedRoute>} />
               <Route path="/mentions-legales" element={<Legal />} />
-              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/privacy" element={<Navigate to="/politique-confidentialite" replace />} />
               <Route path="/politique-confidentialite" element={<Privacy />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

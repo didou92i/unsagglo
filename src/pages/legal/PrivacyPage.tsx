@@ -1,222 +1,214 @@
 import PageWrapper from "@/components/layout/PageWrapper";
 import { MetaTags } from "@/components/seo";
-import { Link } from "react-router-dom";
+import { ORG_INFO, orgAddressLine } from "@/lib/orgInfo";
 
 const PrivacyPage = (): JSX.Element => (
   <PageWrapper>
     <MetaTags
       title="Politique de confidentialité"
-      description="Politique de confidentialité d'UNSAgglo — traitement des données personnelles, droits RGPD."
-      noIndex
+      description="Politique de confidentialité d'UNSAgglo — données personnelles, finalités, durées de conservation et droits RGPD."
     />
-    <article className="max-w-3xl mx-auto px-4 md:px-6 py-12 text-foreground">
+    <article className="max-w-4xl mx-auto px-4 md:px-6 py-12 text-foreground">
       <h1 className="font-display text-3xl font-medium text-secondary mb-2">
         Politique de confidentialité
       </h1>
       <p className="text-sm text-muted-foreground mb-8">
-        Dernière mise à jour : avril 2026
+        Dernière mise à jour : 10 mai 2026
       </p>
 
       <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
-        1. Responsable de traitement
+        Préambule
       </h2>
       <p className="leading-relaxed">
-        UNSAgglo — Libres Ensemble, section syndicale affiliée à UNSA
-        Territoriaux, domiciliée 32 rue de la Briqueterie, 95380 Louvres, est
-        responsable du traitement des données personnelles collectées via le
-        présent site.
+        UNSAgglo est responsable des traitements de données personnelles
+        effectués via le présent site, conformément au Règlement (UE) 2016/679
+        du 27 avril 2016 (« RGPD ») et à la loi n°78-17 du 6 janvier 1978
+        modifiée relative à l'informatique, aux fichiers et aux libertés.
+      </p>
+      <p className="leading-relaxed mt-3">
+        La présente politique informe les visiteurs, contributeurs et adhérents
+        du syndicat sur la nature des données collectées, leurs finalités, leur
+        durée de conservation et leurs droits.
       </p>
 
       <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
-        2. Référent RGPD
+        Identité du responsable de traitement
       </h2>
       <p className="leading-relaxed">
-        Conformément à l'article 37 du Règlement (UE) 2016/679, UNSAgglo a
-        désigné un référent RGPD :
-      </p>
-      <p className="leading-relaxed mt-2">
-        <strong>Rhiad AZZABI</strong>, Secrétaire Général d'UNSAgglo.
+        <strong>{ORG_INFO.nom}</strong>
         <br />
-        Contact :{" "}
+        {orgAddressLine()}
+        <br />
         <a
-          href="mailto:unsagglo@roissypaysdefrance.fr"
+          href={`mailto:${ORG_INFO.email}`}
           className="text-primary underline"
         >
-          unsagglo@roissypaysdefrance.fr
-        </a>{" "}
-        (préciser « RGPD » dans l'objet).
+          {ORG_INFO.email}
+        </a>
       </p>
-
-      <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
-        3. Données collectées et finalités
-      </h2>
-      <p className="leading-relaxed mb-3">
-        Les traitements suivants sont mis en œuvre :
-      </p>
-
-      <h3 className="font-display text-lg font-medium text-secondary mt-6 mb-2">
-        3.1. Adhésion syndicale
-      </h3>
-      <ul className="list-disc list-inside space-y-1 leading-relaxed">
-        <li>
-          Données collectées : identité civile, coordonnées, données
-          professionnelles (catégorie, grade, échelon, statut, site
-          d'affectation, date d'entrée à la CARPF), coordonnées bancaires (si
-          prélèvement SEPA).
-        </li>
-        <li>
-          Finalité : gestion de l'adhésion, émission de la carte d'adhérent,
-          recouvrement de la cotisation, communication syndicale, défense des
-          intérêts de l'adhérent.
-        </li>
-        <li>
-          Base légale : article 6.1.b RGPD (exécution du contrat d'adhésion) et
-          article 9.2.d RGPD (traitement par une organisation syndicale).
-        </li>
-        <li>
-          Durée de conservation : durée de l'adhésion, prolongée de 3 ans après
-          la radiation pour conservation des justificatifs comptables et
-          syndicaux.
-        </li>
-      </ul>
-
-      <h3 className="font-display text-lg font-medium text-secondary mt-6 mb-2">
-        3.2. Plateforme de participation collective
-      </h3>
-      <ul className="list-disc list-inside space-y-1 leading-relaxed">
-        <li>
-          Données collectées : prénom (ou anonymat), service, statut,
-          contribution écrite. Optionnel : nom, courriel, téléphone si la
-          personne souhaite être recontactée.
-        </li>
-        <li>
-          Finalité : recueil des contributions au programme syndical 2026,
-          suivi de traitement des idées, retour individuel si la personne le
-          souhaite.
-        </li>
-        <li>Base légale : article 6.1.a RGPD (consentement).</li>
-        <li>
-          Durée de conservation : 3 ans à compter du dépôt, puis archivage
-          anonymisé ou suppression. Les contributions anonymes ne sont pas
-          associées à une personne identifiable.
-        </li>
-      </ul>
-
-      <h3 className="font-display text-lg font-medium text-secondary mt-6 mb-2">
-        3.3. Candidature à la liste électorale 2026
-      </h3>
-      <ul className="list-disc list-inside space-y-1 leading-relaxed">
-        <li>Données collectées : identité civile, courriel, téléphone, service.</li>
-        <li>
-          Finalité : constitution de la liste UNSAgglo aux élections
-          professionnelles de décembre 2026, prise de contact avec les
-          candidats potentiels.
-        </li>
-        <li>Base légale : article 6.1.a RGPD (consentement).</li>
-        <li>
-          Accès : restreint aux responsables UNSAgglo habilités par mandat du
-          bureau. Aucune transmission à des tiers, aucune publication sans
-          accord préalable.
-        </li>
-        <li>
-          Durée de conservation : jusqu'à la proclamation des résultats des
-          élections de décembre 2026, prolongée d'un an pour gestion du
-          contentieux électoral éventuel. Les candidats non retenus sur la
-          liste finale peuvent demander la suppression immédiate de leurs
-          données.
-        </li>
-      </ul>
-
-      <h3 className="font-display text-lg font-medium text-secondary mt-6 mb-2">
-        3.4. Demande de contact
-      </h3>
-      <ul className="list-disc list-inside space-y-1 leading-relaxed">
-        <li>Données collectées : nom, courriel, message.</li>
-        <li>Finalité : traiter la demande adressée à UNSAgglo.</li>
-        <li>
-          Base légale : article 6.1.f RGPD (intérêt légitime à répondre à une
-          sollicitation).
-        </li>
-        <li>Durée de conservation : 3 ans à compter du dernier échange.</li>
-      </ul>
-
-      <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
-        4. Destinataires des données
-      </h2>
-      <p className="leading-relaxed">
-        Les données sont accessibles aux seuls membres du bureau UNSAgglo
-        habilités, et le cas échéant aux instances fédérales UNSA Territoriaux
-        dans le cadre strict du suivi de l'adhésion. Aucune donnée n'est
-        cédée, vendue ou louée à des tiers commerciaux.
-      </p>
-
-      <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
-        5. Sous-traitants et hébergement
-      </h2>
-      <p className="leading-relaxed mb-3">
-        Les données sont traitées par les sous-traitants techniques suivants :
-      </p>
-      <ul className="list-disc list-inside space-y-2 leading-relaxed">
-        <li>
-          <strong>Lovable Labs AB</strong> (Box 190, 101 23 Stockholm, Suède)
-          — hébergement frontend. Données traitées dans l'Union européenne.
-        </li>
-        <li>
-          <strong>Supabase Inc.</strong> — base de données et fonctions
-          serveur. Si le projet est hébergé hors UE, le transfert est encadré
-          par les Clauses Contractuelles Types adoptées par la Commission
-          européenne le 4 juin 2021.
-        </li>
-      </ul>
       <p className="leading-relaxed mt-3">
-        Chaque sous-traitant est lié à UNSAgglo par un Data Processing
-        Agreement conforme à l'article 28 RGPD.
+        Le Secrétaire général est le point de contact unique pour toute question
+        relative aux données personnelles.
       </p>
 
       <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
-        6. Sécurité
+        Données collectées et finalités
+      </h2>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[760px] text-sm border border-border">
+          <thead className="bg-muted text-secondary">
+            <tr>
+              <th className="p-3 text-left">Finalité</th>
+              <th className="p-3 text-left">Données collectées</th>
+              <th className="p-3 text-left">Base légale</th>
+              <th className="p-3 text-left">Durée</th>
+            </tr>
+          </thead>
+          <tbody className="[&_td]:border-t [&_td]:border-border [&_td]:p-3 [&_td]:align-top">
+            <tr>
+              <td>Adhésion au syndicat</td>
+              <td>
+                Identité civile, coordonnées, statut, filière, grade, échelon,
+                service, site d'affectation, date d'entrée à la CARPF
+                facultative, mode de paiement.
+              </td>
+              <td>Exécution du contrat d'adhésion (art. 6.1.b RGPD)</td>
+              <td>
+                Durée de l'adhésion + 5 ans pour les obligations comptables et
+                fiscales.
+              </td>
+            </tr>
+            <tr>
+              <td>Traitement des cotisations</td>
+              <td>Coordonnées bancaires ou références chèque, historique de paiement.</td>
+              <td>Exécution du contrat et obligations légales (art. 6.1.b et 6.1.c)</td>
+              <td>10 ans, durée légale comptable.</td>
+            </tr>
+            <tr>
+              <td>Reçu fiscal</td>
+              <td>Identité, montant cotisé annuel.</td>
+              <td>Obligation légale (art. 6.1.c)</td>
+              <td>6 ans, délai de reprise fiscale.</td>
+            </tr>
+            <tr>
+              <td>Contact général</td>
+              <td>Nom facultatif, email, message, objet.</td>
+              <td>Intérêt légitime à répondre aux sollicitations (art. 6.1.f)</td>
+              <td>3 ans après le dernier échange.</td>
+            </tr>
+            <tr>
+              <td>Plateforme de participation collective</td>
+              <td>Contributions anonymes par défaut, signature optionnelle.</td>
+              <td>Intérêt légitime à représenter les agents (art. 6.1.f)</td>
+              <td>Durée du mandat en cours, archivage anonymisé ensuite.</td>
+            </tr>
+            <tr>
+              <td>Espace adhérent</td>
+              <td>Identifiants, journal de connexion.</td>
+              <td>Exécution du contrat d'adhésion (art. 6.1.b)</td>
+              <td>Durée de l'adhésion + 1 an.</td>
+            </tr>
+            <tr>
+              <td>Newsletter, le cas échéant</td>
+              <td>Email.</td>
+              <td>Consentement (art. 6.1.a)</td>
+              <td>Jusqu'au retrait du consentement.</td>
+            </tr>
+            <tr>
+              <td>Cookies techniques</td>
+              <td>Données de navigation strictement nécessaires.</td>
+              <td>Intérêt légitime (art. 6.1.f)</td>
+              <td>13 mois maximum.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
+        Destinataires des données
       </h2>
       <p className="leading-relaxed">
-        Les données sont protégées par chiffrement en transit (TLS) et au
-        repos. Les accès en écriture sont restreints aux comptes
-        administrateurs, identifiés et authentifiés. Aucune donnée bancaire
-        n'est stockée sur le site : les mandats SEPA, le cas échéant, sont
-        gérés via le circuit de la fédération.
+        Les données collectées sont destinées exclusivement aux membres habilités
+        du bureau syndical UNSAgglo, dans le cadre strict de la gestion du
+        syndicat et de la défense des adhérents.
+      </p>
+      <p className="leading-relaxed mt-3 font-semibold">
+        Aucune donnée personnelle n'est transmise à l'employeur (CARPF), à des
+        tiers commerciaux ou à des services de profilage publicitaire.
+      </p>
+      <p className="leading-relaxed mt-3">
+        Certaines données peuvent être communiquées à la Fédération UNSA
+        Territoriaux et à l'URTIF dans la stricte mesure nécessaire à la gestion
+        fédérale des adhésions, à l'administration fiscale pour les reçus
+        fiscaux, ou à une juridiction sur réquisition judiciaire dûment motivée.
       </p>
 
       <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
-        7. Vos droits
+        Hébergement et transferts hors UE
+      </h2>
+      <p className="leading-relaxed">
+        Le site est hébergé par Lovable Labs AB (Suède) pour le frontend et par
+        Supabase (région Francfort, Allemagne) pour le backend et la base de
+        données.
+      </p>
+      <p className="leading-relaxed mt-3">
+        L'ensemble du traitement et du stockage des données s'effectue au sein
+        de l'Espace économique européen. Aucun transfert hors UE n'est effectué
+        de manière régulière. Si une opération ponctuelle nécessitait un tel
+        transfert, elle serait encadrée par les clauses contractuelles types
+        adoptées par la Commission européenne.
+      </p>
+
+      <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
+        Sécurité
+      </h2>
+      <p className="leading-relaxed">
+        UNSAgglo met en œuvre des mesures techniques et organisationnelles
+        appropriées pour protéger les données personnelles : authentification
+        renforcée pour les accès administrateurs, chiffrement HTTPS/TLS,
+        Row Level Security sur les tables Supabase, sauvegardes régulières,
+        journalisation des accès sensibles et formation des membres habilités à
+        la confidentialité.
+      </p>
+      <p className="leading-relaxed mt-3">
+        En cas de violation de données susceptible d'entraîner un risque pour
+        vos droits et libertés, UNSAgglo s'engage à notifier la CNIL dans un
+        délai de 72 heures et à vous informer si le risque est élevé.
+      </p>
+
+      <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
+        Vos droits
       </h2>
       <p className="leading-relaxed mb-3">
         Conformément aux articles 15 à 22 du RGPD, vous disposez des droits
-        suivants sur vos données :
+        suivants : accès, rectification, effacement, limitation du traitement,
+        portabilité, opposition, retrait du consentement et directives relatives
+        au sort de vos données après votre décès.
       </p>
-      <ul className="list-disc list-inside space-y-1 leading-relaxed">
-        <li>Droit d'accès (article 15)</li>
-        <li>Droit de rectification (article 16)</li>
-        <li>Droit à l'effacement (article 17)</li>
-        <li>Droit à la limitation du traitement (article 18)</li>
-        <li>Droit à la portabilité (article 20)</li>
-        <li>Droit d'opposition (article 21)</li>
-        <li>
-          Droit de retirer votre consentement à tout moment, sans que cela
-          remette en cause la licéité du traitement antérieur (article 7.3)
-        </li>
-      </ul>
-      <p className="leading-relaxed mt-3">
-        Pour exercer ces droits, écrivez à{" "}
+      <p className="leading-relaxed">
+        Adressez votre demande à{" "}
         <a
-          href="mailto:unsagglo@roissypaysdefrance.fr"
+          href={`mailto:${ORG_INFO.email}`}
           className="text-primary underline"
         >
-          unsagglo@roissypaysdefrance.fr
+          {ORG_INFO.email}
         </a>{" "}
-        en précisant « RGPD » dans l'objet. Une réponse vous sera apportée
-        dans un délai d'un mois conformément à l'article 12.3 RGPD.
+        en précisant l'objet de votre demande et les données concernées si
+        possible. Une copie d'une pièce d'identité pourra être demandée en cas
+        de doute raisonnable sur votre identité. UNSAgglo répond dans un délai
+        d'un mois, susceptible d'être prolongé de deux mois pour les demandes
+        complexes.
       </p>
-      <p className="leading-relaxed mt-3">
-        Vous disposez également du droit d'introduire une réclamation auprès
-        de la Commission Nationale de l'Informatique et des Libertés (CNIL) :{" "}
+
+      <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
+        Réclamation auprès de la CNIL
+      </h2>
+      <p className="leading-relaxed">
+        Si vous estimez, après nous avoir contactés, que vos droits ne sont pas
+        respectés, vous pouvez introduire une réclamation auprès de la
+        Commission Nationale de l'Informatique et des Libertés (CNIL), 3 place
+        de Fontenoy, TSA 80715, 75334 Paris Cedex 07, téléphone 01 53 73 22 22,
+        ou sur{" "}
         <a
           href="https://www.cnil.fr"
           className="text-primary underline"
@@ -229,42 +221,25 @@ const PrivacyPage = (): JSX.Element => (
       </p>
 
       <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
-        8. Cookies
+        Cookies et traceurs
       </h2>
       <p className="leading-relaxed">
-        Le site utilise un nombre minimal de cookies, strictement nécessaires
-        à son fonctionnement (cookie de session, préférences d'affichage).
-        Aucun cookie de mesure d'audience tierce, aucun cookie publicitaire
-        et aucun cookie de réseaux sociaux ne sont déposés.
+        Le site utilise exclusivement des cookies techniques strictement
+        nécessaires à son fonctionnement (session, sécurité, préférences). Aucun
+        cookie publicitaire, ni traceur tiers à des fins de mesure d'audience
+        commerciale ou de profilage, n'est déposé sans votre consentement
+        explicite.
       </p>
 
       <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
-        9. Données particulières au sens de l'article 9 RGPD
+        Modifications de la présente politique
       </h2>
       <p className="leading-relaxed">
-        L'adhésion à UNSAgglo et toute donnée révélant l'engagement syndical
-        d'une personne constituent des données particulières au sens de
-        l'article 9.1 du RGPD. Leur traitement est licitement fondé sur
-        l'article 9.2.d RGPD (traitement par une organisation à finalité
-        syndicale, dans le cadre de ses activités légitimes, et limité à ses
-        adhérents et anciens adhérents). Ces données ne sont jamais transmises
-        à un tiers sans le consentement explicite de la personne concernée.
-      </p>
-
-      <h2 className="font-display text-xl font-medium text-secondary mt-8 mb-3">
-        10. Modifications
-      </h2>
-      <p className="leading-relaxed">
-        La présente politique peut évoluer. La date de dernière mise à jour
-        figure en tête de page. Les modifications substantielles seront
-        signalées aux adhérents par courriel.
-      </p>
-
-      <p className="mt-10 text-sm text-muted-foreground">
-        Voir aussi :{" "}
-        <Link to="/mentions-legales" className="text-primary underline">
-          Mentions légales
-        </Link>
+        UNSAgglo se réserve le droit de modifier la présente politique de
+        confidentialité pour l'adapter aux évolutions législatives,
+        jurisprudentielles ou techniques. Toute modification substantielle sera
+        portée à la connaissance des adhérents par courriel et signalée par un
+        encart visible sur le site pendant 30 jours.
       </p>
     </article>
   </PageWrapper>

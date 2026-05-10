@@ -6,7 +6,7 @@ const HomeCTA = (): JSX.Element => (
     <Link to="/plateforme">
       <UButton variant="primary" size="lg">Plateforme participative</UButton>
     </Link>
-    <Link to="/membership">
+    <Link to="/adhesion">
       <UButton variant="outline" size="lg">Rejoindre l'UNSA</UButton>
     </Link>
   </div>

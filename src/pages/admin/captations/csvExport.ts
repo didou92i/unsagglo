@@ -13,6 +13,8 @@ const CSV_HEADERS: Array<{ key: keyof CaptationRow | "date"; label: string }> = 
   { key: "source", label: "Source" },
 ];
 
+const UTF8_BOM = "\uFEFF";
+
 const escape = (val: unknown): string => {
   if (val === null || val === undefined) return "";
   const str =
@@ -47,7 +49,7 @@ export function exportCaptationsCsv(rows: CaptationRow[]): void {
     )
     .join("\n");
 
-  const csv = `﻿${header}\n${body}\n`;
+  const csv = `${UTF8_BOM}${header}\n${body}\n`;
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");

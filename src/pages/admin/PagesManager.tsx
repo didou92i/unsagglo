@@ -17,7 +17,7 @@ const PAGES: PageToggleItem[] = [
   { key: "page_elections", label: "Elections 2026", description: "/elections" },
   { key: "page_aide_carburant", label: "Aide Carburant 50 €", description: "/aide-carburant" },
   { key: "page_contact", label: "Contact", description: "/contact" },
-  { key: "page_membership", label: "Adhesion", description: "/membership" },
+  { key: "page_membership", label: "Adhesion", description: "/adhesion" },
   { key: "page_members", label: "Espace membres", description: "/members" },
   { key: "page_plateforme", label: "Plateforme participative", description: "/plateforme" },
 ];

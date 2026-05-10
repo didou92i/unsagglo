@@ -21,7 +21,7 @@ const PILLARS: Pillar[] = [
   {
     icon: MapPin,
     title: "100 % local",
-    body: "Une section syndicale entièrement dédiée à la CARPF, conçue pour la réalité de nos sites — Roissy, Goussainville, Villepinte, Tremblay-en-France, Le Mesnil-Amelot.",
+    body: "Un syndicat entièrement dédié à la CARPF, conçu pour la réalité de nos sites — Roissy, Goussainville, Villepinte, Tremblay-en-France, Le Mesnil-Amelot.",
   },
   {
     icon: Sparkles,

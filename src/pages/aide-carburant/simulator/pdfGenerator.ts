@@ -377,7 +377,7 @@ const renderSection1 = (doc: jsPDF, startY: number): number => {
 };
 
 const renderSection2 = (doc: jsPDF, startY: number): number => {
-  let y = renderSectionHeading(doc, startY, "Votre engagement sur l'honneur");
+  const y = renderSectionHeading(doc, startY, "Votre engagement sur l'honneur");
 
   const intro =
     "Lors de votre demande sur impots.gouv.fr, vous déclarerez sur l'honneur :";
