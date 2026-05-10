@@ -2,11 +2,12 @@ import { useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { CONTACT_OBJECT_VALUES } from "./contactOptions";
 
 export const contactSchema = z.object({
   nom: z.string().min(2, "Nom requis"),
   email: z.string().email("Email invalide"),
-  objet: z.enum(["information", "adhesion", "recours", "autre"], {
+  objet: z.enum(CONTACT_OBJECT_VALUES, {
     errorMap: () => ({ message: "Selectionnez un objet" }),
   }),
   message: z.string().min(10, "Message trop court (10 car. minimum)"),

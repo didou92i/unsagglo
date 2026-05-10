@@ -17,6 +17,7 @@ interface NavLink {
 
 const NAV_LINKS: NavLink[] = [
   { label: "Accueil", to: "/" },
+  { label: "Qui sommes-nous", to: "/qui-sommes-nous" },
   { label: "Actualites", to: "/news", settingKey: "page_news" },
   { label: "Vos Droits", to: "/rights", settingKey: "page_rights" },
   { label: "Elections 2026", to: "/elections", badge: { label: "Dec. 2026", variant: "warning" }, settingKey: "page_elections" },

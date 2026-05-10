@@ -9,6 +9,7 @@ interface FooterLink {
 
 const QUICK_LINKS: FooterLink[] = [
   { label: "Accueil", to: "/" },
+  { label: "Qui sommes-nous", to: "/qui-sommes-nous" },
   { label: "Actualites", to: "/news", settingKey: "page_news" },
   { label: "Vos Droits", to: "/rights", settingKey: "page_rights" },
   { label: "Elections 2026", to: "/elections", settingKey: "page_elections" },

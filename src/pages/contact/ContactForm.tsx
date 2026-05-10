@@ -11,13 +11,7 @@ import {
 } from "@/components/forms";
 import UButton from "@/components/ui/UButton";
 import SuccessCard from "@/components/ui/SuccessCard";
-
-const OBJET_OPTIONS = [
-  { value: "information", label: "Demande d'information" },
-  { value: "adhesion", label: "Adhesion" },
-  { value: "recours", label: "Aide pour un recours" },
-  { value: "autre", label: "Autre" },
-];
+import { CONTACT_OBJECT_GROUPS } from "./contactOptions";
 
 const ContactForm = (): JSX.Element => {
   const { submit, loading, success, error } = useContact();
@@ -70,11 +64,12 @@ const ContactForm = (): JSX.Element => {
         required
       />
       <SelectField<ContactFormData>
-        label="Objet"
+        label="Objet de votre demande"
         name="objet"
         register={register}
         error={errors.objet}
-        options={OBJET_OPTIONS}
+        groups={CONTACT_OBJECT_GROUPS}
+        placeholder="Sélectionner un objet"
       />
       <TextareaField<ContactFormData>
         label="Message"
