@@ -2,6 +2,7 @@ import { useAdminContact } from "@/hooks/useAdminContact";
 import Spinner from "@/components/ui/Spinner";
 import { Badge } from "@/components/ui/badge";
 import HoverContentCell from "@/components/ui/HoverContentCell";
+import { contactObjectLabel } from "@/pages/contact/contactOptions";
 import {
   Table, TableHeader, TableHead, TableBody, TableRow, TableCell,
 } from "@/components/ui/table";
@@ -33,7 +34,7 @@ const ContactManager = (): JSX.Element => {
             <TableRow key={m.id}>
               <TableCell className="font-medium">{m.nom}</TableCell>
               <TableCell>{m.email}</TableCell>
-              <TableCell><Badge variant="outline">{m.objet}</Badge></TableCell>
+              <TableCell><Badge variant="outline">{contactObjectLabel(m.objet)}</Badge></TableCell>
               <HoverContentCell text={m.message} maxLength={120} />
               <TableCell className="text-muted-foreground text-sm">
                 {new Date(m.created_at).toLocaleDateString("fr-FR")}

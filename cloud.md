@@ -39,7 +39,7 @@ Note de contexte : le dépôt contient à la fois `package-lock.json`, `bun.lock
 Dernière passe : 2026-05-10.
 
 - Dépendances installées avec `npm install` à partir de `package-lock.json`.
-- `npm run test` : OK, 2 fichiers de test, 16 tests passés.
+- `npm run test -- --run` : OK, 4 fichiers de test, 21 tests passés.
 - `npm run build` : OK, build Vite généré.
 - `npm run lint` : OK, 0 erreur, 7 avertissements restants liés aux exports de composants UI shadcn (`react-refresh/only-export-components`).
 - `npm audit --omit=dev` : 10 vulnérabilités production signalées, dont 7 hautes et 3 modérées. À traiter dans une passe dédiée de mise à jour dépendances.
@@ -50,6 +50,7 @@ Dernière passe : 2026-05-10.
 - `src/App.tsx` : définition des routes et lazy-loading des pages.
 - `src/main.tsx` : montage React, providers Helmet et styles globaux.
 - `src/pages/home` : accueil, logo, animation, aperçu actualités, CTA et droits.
+- `src/pages/about` : présentation institutionnelle UNSAgglo, bureau syndical, objet, valeurs et affiliation.
 - `src/pages/news` : liste, filtres, cartes et détail des articles.
 - `src/pages/rights` : fiches droits, dont CITIS, avec contenu juridique désormais manuel.
 - `src/pages/elections` : page campagne élections 2026.
@@ -68,6 +69,7 @@ Dernière passe : 2026-05-10.
 ## Routes principales
 
 - `/` : accueil.
+- `/qui-sommes-nous` : présentation institutionnelle UNSAgglo.
 - `/news`, `/news/:slug` : actualités.
 - `/rights`, `/rights/citis` : droits des agents. Les autres catégories restent visibles comme fiches en rédaction, mais ne sont pas indexées tant qu'elles ne sont pas publiées.
 - `/elections` : élections 2026.
@@ -88,10 +90,10 @@ Routes de compatibilité conservées en redirection :
 - `/membership/confirmation` -> `/adhesion/confirmation`.
 - `/confirmation` -> `/adhesion/confirmation`.
 - `/privacy` -> `/politique-confidentialite`.
+- `/about` -> `/qui-sommes-nous`.
 
 Routes volontairement non créées à ce stade :
 
-- `/qui-sommes-nous` et `/about` : à créer seulement si une vraie page de présentation est décidée.
 - `/desinscription` : à créer seulement si une fonctionnalité de désinscription/newsletter existe.
 
 ## Lecture visuelle actuelle
@@ -200,7 +202,7 @@ Ces archives peuvent servir notamment à :
 - Le tracking `usePageVisits` insère une visite à chaque page wrappée par `PageWrapper`; vérifier le niveau de bruit souhaité en production.
 - Les migrations Supabase contiennent plusieurs vagues de création/refonte de tables similaires, notamment captations et campagnes. Prudence avant toute migration supplémentaire.
 - Coordonnées publiques : source de vérité `src/lib/orgInfo.ts`, siège social UNSAgglo `32 rue de la Briqueterie, 95380 Louvres`. L'ancienne adresse CARPF vue dans les captures ne doit pas être utilisée comme adresse du syndicat.
-- Les suggestions de routes Lovable montrent `/qui-sommes-nous`, `/about` et `/desinscription`, mais ces routes ne sont pas ouvertes dans l'application. Les conserver comme pistes futures, pas comme URLs publiques tant que le besoin n'est pas validé.
+- La suggestion de route Lovable `/desinscription` n'est pas ouverte dans l'application. La conserver comme piste future tant qu'aucune fonctionnalité de désinscription/newsletter n'est validée.
 - Certaines captures montrent de grands blancs verticaux sur les pages formulaire/FAQ. Vérifier sur desktop et mobile si c'est un choix de respiration ou un problème d'espacement.
 - La navigation desktop est riche et contient plusieurs badges (`Dec. 2026`, `50 €`). Tester en largeur intermédiaire/tablette pour éviter les chevauchements.
 - Les blocs gris dans certaines sections sombres, notamment les étapes de l'aide carburant, peuvent manquer de contraste perçu. À vérifier visuellement avant finalisation.
@@ -220,7 +222,7 @@ Ces archives peuvent servir notamment à :
 10. Élargir les tests autour des formulaires et hooks critiques.
 11. Formaliser une mini charte UI à partir de l'existant : couleurs, titres, boutons, cartes, héros, footer, règles d'espacement.
 12. Aligner les coordonnées publiques entre contact, mentions légales, footer, PDF d'adhésion et `ORG_INFO`.
-13. Décider plus tard si les routes visibles dans Lovable mais absentes du routeur (`/qui-sommes-nous`, `/about`, `/desinscription`) deviennent de vraies pages.
+13. Décider plus tard si la route visible dans Lovable mais absente du routeur (`/desinscription`) devient une vraie page.
 14. Traiter l'audit npm dans une branche dédiée : mise à jour dépendances, vérification React Router, tests, build et parcours critiques.
 
 ## Journal des évolutions
@@ -398,6 +400,50 @@ Vérification :
 
 Suite :
 - Traiter ensuite P2 : page `Qui sommes-nous`, FAQ adhésion, espace membres et sélecteur contact enrichi.
+
+### 2026-05-10 — P2 contenus publics
+
+Objectif :
+- Intégrer la première tranche P2 sans migration Supabase : mieux présenter le syndicat, clarifier l'adhésion et rendre le formulaire contact plus exploitable.
+
+Évolution :
+- Création de `/qui-sommes-nous` avec présentation institutionnelle, bureau syndical, objet, valeurs et affiliation UNSA Territoriaux / URTIF.
+- Redirection de compatibilité `/about` vers `/qui-sommes-nous`.
+- Ajout de la page dans la navigation, le footer, le sitemap et `public/llm.html`.
+- Ajout d'une FAQ détaillée sur `/adhesion`.
+- Remplacement du sélecteur d'objet contact par une liste structurée couvrant accompagnement individuel, droits, adhésion, élections, programme et demandes institutionnelles.
+
+Fichiers touchés :
+- `src/pages/about/index.tsx`
+- `src/App.tsx`
+- `src/components/layout/useNavbar.ts`
+- `src/components/layout/Footer.tsx`
+- `src/pages/membership/index.tsx`
+- `src/pages/contact/contactOptions.ts`
+- `src/pages/contact/ContactForm.tsx`
+- `src/pages/contact/useContact.ts`
+- `src/pages/admin/ContactManager.tsx`
+- `src/test/p2PublicContent.test.ts`
+- `public/sitemap.xml`
+- `public/llm.html`
+- `cloud.md`
+
+Décisions :
+- `/qui-sommes-nous` devient la page canonique.
+- `/about` reste une redirection de compatibilité et n'est pas indexée.
+- Le RIB et les enrichissements espace membres restent hors de cette tranche.
+
+Vérification :
+- Test TDD `src/test/p2PublicContent.test.ts` ajouté : rouge avant correction, vert après intégration.
+- `npm run lint` : OK, 0 erreur, 7 avertissements shadcn/fast-refresh déjà connus.
+- `npm run test -- --run` : OK, 4 fichiers, 21 tests passés.
+- `npm run build` : OK, build Vite généré.
+- Audit statique des liens internes : 27 routes déclarées, 43 références contrôlées, 0 lien manquant.
+- Recherche anti-régression publique : aucune occurrence de `6 bis avenue Charles de Gaulle`, `DDT`, `DRIHL` ou anciennes formulations électorales trompeuses dans `src` et `public`.
+- Vérification locale via Vite : `/`, `/qui-sommes-nous`, `/about`, `/adhesion`, `/contact`, `/elections`, `/plateforme`, `/mentions-legales` et `/politique-confidentialite` répondent en 200.
+
+Suite :
+- Compléter plus tard l'espace membres enrichi, le RIB et les contenus droits restants avec les archives disponibles.
 
 ## Convention pour les prochaines entrées
 

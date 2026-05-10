@@ -10,6 +10,7 @@ import AdminProtectedRoute from "@/router/AdminProtectedRoute";
 import PageGuard from "@/router/PageGuard";
 
 const Home = React.lazy(() => import("@/pages/home"));
+const About = React.lazy(() => import("@/pages/about"));
 const News = React.lazy(() => import("@/pages/news"));
 const ArticleDetail = React.lazy(() => import("@/pages/news/ArticleDetail"));
 const Rights = React.lazy(() => import("@/pages/rights"));
@@ -41,6 +42,8 @@ const App = (): JSX.Element => (
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/qui-sommes-nous" element={<About />} />
+              <Route path="/about" element={<Navigate to="/qui-sommes-nous" replace />} />
               <Route path="/news" element={<PageGuard settingKey="page_news"><News /></PageGuard>} />
               <Route path="/news/:slug" element={<PageGuard settingKey="page_news"><ArticleDetail /></PageGuard>} />
               <Route path="/rights" element={<PageGuard settingKey="page_rights"><Rights /></PageGuard>} />
