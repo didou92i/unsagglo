@@ -1,4 +1,5 @@
-import { Sparkles, Info } from "lucide-react";
+import { Sparkles } from "lucide-react";
+import { ElectoralTransparencyBanner } from "@/components/sections";
 import ContribWizard from "./wizard/ContribWizard";
 import CampaignBanner from "./campaign/CampaignBanner";
 
@@ -26,24 +27,7 @@ const ContribSection = (): JSX.Element => (
         </p>
       </div>
 
-      <div
-        className="mb-10 mx-auto rounded-md p-4 text-xs text-muted-foreground leading-relaxed flex items-start gap-3 max-w-2xl"
-        style={{ backgroundColor: "#eff9fe" }}
-      >
-        <Info
-          className="h-4 w-4 flex-shrink-0 mt-0.5"
-          style={{ color: "#009fe3" }}
-          strokeWidth={1.75}
-        />
-        <span>
-          UNSAgglo se présente pour la première fois aux élections
-          professionnelles de décembre 2026. Notre section syndicale est
-          opérationnelle (bureau, statuts, affiliation UNSA Territoriaux), mais
-          nous n'avons pas encore d'élu au CST de la CARPF. Nous nous engageons
-          à porter vos idées si vous nous accordez votre confiance, et à vous
-          accompagner individuellement dès aujourd'hui en cas de besoin.
-        </span>
-      </div>
+      <ElectoralTransparencyBanner className="mb-10 mx-auto max-w-2xl" />
 
       <ContribWizard />
     </div>

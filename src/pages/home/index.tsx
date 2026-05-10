@@ -1,5 +1,7 @@
 import { MetaTags } from "@/components/seo";
 import PageWrapper from "@/components/layout/PageWrapper";
+import { ElectoralTransparencyBanner } from "@/components/sections";
+import { ORG_INFO } from "@/lib/orgInfo";
 import unsaLogo from "@/assets/unsa-logo.png";
 import cityBg from "@/assets/city-background.png";
 import WaveBackground from "@/pages/home/WaveBackground";
@@ -11,16 +13,16 @@ import HomeCTA from "@/pages/home/HomeCTA";
 const ORG_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "UNSAgglo — Libres Ensemble",
+  name: ORG_INFO.nom,
   description:
-    "Section syndicale UNSA Territoriaux représentant les agents de la Communauté d'Agglomération Roissy Pays de France",
+    "Syndicat professionnel UNSA Territoriaux représentant les agents de la Communauté d'Agglomération Roissy Pays de France",
   url: "https://unsagglo.fr",
-  email: "unsagglo@roissypaysdefrance.fr",
+  email: ORG_INFO.email,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "32 rue de la Briqueterie",
-    postalCode: "95380",
-    addressLocality: "Louvres",
+    streetAddress: ORG_INFO.adresse.ligne1,
+    postalCode: ORG_INFO.adresse.cp,
+    addressLocality: ORG_INFO.adresse.ville,
     addressCountry: "FR",
   },
 };
@@ -48,6 +50,9 @@ const Home = (): JSX.Element => (
     </div>
 
     <section className="py-16 px-4 bg-background space-y-16">
+      <div className="max-w-3xl mx-auto">
+        <ElectoralTransparencyBanner compact />
+      </div>
       <HomeCTA />
       <NewsPreview />
       <RightsGrid />

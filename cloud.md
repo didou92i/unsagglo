@@ -6,7 +6,7 @@ Ce fichier sert de mémoire vivante pour finaliser le site UNSAgglo. Il doit gar
 
 ## Résumé du projet
 
-UNSAgglo est le site de la section UNSA Roissy Pays de France. L'application couvre à la fois la vitrine publique, l'adhésion, les droits des agents, les élections professionnelles 2026, une plateforme participative, un simulateur d'aide carburant, l'espace membres et un back-office d'administration.
+UNSAgglo est le site du syndicat UNSA Roissy Pays de France. L'application couvre à la fois la vitrine publique, l'adhésion, les droits des agents, les élections professionnelles 2026, une plateforme participative, un simulateur d'aide carburant, l'espace membres et un back-office d'administration.
 
 Objectif fonctionnel principal : offrir un outil public et administrable pour informer les agents, collecter des adhésions, recueillir des contributions, piloter les contenus et soutenir la campagne syndicale 2026.
 
@@ -199,7 +199,7 @@ Ces archives peuvent servir notamment à :
 - La veille IA peut générer des brouillons, mais toute publication devrait rester validée humainement.
 - Le tracking `usePageVisits` insère une visite à chaque page wrappée par `PageWrapper`; vérifier le niveau de bruit souhaité en production.
 - Les migrations Supabase contiennent plusieurs vagues de création/refonte de tables similaires, notamment captations et campagnes. Prudence avant toute migration supplémentaire.
-- Les captures du contact affichent une adresse CARPF `6 bis avenue Charles de Gaulle, 95700 Roissy-en-France`, alors que `src/lib/orgInfo.ts` référence `32 rue de la Briqueterie, 95380 Louvres`. Aligner les coordonnées publiques et décider quelle adresse doit être la source de vérité.
+- Coordonnées publiques : source de vérité `src/lib/orgInfo.ts`, siège social UNSAgglo `32 rue de la Briqueterie, 95380 Louvres`. L'ancienne adresse CARPF vue dans les captures ne doit pas être utilisée comme adresse du syndicat.
 - Les suggestions de routes Lovable montrent `/qui-sommes-nous`, `/about` et `/desinscription`, mais ces routes ne sont pas ouvertes dans l'application. Les conserver comme pistes futures, pas comme URLs publiques tant que le besoin n'est pas validé.
 - Certaines captures montrent de grands blancs verticaux sur les pages formulaire/FAQ. Vérifier sur desktop et mobile si c'est un choix de respiration ou un problème d'espacement.
 - La navigation desktop est riche et contient plusieurs badges (`Dec. 2026`, `50 €`). Tester en largeur intermédiaire/tablette pour éviter les chevauchements.
@@ -358,6 +358,46 @@ Vérification :
 Suite :
 - Ne pas indexer les futures fiches droits tant que `published` n'est pas `true`.
 - Créer `/qui-sommes-nous`, `/about` ou `/desinscription` uniquement après validation du besoin et du contenu.
+
+### 2026-05-10 — P1 sécurisation juridique
+
+Objectif :
+- Intégrer la priorité P1 du livrable `UNSAgglo_contenu_site_v2.md` avant publication publique.
+
+Évolution :
+- Remplacement des contenus de `/mentions-legales` et `/politique-confidentialite` par les versions consolidées du livrable v2.
+- Centralisation de l'identité légale dans `src/lib/orgInfo.ts` : syndicat professionnel, constitution du 9 janvier 2026, siège social, affiliation, directeur de publication.
+- Correction de `/contact` pour afficher le siège social UNSAgglo à Louvres et ajouter la mention de confidentialité.
+- Ajout d'un bandeau réutilisable de transparence électorale sur l'accueil, `/elections` et `/plateforme`.
+- Correction de `public/llm.html` : périmètre CARPF uniquement, retrait DDT/DRIHL, qualification comme syndicat professionnel constitué.
+
+Fichiers touchés :
+- `src/lib/orgInfo.ts`
+- `src/pages/legal/index.tsx`
+- `src/pages/legal/PrivacyPage.tsx`
+- `src/pages/contact/index.tsx`
+- `src/components/sections/ElectoralTransparencyBanner.tsx`
+- `src/pages/home/index.tsx`
+- `src/pages/elections/index.tsx`
+- `src/pages/elections/HowToVote.tsx`
+- `src/pages/elections/WhyUnsagglo.tsx`
+- `src/pages/membership/index.tsx`
+- `src/pages/plateforme/ContribSection.tsx`
+- `src/pages/plateforme/wall/ContributionsWall.tsx`
+- `src/test/p1LegalContent.test.ts`
+- `public/llm.html`
+- `cloud.md`
+
+Décisions :
+- `/privacy` reste une redirection de compatibilité vers `/politique-confidentialite`.
+- Les éléments P2/P3 du livrable restent hors de cette passe.
+
+Vérification :
+- Test TDD `src/test/p1LegalContent.test.ts` ajouté : rouge avant correction, vert après correction.
+- Validations complètes à relancer avant push.
+
+Suite :
+- Traiter ensuite P2 : page `Qui sommes-nous`, FAQ adhésion, espace membres et sélecteur contact enrichi.
 
 ## Convention pour les prochaines entrées
 

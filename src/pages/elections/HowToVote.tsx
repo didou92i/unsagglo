@@ -59,7 +59,7 @@ const QUESTIONS: QA[] = [
     id: "premiere",
     question: "Pourquoi UNSAgglo se présente pour la première fois ?",
     answer:
-      "UNSAgglo est née d'un constat partagé : il manquait à la CARPF une voix syndicale 100 % locale, transparente et co-construite avec les agents. Notre section syndicale (bureau, statuts, affiliation UNSA Territoriaux) est opérationnelle depuis plusieurs mois ; les élections de décembre 2026 nous permettront de porter officiellement vos idées au CST.",
+      "UNSAgglo est née d'un constat partagé : il manquait à la CARPF une voix syndicale 100 % locale, transparente et co-construite avec les agents. Notre syndicat (bureau, statuts, affiliation UNSA Territoriaux) est opérationnel depuis plusieurs mois ; les élections de décembre 2026 nous permettront de porter officiellement vos idées au CST.",
   },
 ];
 

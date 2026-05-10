@@ -95,11 +95,10 @@ const ContributionsWall = (): JSX.Element => {
           strokeWidth={1.75}
         />
         <span>
-          UNSAgglo n'a pas encore d'élu au CST de la CARPF. Mais notre section
-          syndicale est opérationnelle : nous lisons et analysons chaque
-          contribution, intégrons les meilleures à notre programme 2026, et
-          vous accompagnons individuellement si nécessaire dès aujourd'hui. Si
-          vous avez coché « Anonyme », votre prénom n'apparaît jamais.
+          Chaque contribution publiée ici est relue par le bureau UNSAgglo,
+          classée par thème puis intégrée au suivi du programme 2026 lorsqu'elle
+          rejoint une proposition défendable. Si vous avez coché « Anonyme »,
+          votre prénom n'apparaît jamais.
         </span>
       </div>
     </div>
