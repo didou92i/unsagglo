@@ -39,7 +39,7 @@ Note de contexte : le dépôt contient à la fois `package-lock.json`, `bun.lock
 Dernière passe : 2026-05-10.
 
 - Dépendances installées avec `npm install` à partir de `package-lock.json`.
-- `npm run test -- --run` : OK, 4 fichiers de test, 21 tests passés.
+- `npm run test -- --run` : OK, 5 fichiers de test, 23 tests passés.
 - `npm run build` : OK, build Vite généré.
 - `npm run lint` : OK, 0 erreur, 7 avertissements restants liés aux exports de composants UI shadcn (`react-refresh/only-export-components`).
 - `npm audit --omit=dev` : 10 vulnérabilités production signalées, dont 7 hautes et 3 modérées. À traiter dans une passe dédiée de mise à jour dépendances.
@@ -182,6 +182,8 @@ Ne jamais consigner de secret réel dans ce fichier.
 ## Sources de contenu disponibles
 
 Le porteur du projet dispose d'un volume important d'archives. Si un contenu manque pour alimenter le site, enrichir une rubrique, documenter une fiche droit, publier une actualité, constituer une page campagne ou compléter une page institutionnelle, demander les éléments d'archive avant d'inventer ou de laisser un contenu générique.
+
+Le livrable racine `UNSAgglo_contenu_site_v2.md` est la source de suivi éditoriale du plan P1/P2/P3. Il doit rester versionné dans le dépôt pour éviter les sorties de route.
 
 Ces archives peuvent servir notamment à :
 
@@ -443,7 +445,40 @@ Vérification :
 - Vérification locale via Vite : `/`, `/qui-sommes-nous`, `/about`, `/adhesion`, `/contact`, `/elections`, `/plateforme`, `/mentions-legales` et `/politique-confidentialite` répondent en 200.
 
 Suite :
-- Compléter plus tard l'espace membres enrichi, le RIB et les contenus droits restants avec les archives disponibles.
+- Compléter plus tard le RIB et les contenus droits restants avec les archives disponibles.
+
+### 2026-05-10 — P2 espace adhérent
+
+Objectif :
+- Finaliser la partie P2 du livrable v2 consacrée à `/members`, sans migration Supabase.
+
+Évolution :
+- Ajout du livrable `UNSAgglo_contenu_site_v2.md` à la racine comme source de suivi versionnée.
+- Refonte de l'espace adhérent avec un bandeau de bienvenue, des services d'accompagnement et des accès rapides.
+- Ajout des entrées : permanence, plateforme participative, veille juridique, accompagnement disciplinaire, CITIS, RPS et documentation utile.
+- Ajout d'un bloc confidentialité rappelant que les échanges restent strictement confidentiels et ne sont pas transmis à la direction sans accord écrit.
+- Conservation du profil adhérent existant et de la liste des documents Supabase existante.
+
+Fichiers touchés :
+- `UNSAgglo_contenu_site_v2.md`
+- `src/pages/members/index.tsx`
+- `src/test/p2MembersContent.test.ts`
+- `cloud.md`
+
+Décisions :
+- Pas de nouvelle table Supabase pour cette tranche.
+- Les boutons d'action s'appuient sur les routes existantes ou sur des liens mailto vers l'adresse UNSAgglo.
+
+Vérification :
+- Test TDD `src/test/p2MembersContent.test.ts` ajouté : rouge avant correction, vert après intégration.
+- `npm run lint` : OK, 0 erreur, 7 avertissements shadcn/fast-refresh déjà connus.
+- `npm run test -- --run` : OK, 5 fichiers, 23 tests passés.
+- `npm run build` : OK, build Vite généré.
+- Audit statique des liens internes : 27 routes déclarées, 43 références contrôlées, 0 lien manquant.
+- Recherche anti-régression publique : aucune occurrence de `6 bis avenue Charles de Gaulle`, `DDT`, `DRIHL` ou anciennes formulations électorales trompeuses dans `src` et `public`.
+
+Suite :
+- Passer ensuite à la P3 du livrable : fiche CITIS détaillée, ligne éditoriale actualités, puis corrections branding.
 
 ## Convention pour les prochaines entrées
 
