@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 
 interface MetaTagsProps {
   title: string;
@@ -22,9 +23,10 @@ const MetaTags = ({
   noIndex = false,
   schema,
 }: MetaTagsProps): JSX.Element => {
+  const { pathname } = useLocation();
   const fullTitle = `${title} | ${SITE_NAME}`;
   const image = ogImage ?? DEFAULT_OG_IMAGE;
-  const url = canonical ?? BASE_URL;
+  const url = canonical ?? `${BASE_URL}${pathname}`;
 
   return (
     <Helmet>

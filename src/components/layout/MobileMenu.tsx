@@ -31,7 +31,7 @@ const MobileMenu = ({ links, isAdmin, showMembership, showMembers, onClose }: Mo
     ))}
     <div className="flex flex-col gap-2 mt-2">
       {isAdmin && <Link to="/admin" onClick={onClose}><UButton variant="outline" size="sm" className="w-full">Admin</UButton></Link>}
-      {showMembership && <Link to="/membership" onClick={onClose}><UButton variant="primary" size="sm" className="w-full">Adherer</UButton></Link>}
+      {showMembership && <Link to="/adhesion" onClick={onClose}><UButton variant="primary" size="sm" className="w-full">Adherer</UButton></Link>}
       {showMembers && <Link to="/members" onClick={onClose}><UButton variant="outline" size="sm" className="w-full">Espace membres</UButton></Link>}
     </div>
   </div>

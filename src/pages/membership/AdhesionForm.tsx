@@ -101,7 +101,7 @@ const AdhesionForm = (): JSX.Element => {
       }),
     );
 
-    navigate("/membership/confirmation");
+    navigate("/adhesion/confirmation");
   };
 
   return (
